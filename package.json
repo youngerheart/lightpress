@@ -1,0 +1,30 @@
+{
+  "name": "lightpress",
+  "version": "0.0.1",
+  "description": "achieve light blog base on node",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/youngerheart/lightpress.git"
+  },
+  "keywords": [
+    "node",
+    "restapi",
+    "domain",
+    "router"
+  ],
+  "author": "youngerheart <435495400@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/youngerheart/lightpress/issues"
+  },
+  "dependencies": {
+    "web-node-server": "^0.1.0",
+    "sequelize": "^3.9.0",
+    "babel": "^5.8.19"
+  },
+  "homepage": "https://github.com/youngerheart/lightpress"
+}
