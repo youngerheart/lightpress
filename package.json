@@ -22,9 +22,10 @@
     "url": "https://github.com/youngerheart/lightpress/issues"
   },
   "dependencies": {
-    "web-node-server": "^0.1.0",
+    "babel": "^5.8.19",
+    "mysql": "^2.9.0",
     "sequelize": "^3.9.0",
-    "babel": "^5.8.19"
+    "web-node-server": "^0.1.0"
   },
   "homepage": "https://github.com/youngerheart/lightpress"
 }
