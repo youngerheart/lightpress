@@ -12,13 +12,28 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // 所有请求被all接收，并且匹配所有路由
-app.all('*', function(req, res) {
-  res.render('index', {
-    msg: 'Welcome'
+app.all('/', function(req, res) {
+  res.render('page/index', {
+    articles: []
   })
 });
 
-http.createServer(app)
-.listen(app.get('port'), function() {
-  console.log('server start at port ' + app.get('port'));
-})
+var server = http.createServer(app);
+
+var boot = function() {
+  server.listen(app.get('port'), function() {
+    console.log('server start at port ' + app.get('port'));
+  })
+}
+
+if(require.main === module) {
+  boot();
+}
+
+module.exports = {
+  boot: boot,
+  shutdown: function() {
+    server.close();
+  },
+  port: app.get('port')
+};
