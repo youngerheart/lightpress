@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const {statics, rewrite} = require('../tool');
+const tool = require('../tool');
 
 const CommentSchema = new Schema({
   ip: {
@@ -27,9 +27,9 @@ const CommentSchema = new Schema({
 });
 
 // 重写save方法
-rewrite(CommentSchema);
+tool.rewrite(CommentSchema);
 
 //静态方法
-statics(CommentSchema);
+tool.statics(CommentSchema);
 
 module.exports = mongoose.model('Comment', CommentSchema);

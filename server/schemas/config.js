@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const {statics, rewrite} = require('../tool');
+const tool = require('../tool');
 
 const ConfigSchema = new Schema({
   name: {
@@ -15,9 +15,9 @@ const ConfigSchema = new Schema({
 });
 
 // 重写save方法
-rewrite(ConfigSchema);
+tool.rewrite(ConfigSchema);
 
 //静态方法
-statics(ConfigSchema);
+tool.statics(ConfigSchema);
 
 module.exports = mongoose.model('Config', ConfigSchema);

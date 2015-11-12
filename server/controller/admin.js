@@ -61,6 +61,26 @@ module.exports = {
     });
   },
 
+  changeAuthority(req, res) {
+    res.send(405, 'Method Not Allowed');
+  },
+
+  changePassword(req, res, next) {
+    var params = req.params;
+    var admin = req.session.admin;
+    if(!params.password) return res.send(400, '参数错误');
+    if(admin.authority === 3) return res.send(403, '没有权限');
+    Admin.findById(admin._id, (err, admin) => {
+      if(err) return res.send(404, '没有找到该用户');
+      if(admin.password === params.password) res.send(400, '字段没有修改');
+      admin.password = params.password;
+      admin.save((err) => {
+        if(err) return res.send(400, '参数错误');
+        next();
+      });
+    });
+  },
+
   // 查询admin
   fetchAll(req, res) {
     Admin.fetch({}, selectStr, (err, admin) => {
@@ -70,7 +90,7 @@ module.exports = {
   },
 
   // 检查登录状态
-  loginRequired(req, res, next) {
+  isLogin(req, res, next) {
     if(!req.session.admin) {
       return res.send(401, '未登录');
     }
