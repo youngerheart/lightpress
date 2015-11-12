@@ -13,6 +13,7 @@ const AdminSchema = new Schema({
     required:true
   },
   email: {
+    unique: true,
     type: String,
     validate: /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/,
     required:true
