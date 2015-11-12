@@ -17,5 +17,17 @@ module.exports = {
         return this.update(select, params).exec(func);
       }
     };
+  },
+
+  rewrite(schema) {
+    schema.pre('save', function(next) {
+      this.meta = {};
+      if(this.isNew) {
+        this.meta.createAt = this.meta.updateAt = Date.now();
+      } else {
+        this.meta.updateAt = Date.now();
+      }
+      next();
+    });
   }
 };

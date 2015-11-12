@@ -1,18 +1,23 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const statics = require('../tool').statics;
+const {statics, rewrite} = require('../tool');
 
 const TagSchema = new Schema({
   title: {
     unique: true,
-    type: String
+    type: String,
+    required: true
   },
-  number: {
-    type: Number,
-    required:true,
-    default: 0
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'Admin',
+    required: true
   },
+  article: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Article'
+  }],
   meta: {
     createAt: {
       type: Date,
@@ -26,15 +31,7 @@ const TagSchema = new Schema({
 });
 
 // 重写save方法
-TagSchema.pre('save', function(next) {
-  this.meta = {};
-  if(this.isNew) {
-    this.meta.createAt = this.meta.updateAt = Date.now();
-  } else {
-    this.meta.updateAt = Date.now();
-  }
-  next();
-});
+rewrite(TagSchema);
 
 //静态方法
 statics(TagSchema);
