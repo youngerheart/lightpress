@@ -1,17 +1,21 @@
-const Config = require('./../schemas/config');
 const Admin = require('./../schemas/admin');
+const Comment = require('./../schemas/comment');
 
 module.exports = {
 
-  isEmpty(req, res) {
+  add(req, res) {
     res.send(405, 'Method Not Allowed');
   },
 
-  init(req, res) {
+  del(req, res) {
     res.send(405, 'Method Not Allowed');
   },
 
-  change(req, res) {
+  fetchByArticle(req, res) {
+    res.send(405, 'Method Not Allowed');
+  },
+
+  fetchAll(req, res) {
     res.send(405, 'Method Not Allowed');
   }
 };

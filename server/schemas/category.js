@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const {statics, rewrite} = require('../tool');
+const tool = require('../tool');
 
 const CategorySchema = new Schema({
   title: {
@@ -31,9 +31,9 @@ const CategorySchema = new Schema({
 });
 
 // 重写save方法
-rewrite(CategorySchema);
+tool.rewrite(CategorySchema);
 
 //静态方法
-statics(CategorySchema);
+tool.statics(CategorySchema);
 
 module.exports = mongoose.model('Category', CategorySchema);

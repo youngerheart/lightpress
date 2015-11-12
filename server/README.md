@@ -50,7 +50,7 @@ url: `(POST) /api/admin`
 
 返回: `200 OK {id: ..}`
 
-**删除管理者**
+**注销管理者**
 
 url: `(DELETE) /api/admin/id/:id`
 

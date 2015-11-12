@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const {statics, rewrite} = require('../tool');
+const tool = require('../tool');
 
 const TagSchema = new Schema({
   title: {
@@ -31,9 +31,9 @@ const TagSchema = new Schema({
 });
 
 // 重写save方法
-rewrite(TagSchema);
+tool.rewrite(TagSchema);
 
 //静态方法
-statics(TagSchema);
+tool.statics(TagSchema);
 
 module.exports = mongoose.model('Tag', TagSchema);
