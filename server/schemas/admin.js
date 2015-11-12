@@ -9,7 +9,6 @@ const SALT_WORK_FACTORY = 10;
 
 const AdminSchema = new Schema({
   name: {
-    unique: true,
     type: String,
     required:true
   },
@@ -25,9 +24,21 @@ const AdminSchema = new Schema({
   authority: {
     type: Number,
     min: 1,
-    max: 3,
+    max: 2,
     required:true
   },
+  article: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Article'
+  }],
+  category: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Category'
+  }],
+  tag: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Tag'
+  }],
   meta: {
     createAt: {
       type: Date,

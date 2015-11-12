@@ -1,15 +1,19 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const statics = require('../tool').statics;
+const {statics, rewrite} = require('../tool');
 
 const CommentSchema = new Schema({
   ip: {
-    unique: true,
-    type: String
+    type: String,
+    required: true
   },
   name: String,
-  pointer: String,
+  article: {
+    type: Schema.Types.ObjectId,
+    ref: 'Article',
+    required: true
+  },
   meta: {
     createAt: {
       type: Date,
@@ -23,17 +27,9 @@ const CommentSchema = new Schema({
 });
 
 // 重写save方法
-CommentSchema.pre('save', function(next) {
-  this.meta = {};
-  if(this.isNew) {
-    this.meta.createAt = this.meta.updateAt = Date.now();
-  } else {
-    this.meta.updateAt = Date.now();
-  }
-  next();
-});
+rewrite(CommentSchema);
 
 //静态方法
 statics(CommentSchema);
 
-module.exports = mongoose.model('Category', CommentSchema);
+module.exports = mongoose.model('Comment', CommentSchema);
