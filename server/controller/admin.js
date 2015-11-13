@@ -104,7 +104,8 @@ module.exports = {
   // 检查是否是管理员
   isRoot(req, res, next) {
     var admin = req.session.admin;
-    if(!admin || admin.authority !== 3) {
+    if(!admin) return res.send(401, '未登录');
+    if(admin.authority !== 3) {
       return res.send(403, '没有权限');
     }
     next();
