@@ -9,12 +9,14 @@ module.exports = (server) => {
   // 初始化博客
   server.post('/init', Config.isEmpty, Config.init);
   // 修改配置
-  server.put('/init', Admin.isRoot, Config.change);
+  server.put('/config', Admin.isRoot, Config.change);
+  // 查看配置
+  server.get('/config', Admin.isRoot, Config.fetch);
 
   // 增加管理者
   server.post('/admin', Admin.add);
   // 注销管理者
-  server.del('/admin', Admin.isLogin, Admin.del);
+  server.delete('/admin', Admin.isLogin, Admin.del);
   // 修改登录者信息
   server.put('/admin', Admin.isLogin, Admin.change);
   // 为登录者生成新密码发送到邮箱，并清除登录状态
@@ -31,7 +33,7 @@ module.exports = (server) => {
   // 增加文章
   server.post('/article', Admin.isLogin, Article.add);
   // 删除文章
-  server.del('/article/id/:id', Admin.isLogin, Article.del);
+  server.delete('/article/id/:id', Admin.isLogin, Article.del);
   // 修改文章
   server.put('/article/id/:id', Admin.isLogin, Article.change);
   // 查找全部文章
@@ -52,7 +54,7 @@ module.exports = (server) => {
   // 增加评论
   server.post('/comment', Comment.add);
   // 删除评论
-  server.del('/comment/:id', Admin.isLogin, Comment.del);
+  server.delete('/comment/:id', Admin.isLogin, Comment.del);
   // 查看某个文章的评论
   server.get('/comment/article/:article', Comment.fetchByArticle);
   // 查看所有文章的评论

@@ -30,7 +30,6 @@ module.exports = {
       admin = new Admin({
         name: params.name,
         email: params.email,
-        phone: params.phone,
         password: params.password,
         authority: params.authority
       });
@@ -51,10 +50,8 @@ module.exports = {
 
   change(req, res) {
     var params = req.params;
-    if(params.authority > 2) return res.send(400, '参数错误');
-    var id = params.id;
-    delete params.id;
-    Admin.updateWithDate({_id: id}, params, (err, updated) => {
+    var admin = req.session.admin;
+    Admin.updateWithDate({_id: admin._id}, {email: params.email}, (err, updated) => {
       if(!updated.nModified) res.send(400, '字段没有修改');
       if(err) return res.send(404, '没有找到该用户');
       return res.send(204);
@@ -62,7 +59,14 @@ module.exports = {
   },
 
   changeAuthority(req, res) {
-    res.send(405, 'Method Not Allowed');
+    var params = req.params;
+    var id = params.id;
+    delete params.id;
+    Admin.updateWithDate({_id: id}, {authority: params.authority}, (err, updated) => {
+      if(!updated.nModified) res.send(400, '字段没有修改');
+      if(err) return res.send(404, '没有找到该用户');
+      return res.send(204);
+    });
   },
 
   changePassword(req, res, next) {
@@ -100,7 +104,8 @@ module.exports = {
   // 检查是否是管理员
   isRoot(req, res, next) {
     var admin = req.session.admin;
-    if(!admin || admin.authority !== 3) {
+    if(!admin) return res.send(401, '未登录');
+    if(admin.authority !== 3) {
       return res.send(403, '没有权限');
     }
     next();
@@ -119,7 +124,12 @@ module.exports = {
         if(!isMatch) return res.send(400, '用户名或密码错误');
         // 设置cookie
         req.session.admin = admin;
-        res.setCookie('admin', admin.name.toString(), {
+        res.setCookie('admin', JSON.stringify({
+          _id: admin._id,
+          name: admin.name,
+          email: admin.email,
+          authority: admin.authority
+        }), {
           path: '/',
           expires: new Date(Date.now() + 36000000)
         });

@@ -40,6 +40,10 @@ url: `(PUT) /api/config`
 
 可能修改字段 `name, desc`
 
+**查看配置**
+
+url: `(GET) /api/config`
+
 ## 管理者操作相关
 
 **增加管理者**
