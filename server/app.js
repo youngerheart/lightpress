@@ -12,6 +12,9 @@ app.use(session({
   resave: true
 }));
 
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+
 const port = process.env.PORT || 8080;
 
 const apiRouter = express.Router();
