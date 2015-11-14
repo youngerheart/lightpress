@@ -12,17 +12,23 @@ app.use(session({
   resave: true
 }));
 
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+
 const port = process.env.PORT || 8080;
 
+const apiRouter = express.Router();
 const router = express.Router();
 
 // connection with mongodb
 mongoose.connect('mongodb://127.0.0.1:27017/lightpress');
 
 //引入路由
+require('./apiroute')(apiRouter);
 require('./route')(router);
 
-app.use('/api', router);
+app.use('/api', apiRouter);
+app.use('', router);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
