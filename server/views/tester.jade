@@ -1,6 +1,69 @@
 doctype html
 html
   head
-    title= 'lightpress api tester'
+    title= "lightpress api tester"
   body
-    h2 lightpress api tester
+    h2 init
+    div name
+      input#init-name
+    div description
+      input#init-description
+    div rootname
+      input#init-rootname
+    div rootemail
+      input#init-rootemail
+    div rootpassword
+      input#init-rootpassword
+      button(onclick="init()") init
+
+    h2 changeconfig
+    div name
+      input#changeconfig-name
+    div description
+      input#changeconfig-description
+      button(onclick="changeconfig()") change
+
+    h2 edit admin
+    div id
+      input#editmin-id
+    div name
+      input#editmin-name
+    div email
+      input#editmin-email
+    div password
+      input#editmin-password
+    div authority
+      input#editmin-authority
+      button(onclick="editmin()") add
+
+    h2 del admin
+    div id
+      input#deladmin-id
+      button(onclick="deladmin()") del
+
+    h2 change admin
+    div email
+      input#changeadmin-email
+      button(onclick="deladmin()") change
+
+    h2 change admin password
+    div password
+      input#changeadminpassword-password
+      button(onclick="changeadminpassword()") change
+
+    h2 change admin auth
+    div auth
+      input#changeadminauth-auth
+      button(onclick="changeadminauth()") change
+
+    h2 login
+    div name
+      input#login-name
+    div password
+      input#login-password(type="password")
+      button(onclick="login()") login
+
+    h2 logout
+    div
+      button(onclick="logout()") logout
+
