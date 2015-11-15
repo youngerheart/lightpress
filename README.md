@@ -1,8 +1,9 @@
 # lightpress
-achieve light blog base on node
+developing light blog
 
-## progress
-**database && API (doing)**
+## base on
+* front-end: angular, webpack
+* back-end: express, mongoose
 
 ## develop
 
@@ -10,7 +11,7 @@ achieve light blog base on node
 $ brew install mongodb
 $ mongod
 // run
-$ make server
+$ make dev
 ```
 
 view api in `127.0.0.1:8009`
