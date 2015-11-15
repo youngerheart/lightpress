@@ -34,13 +34,6 @@ gulp.task('lint', ['webpack'], function() {
 
 gulp.task('watch', ['lint'], lazyWatch(watchArr, 'lint'));
 
-gulp.task('server', ['watch'], function() {
-  nodemon({
-    script: './app.js',
-    ext: 'js'
-  });
-});
-
 gulp.task('webpack', function(callback) {
   var myConfig = Object.create(webpackConfig);
   // run webpack
@@ -56,12 +49,19 @@ gulp.task('webpack', function(callback) {
   });
 });
 
+
+gulp.task('dev', ['watch'], function() {
+  nodemon({
+    script: './app.js',
+    ext: 'js'
+  });
+});
+
 gulp.task('help', function() {
   setTimeout(function() {
     console.log('');
     console.log('=========== gulp 使用说明 ===========');
-    console.log(' $ gulp watch   # watch检测js报错');
-    console.log(' $ gulp server  # 启动server并watch');
+    console.log(' $ gulp dev     # 开发模式-启动server并watch');
     console.log(' $ gulp help    # 查看帮助');
     console.log('=====================================');
   });

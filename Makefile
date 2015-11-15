@@ -14,5 +14,5 @@ install:
   fi; \
   bower install;
 
-server: install
-	@gulp server;
+dev: install
+	@gulp dev;
