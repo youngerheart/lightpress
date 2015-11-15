@@ -6,13 +6,13 @@ module.exports = {
   isEmpty(req, res, next) {
     Config.find({}, (err, config) => {
       if(err) return res.send(400, '参数错误');
-      if(config) return res.send(400, '博客已经初始化了');
+      if(config.length) return res.send(400, '博客已经初始化了');
       next();
     });
   },
 
   init(req, res) {
-    var params = req.params;
+    var params = req.body;
     var config = new Config({
       name: params.name,
       description: params.description,
