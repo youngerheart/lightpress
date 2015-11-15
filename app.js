@@ -12,7 +12,7 @@ app.use(session({
   resave: true
 }));
 
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/server/views');
 app.set('view engine', 'jade');
 
 const port = process.env.PORT || 8080;
@@ -24,9 +24,11 @@ const router = express.Router();
 mongoose.connect('mongodb://127.0.0.1:27017/lightpress');
 
 //引入路由
-require('./apiroute')(apiRouter);
-require('./route')(router);
+require('./server/apiroute')(apiRouter);
+require('./server/route')(router);
 
+// 一个静态路由
+app.use('/static', express.static(__dirname));
 app.use('/api', apiRouter);
 app.use('', router);
 

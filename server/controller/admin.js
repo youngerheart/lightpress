@@ -3,23 +3,6 @@ const selectStr = '-password -__v';
 
 module.exports = {
 
-  init(req, res) {
-    var params = req.params;
-    const root = new Admin({
-      name: params.name,
-      authority: 3,
-      password: params.password,
-      email: params.email
-    });
-    Admin.findOne({authority: 3}, (err, admin) => {
-      if(err || admin) return;
-      root.save((err) => {
-        if(err) return console.log(err);
-        console.log('管理用户初始化完成!');
-      });
-    });
-  },
-
   add(req, res) {
     var params = req.params;
     if(params.authority > 2) return res.send(400, '参数错误');

@@ -18,6 +18,7 @@ module.exports = {
       description: params.description,
     });
     var root = new Admin({
+      authority: 3,
       name: params.rootName,
       email: params.rootEmail,
       password: params.rootPassword
