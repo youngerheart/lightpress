@@ -57,7 +57,7 @@ block content
 
     h2 login
     div name
-      input#login-name
+      input(ng-model="loginName")
     div password
       input(ng-model="loginPassword")
       button(ng-click="login()") login

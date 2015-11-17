@@ -5,8 +5,8 @@ module.exports = {
 
   isEmpty(req, res, next) {
     Config.find({}, (err, config) => {
-      if(err) return res.send(400, '参数错误');
-      if(config.length) return res.send(400, '博客已经初始化了');
+      if(err) return res.status(400).send('参数错误');
+      if(config.length) return res.status(405).send('博客已经初始化了');
       next();
     });
   },
@@ -25,10 +25,10 @@ module.exports = {
     });
 
     config.save((err) => {
-      if(err) return res.send(400, '参数错误');
+      if(err) return res.status(400).send('参数错误');
       root.save((err) => {
-        if(err) return res.send(400, '参数错误');
-        res.send(204);
+        if(err) return res.status(400).send('参数错误');
+        return res.status(204).send();
       });
     }); 
   },
@@ -36,16 +36,15 @@ module.exports = {
   change(req, res) {
     var params = req.params;
     Config.update({}, params, (err, updated) => {
-      if(err) return res.send(404, '没有找到该用户');
-      if(!updated.nModified) res.send(400, '字段没有修改');
+      if(err) return res.status(404).send('没有找到该用户');
+      if(!updated.nModified) return res.status(405).send('字段没有修改');
     });
-    res.send(405, 'Method Not Allowed');
   },
 
   fetch(req, res) {
     Config.find({}, (err, config) => {
-      if(err) return res.send(400, '参数错误');
-      return res.send(200, config[0]);
+      if(err) return res.status(400).send('参数错误');
+      return res.status(200).send(config[0]);
     });
   }
 };
