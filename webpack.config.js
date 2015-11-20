@@ -2,7 +2,8 @@ require('ng-annotate-loader');
 
 module.exports = {
   entry: {
-    test: './public/test/index.js'
+    test: './public/test/index.js',
+    app: './public/app.js'
   },
   output: {
     path: './dist',
