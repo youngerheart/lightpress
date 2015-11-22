@@ -5,11 +5,11 @@ module.exports = {
 
   add(req, res) {
     var params = req.params;
-    if(params.authority > 2) return res.send(400, '参数错误');
+    if(params.authority > 2) return res.status(400).send('参数错误');
 
     Admin.findOne({name: params.name}, (err, admin) => {
-      if(err) return res.send(400, '参数错误');
-      if(admin) return res.send(400, '该用户名已经被使用了');
+      if(err) return res.status(400).send('参数错误');
+      if(admin) return res.status(405).send('该用户名已经被使用了');
       admin = new Admin({
         name: params.name,
         email: params.email,
@@ -17,17 +17,17 @@ module.exports = {
         authority: params.authority
       });
       admin.save((err) => {
-        if(err) return res.send(400, '参数错误');
-        res.send(204);
+        if(err) return res.status(400).send('参数错误');
+        res.status(204).send();
       }); 
     });
   },
 
   del(req, res) {
     Admin.remove({_id: req.params.id}, (err, removed) => {
-      if(err) return res.send(400, '参数错误');
-      if(!removed.result.n) return res.send(404, '没有找到该用户');
-      return res.send(204);
+      if(err) return res.status(400).send('参数错误');
+      if(!removed.result.n) return res.status(404).send('没有找到该用户');
+      return res.status(204).send();
     });
   },
 
@@ -35,9 +35,9 @@ module.exports = {
     var params = req.params;
     var admin = req.session.admin;
     Admin.updateWithDate({_id: admin._id}, {email: params.email}, (err, updated) => {
-      if(!updated.nModified) res.send(400, '字段没有修改');
-      if(err) return res.send(404, '没有找到该用户');
-      return res.send(204);
+      if(!updated.nModified) res.status(400).send('字段没有修改');
+      if(err) return res.status(404).send('没有找到该用户');
+      return res.status(204).send();
     });
   },
 
@@ -46,23 +46,23 @@ module.exports = {
     var id = params.id;
     delete params.id;
     Admin.updateWithDate({_id: id}, {authority: params.authority}, (err, updated) => {
-      if(!updated.nModified) res.send(400, '字段没有修改');
-      if(err) return res.send(404, '没有找到该用户');
-      return res.send(204);
+      if(!updated.nModified) res.status(400).send('字段没有修改');
+      if(err) return res.status(404).send('没有找到该用户');
+      return res.status(204).send();
     });
   },
 
   changePassword(req, res, next) {
     var params = req.params;
     var admin = req.session.admin;
-    if(!params.password) return res.send(400, '参数错误');
-    if(admin.authority === 3) return res.send(403, '没有权限');
+    if(!params.password) return res.status(400).send('参数错误');
+    if(admin.authority === 3) return res.status(403).send('没有权限');
     Admin.findById(admin._id, (err, admin) => {
-      if(err) return res.send(404, '没有找到该用户');
-      if(admin.password === params.password) res.send(400, '字段没有修改');
+      if(err) return res.status(404).send('没有找到该用户');
+      if(admin.password === params.password) res.status(400).send('字段没有修改');
       admin.password = params.password;
       admin.save((err) => {
-        if(err) return res.send(400, '参数错误');
+        if(err) return res.status(400).send('参数错误');
         next();
       });
     });
@@ -72,14 +72,14 @@ module.exports = {
   fetchAll(req, res) {
     Admin.fetch({}, selectStr, (err, admin) => {
       if(err) return res.send(400, '参数错误');
-      return res.send(200, admin);
+      return res.status(200).send(admin);
     });
   },
 
   // 检查登录状态
   isLogin(req, res, next) {
     if(!req.session.admin) {
-      return res.send(401, '未登录');
+      return res.status(401).send('未登录');
     }
     next();
   },
@@ -87,36 +87,32 @@ module.exports = {
   // 检查是否是管理员
   isRoot(req, res, next) {
     var admin = req.session.admin;
-    if(!admin) return res.send(401, '未登录');
+    if(!admin) return res.status(401).send('未登录');
     if(admin.authority !== 3) {
-      return res.send(403, '没有权限');
+      return res.status(403).send('没有权限');
     }
     next();
   },
 
   // 登录
   login(req,res) {
-    var params = req.params;
-    if(req.session.admin) return res.send(405, '你已经登录了');
+    var params = req.body;
+    if(req.session.admin) return res.status(405).send('你已经登录了');
     Admin.findOne({name: params.name}, (err, admin) => {
-      if(err) return res.send(400, '参数错误');
-      if(!admin) return res.send(404, '没有找到该用户');
-      if(!params.password) return res.send(400, '参数错误');
+      if(err) return res.status(400).send('参数错误');
+      if(!admin) return res.status(404).send('没有找到该用户');
+      if(!params.password) return res.status(400).send('参数错误');
       admin.comparePassword(params.password, (err, isMatch) => {
-        if(err) return res.send(400, '参数错误');
-        if(!isMatch) return res.send(400, '用户名或密码错误');
+        if(err) return res.status(400).send('参数错误');
+        if(!isMatch) return res.status(400).send('用户名或密码错误');
         // 设置cookie
         req.session.admin = admin;
-        res.setCookie('admin', JSON.stringify({
+        res.cookie('admin', JSON.stringify({
           _id: admin._id,
           name: admin.name,
           email: admin.email,
           authority: admin.authority
-        }), {
-          path: '/',
-          expires: new Date(Date.now() + 36000000)
-        });
-        res.send(204);
+        })).status(204).send();
       });
     });
   },
@@ -124,10 +120,7 @@ module.exports = {
   // 登出
   logout(req, res) {
     delete req.session.admin;
-    res.setCookie('admin', '', {
-      path: '/',
-      expires: new Date()
-    });
-    res.send(204);
+    res.cookie('admin', '');
+    res.status(204).send();
   }
 };

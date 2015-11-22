@@ -14,7 +14,7 @@ $ mongod
 $ make dev
 ```
 
-view api in `127.0.0.1:8009`
+view api in `127.0.0.1:8080`
 
 ## docs
 view api docs in `server` and DB docs in `server/schemas`

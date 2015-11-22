@@ -28,7 +28,7 @@ module.exports = (server) => {
   // 登录
   server.post('/login', Admin.login);
   // 登出
-  server.post('/logout', Admin.isLogin, Admin.logout);
+  server.get('/logout', Admin.isLogin, Admin.logout);
 
   // 增加文章
   server.post('/article', Admin.isLogin, Article.add);

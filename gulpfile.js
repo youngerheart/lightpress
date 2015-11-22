@@ -53,6 +53,7 @@ gulp.task('webpack', function(callback) {
 gulp.task('dev', ['watch'], function() {
   nodemon({
     script: './app.js',
+    watch: ['./server/'],
     ext: 'js'
   });
 });

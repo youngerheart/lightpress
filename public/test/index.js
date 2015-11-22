@@ -1,6 +1,5 @@
 angular.module('lp-test', [])
-.controller('admin', /* @ngInject */ function ($scope) {
-  console.log($scope);
-})
+.service('API', require('./../common/api/api'))
+.controller('admin', require('./admin'))
 
 .run();
