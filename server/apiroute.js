@@ -19,10 +19,8 @@ module.exports = (server) => {
   server.delete('/admin', Admin.isLogin, Admin.del);
   // 修改登录者信息
   server.put('/admin', Admin.isLogin, Admin.change);
-  // 为登录者生成新密码发送到邮箱，并清除登录状态
+  // 修改登录者密码
   server.put('/admin/password', Admin.isLogin, Admin.changePassword, Admin.logout);
-  // 修改权限
-  server.put('/admin', Admin.isRoot, Admin.changeAuthority);
   // 显示管理者
   server.get('/admin', Admin.isRoot, Admin.fetchAll);
   // 登录

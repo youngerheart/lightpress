@@ -60,19 +60,19 @@ url: `(DELETE) /api/admin/id/:id`
 
 返回: `204 No content`
 
-**修改管理者**
+**修改登录者信息**
 
-url: `(PUT) /api/admin` 修改登录者信息
+url: `(PUT) /api/admin`
 
-可能修改的字段: `email`
-
-url: `(PUT) /api/admin/password` 为登录者生成新密码发送到邮箱，并清除登录状态
-
-url: `(PUT) /api/admin/id/:id/auth` 修改权限
-
-可能修改的字段: `authority`
+可能修改的字段: `name, email, authority`
 
 返回: `204 No content`
+
+**修改登录者密码, 并清除登录状态**
+
+url: `(PUT) /api/admin/password`
+
+可能修改的字段: `password`
 
 **显示管理者**
 

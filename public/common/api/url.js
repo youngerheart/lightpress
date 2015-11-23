@@ -8,8 +8,7 @@ const url = {
     add: 'post /api/admin',
     del: 'delete /api/admin',
     change: 'put /api/admin',
-    changePW: 'put /api/admin/password',
-    changeAuth: 'put /api/admin/:id/auth',
+    changePassword: 'put /api/admin/password',
     fetch: 'get /api/admin',
     login: 'post /api/login',
     logout: 'get /api/logout'

@@ -4,6 +4,15 @@ var url = angular.copy(require('./url'));
 const API = /* @ngInject */ function($http) {
   // 遍历url对象，生成api对象。
   const dealParams = function(url, param) {
+    var paramArr = url.match(/:(?:\w+)/g);
+    if(paramArr) for(let key in param) {
+      paramArr.forEach((item) => {
+        if(item.indexOf(key) !== -1) {
+          url = url.replace(item, param[key]);
+          delete param[key];
+        }
+      });
+    }
     return url;
   };
 

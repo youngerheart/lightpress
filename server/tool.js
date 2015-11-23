@@ -7,8 +7,8 @@ module.exports = {
         return this.find(find || {}).select(select || '').sort('meta.updateAt').exec(func);
       },
 
-      findById(id) {
-        return this.findOne({_id: id}).exec();
+      findById(id, callback) {
+        return this.findOne({_id: id}).exec(callback);
       },
 
       updateWithDate(select, params, func) {
@@ -29,5 +29,13 @@ module.exports = {
       }
       next();
     });
+  },
+
+  checkField(param, passArr) {
+    // 检测字段，删除不允许的
+    for(var key in param) {
+      if(passArr.indexOf(key) === -1) delete param[key];
+    }
+    return param;
   }
 };

@@ -1,10 +1,11 @@
 const Admin = require('./../schemas/admin');
+const Tool = require('./../tool');
 const selectStr = '-password -__v';
 
 module.exports = {
 
   add(req, res) {
-    var params = req.params;
+    var params = req.body;
     if(params.authority > 2) return res.status(400).send('参数错误');
 
     Admin.findOne({name: params.name}, (err, admin) => {
@@ -32,20 +33,9 @@ module.exports = {
   },
 
   change(req, res) {
-    var params = req.params;
+    var params = Tool.checkField(req.body, ['name', 'email', 'authority']);
     var admin = req.session.admin;
-    Admin.updateWithDate({_id: admin._id}, {email: params.email}, (err, updated) => {
-      if(!updated.nModified) res.status(400).send('字段没有修改');
-      if(err) return res.status(404).send('没有找到该用户');
-      return res.status(204).send();
-    });
-  },
-
-  changeAuthority(req, res) {
-    var params = req.params;
-    var id = params.id;
-    delete params.id;
-    Admin.updateWithDate({_id: id}, {authority: params.authority}, (err, updated) => {
+    Admin.updateWithDate({_id: admin._id}, params, (err, updated) => {
       if(!updated.nModified) res.status(400).send('字段没有修改');
       if(err) return res.status(404).send('没有找到该用户');
       return res.status(204).send();
@@ -53,17 +43,19 @@ module.exports = {
   },
 
   changePassword(req, res, next) {
-    var params = req.params;
+    var params = req.body;
     var admin = req.session.admin;
     if(!params.password) return res.status(400).send('参数错误');
-    if(admin.authority === 3) return res.status(403).send('没有权限');
     Admin.findById(admin._id, (err, admin) => {
       if(err) return res.status(404).send('没有找到该用户');
-      if(admin.password === params.password) res.status(400).send('字段没有修改');
-      admin.password = params.password;
-      admin.save((err) => {
+      admin.comparePassword(params.password, (err, isMatch) => {
         if(err) return res.status(400).send('参数错误');
-        next();
+        if(isMatch) return res.status(400).send('字段没有修改');
+        admin.password = params.password;
+        admin.save((err) => {
+          if(err) return res.status(400).send('参数错误');
+          next();
+        });
       });
     });
   },
