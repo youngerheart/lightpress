@@ -1,4 +1,4 @@
-extends ../layout
+extends ./layout
 
 block content
   div(ng-controller="admin")
@@ -22,18 +22,16 @@ block content
       input(ng-model="changeconfigDescription")
       button(ng-click="changeconfig()") change
 
-    h2 edit admin
-    div id
-      input(ng-model="editminId")
+    h2 add admin
     div name
-      input(ng-model="editminName")
+      input(ng-model="addadminName")
     div email
-      input(ng-model="editminEmail")
+      input(ng-model="addadminEmail")
     div password
-      input(ng-model="editminPassword")
+      input(ng-model="addadminPassword")
     div authority
-      input(ng-model="editminAuthority")
-      button(ng-click="editmin()") add
+      input(ng-model="addadminAuthority")
+      button(ng-click="addadmin()") add
 
     h2 del admin
     div id
@@ -41,19 +39,18 @@ block content
       button(ng-click="deladmin()") del
 
     h2 change admin
+    div name
+      input(ng-model="changeadminName")
     div email
       input(ng-model="changeadminEmail")
+    div authority
+      input(ng-model="changeadminAuthority")
       button(ng-click="changeadmin()") change
 
-    h2 change admin password
+    h2 change adminpassword
     div password
-      input(ng-model="changeadminpasswordPassword")
+      input(ng-model="changeadminpasswordValue")
       button(ng-click="changeadminpassword()") change
-
-    h2 change admin auth
-    div auth
-      input(ng-model="changeadminauthAuth")
-      button(ng-click="changeadminauth()") change
 
     h2 login
     div name

@@ -1,4 +1,8 @@
 module.exports = (server) => {
+  // 主页
+  server.get('/', (req, res) => {
+    res.render('app/index');
+  });
   // 初始化,管理员相关
   server.get('/test/admin', (req, res) => {
     res.render('test/admin');
