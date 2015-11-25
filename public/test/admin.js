@@ -1,6 +1,6 @@
 const Tool = require('./../tool');
 
-const Admin = /* @ngInject */ function ($scope, $http, API) {
+const Admin = /* @ngInject */ function ($scope, API) {
   // 获取配置信息
   API.config.fetch()
   .then((res) => {

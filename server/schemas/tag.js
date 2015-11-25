@@ -9,11 +9,6 @@ const TagSchema = new Schema({
     type: String,
     required: true
   },
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: 'Admin',
-    required: true
-  },
   article: [{
     type: Schema.Types.ObjectId,
     ref: 'Article'
