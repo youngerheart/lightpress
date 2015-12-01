@@ -9,11 +9,10 @@ const CategorySchema = new Schema({
     type: String,
     required: true
   },
-  author: {
+  article: [{
     type: Schema.Types.ObjectId,
-    ref: 'Admin',
-    required: true
-  },
+    ref: 'Article'
+  }],
   meta: {
     createAt: {
       type: Date,

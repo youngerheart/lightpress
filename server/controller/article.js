@@ -9,7 +9,11 @@ module.exports = {
   add(req, res) {
     var admin = req.session.admin;
     var params = Tool.checkField(req.body, ['title', 'content', 'author', 'category', 'tag']);
+    // 生成文章实例，获取文章id
     // 查找category和tag执行+1，要是没有则新增
+    Category.findOne({title: params.category}, (err, admin) => {
+
+    });
     res.send(405, 'Method Not Allowed');
   },
 

@@ -2,15 +2,20 @@ const Tool = require('./../tool');
 
 const Admin = /* @ngInject */ function ($scope, API) {
   // 获取配置信息
-  API.config.fetch()
-  .then((res) => {
-      console.log(res);
-    }, (err) => {
-      console.log(err);
-    });
+  API.config.get()
+  .cache((res) => {
+    console.log(res);
+  }, (err) => {
+    console.log(err);
+  })
+  .send((res) => {
+    console.log(res);
+  }, (err) => {
+    console.log(err);
+  });
   // root获取管理员信息
-  API.admin.fetch()
-  .then((res) => {
+  API.admin.get()
+  .send((res) => {
     console.log(res);
   }, (err) => {
     console.log(err);
@@ -18,13 +23,13 @@ const Admin = /* @ngInject */ function ($scope, API) {
   // 初始化该博客
   $scope.init = () => {
     var {initName, initDescription, initRootname, initRootemail, initRootpassword} = $scope;
-    API.config.init(Tool.notEmpty({
+    API.init.post(Tool.notEmpty({
       name: initName,
       description: initDescription,
       rootName: initRootname,
       rootEmail: initRootemail,
       rootPassword: initRootpassword
-    })).then((res) => {
+    })).send((res) => {
       console.log(res);
     }, (err) => {
       console.log(err);
@@ -33,10 +38,10 @@ const Admin = /* @ngInject */ function ($scope, API) {
 
   $scope.changeconfig = () => {
     var {changeconfigName, changeconfigDescription} = $scope;
-    API.config.change(Tool.notEmpty({
+    API.config.put(Tool.notEmpty({
       name: changeconfigName,
       description: changeconfigDescription
-    })).then((res) => {
+    })).send((res) => {
       console.log(res);
     }, (err) => {
       console.log(err);
@@ -45,12 +50,12 @@ const Admin = /* @ngInject */ function ($scope, API) {
 
   $scope.addadmin = () => {
     var {addadminName, addadminEmail, addadminPassword, addadminAuthority} = $scope;
-    API.admin.add(Tool.notEmpty({
+    API.admin.post(Tool.notEmpty({
       name: addadminName,
       email: addadminEmail,
       password: addadminPassword,
       authority: addadminAuthority
-    })).then((res) => {
+    })).send((res) => {
       console.log(res);
     }, (err) => {
       console.log(err);
@@ -61,7 +66,7 @@ const Admin = /* @ngInject */ function ($scope, API) {
     var {deladminId} = $scope;
     API.admin.del(Tool.notEmpty({
       id: deladminId
-    })).then((res) => {
+    })).send((res) => {
       console.log(res);
     }, (err) => {
       console.log(err);
@@ -70,11 +75,11 @@ const Admin = /* @ngInject */ function ($scope, API) {
 
   $scope.changeadmin = () => {
     var {changeadminName, changeadminEmail, changeadminAuthority} = $scope;
-    API.admin.change(Tool.notEmpty({
+    API.admin.put(Tool.notEmpty({
       name: changeadminName,
       email: changeadminEmail,
       authority: changeadminAuthority
-    })).then((res) => {
+    })).send((res) => {
       console.log(res);
     }, (err) => {
       console.log(err);
@@ -82,9 +87,9 @@ const Admin = /* @ngInject */ function ($scope, API) {
   };
 
   $scope.changeadminpassword = () => {
-    API.admin.changePassword(Tool.notEmpty({
+    API.password.put(Tool.notEmpty({
       password: $scope.changeadminpasswordValue,
-    })).then((res) => {
+    })).send((res) => {
       console.log(res);
     }, (err) => {
       console.log(err);
@@ -93,10 +98,10 @@ const Admin = /* @ngInject */ function ($scope, API) {
 
   $scope.login = () => {
     var {loginName, loginPassword} = $scope;
-    API.admin.login({
+    API.login.post({}, {
       name: loginName,
       password: loginPassword
-    }).then((res) => {
+    }).send((res) => {
       console.log(res);
     }, (err) => {
       console.log(err);
@@ -104,8 +109,8 @@ const Admin = /* @ngInject */ function ($scope, API) {
   };
 
   $scope.logout = () => {
-    API.admin.logout()
-    .then((res) => {
+    API.logout.get()
+    .send((res) => {
       console.log(res);
     }, (err) => {
       console.log(err);

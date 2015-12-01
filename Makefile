@@ -12,7 +12,6 @@ install:
   else \
     npm install && cd server && npm install && cd ../; \
   fi; \
-  bower install;
 
 dev: install
 	@gulp dev;
