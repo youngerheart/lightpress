@@ -1,5 +1,6 @@
 const Config = require('./../schemas/config');
 const Admin = require('./../schemas/admin');
+const Tool = require('./../tool');
 
 module.exports = {
 
@@ -34,9 +35,9 @@ module.exports = {
   },
 
   change(req, res) {
-    var params = req.params;
+    var params = Tool.checkField(req.body, ['name', 'desc']);
     Config.update({}, params, (err, updated) => {
-      if(err) return res.status(404).send('没有找到该用户');
+      if(err) return res.status(404).send('没有找到该配置');
       if(!updated.nModified) return res.status(405).send('字段没有修改');
     });
   },

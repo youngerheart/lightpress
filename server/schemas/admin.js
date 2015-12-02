@@ -32,14 +32,6 @@ const AdminSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Article'
   }],
-  category: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Category'
-  }],
-  tag: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Tag'
-  }],
   meta: {
     createAt: {
       type: Date,

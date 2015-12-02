@@ -1,17 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const tool = require('../tool');
+const Tool = require('../tool');
 
 const CategorySchema = new Schema({
   title: {
     unique: true,
     type: String,
-    required: true
-  },
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: 'Admin',
     required: true
   },
   article: [{
@@ -31,9 +26,9 @@ const CategorySchema = new Schema({
 });
 
 // 重写save方法
-tool.rewrite(CategorySchema);
+Tool.rewrite(CategorySchema);
 
 //静态方法
-tool.statics(CategorySchema);
+Tool.statics(CategorySchema);
 
 module.exports = mongoose.model('Category', CategorySchema);
