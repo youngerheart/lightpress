@@ -2,20 +2,15 @@ const Tool = require('./../tool');
 
 const Admin = /* @ngInject */ function ($scope, API) {
   // 获取配置信息
-  API.config.get()
-  .cache((res) => {
-    console.log(res);
-  }, (err) => {
-    console.log(err);
-  })
-  .send((res) => {
-    console.log(res);
+  API.config.cache()
+  .then((res, refer) => {
+    console.log(res, refer);
   }, (err) => {
     console.log(err);
   });
   // root获取管理员信息
-  API.admin.get()
-  .send((res) => {
+  API.admin.cache()
+  .then((res) => {
     console.log(res);
   }, (err) => {
     console.log(err);
@@ -101,7 +96,7 @@ const Admin = /* @ngInject */ function ($scope, API) {
     API.login.post({}, {
       name: loginName,
       password: loginPassword
-    }).send((res) => {
+    }).then((res) => {
       console.log(res);
     }, (err) => {
       console.log(err);
@@ -110,7 +105,7 @@ const Admin = /* @ngInject */ function ($scope, API) {
 
   $scope.logout = () => {
     API.logout.get()
-    .send((res) => {
+    .then((res) => {
       console.log(res);
     }, (err) => {
       console.log(err);
