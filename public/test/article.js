@@ -5,24 +5,26 @@ const Article = /* @ngInject */ function ($scope, API) {
     var {editId, editTitle, editContent, editAuthor, editCategory, editTag} = $scope;
     if(editId) {
       API.article.put({
-        id: editId,
+        id: editId
+      }, {
         title: editTitle,
         content: editContent,
         author: editAuthor,
         category: editCategory,
-        category: editTag
-      }).send((res) => {
+        tag: editTag
+      }).cache((res) => {
         console.log(res);
       }, (err) => {
         console.log(err);
       });
     } else {
-      API.article.post({
+      API.article.post({}, {
         title: editTitle,
         content: editContent,
         author: editAuthor,
-        category: editCategory
-      }).send((res) => {
+        category: editCategory,
+        tag: editTag
+      }).cache((res) => {
         console.log(res);
       }, (err) => {
         console.log(err);
@@ -33,7 +35,7 @@ const Article = /* @ngInject */ function ($scope, API) {
   $scope.del = () => {
     API.article.del({
       id: $scope.delId
-    }).send((res) => {
+    }).cache((res) => {
       console.log(res);
     }, (err) => {
       console.log(err);
@@ -42,7 +44,7 @@ const Article = /* @ngInject */ function ($scope, API) {
 
   $scope.fetchall = () => {
     API.article.get()
-    .send((res) => {
+    .cache((res) => {
       console.log(res);
     }, (err) => {
       console.log(err);
@@ -52,7 +54,7 @@ const Article = /* @ngInject */ function ($scope, API) {
   $scope.fetchbyid = () => {
     API.article.del({
       id: $scope.fetchbyidValue
-    }).send((res) => {
+    }).cache((res) => {
       console.log(res);
     }, (err) => {
       console.log(err);

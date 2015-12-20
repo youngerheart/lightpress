@@ -32,14 +32,14 @@
 | 字段名 | 类型 | 描述 |
 | ---- | ------- | ----- |
 | title | String | 类别名 |
-| category | ObjectIdArray | 该类别文章 |
+| article | ObjectIdArray | 该类别文章 |
 
 ## tag(标签)
 
 | 字段名 | 类型 | 描述 |
 | ---- | ------- | ----- |
 | title | String | 标签名 |
-| category | ObjectIdArray | 该标签文章 |
+| article | ObjectIdArray | 该标签文章 |
 
 ## comment(评论)
 

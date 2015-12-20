@@ -4,18 +4,18 @@ const Comment = require('./../schemas/comment');
 module.exports = {
 
   add(req, res) {
-    res.send(405, 'Method Not Allowed');
+    res.status(405).send('Method Not Allowed');
   },
 
   del(req, res) {
-    res.send(405, 'Method Not Allowed');
+    res.status(405).send('Method Not Allowed');
   },
 
   fetchByArticle(req, res) {
-    res.send(405, 'Method Not Allowed');
+    res.status(405).send('Method Not Allowed');
   },
 
   fetchAll(req, res) {
-    res.send(405, 'Method Not Allowed');
+    res.status(405).send('Method Not Allowed');
   }
 };
