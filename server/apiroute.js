@@ -29,11 +29,11 @@ module.exports = (server) => {
   server.get('/logout', Admin.isLogin, Admin.logout);
 
   // 增加文章
-  server.post('/article', Admin.isLogin, Article.add);
+  server.post('/article', Article.add);
   // 删除文章
-  server.delete('/article/id/:id', Admin.isLogin, Article.del);
+  server.delete('/article/id/:id', Article.del);
   // 修改文章
-  server.put('/article/id/:id', Admin.isLogin, Article.change);
+  server.put('/article/id/:id', Article.change);
   // 查找全部文章
   server.get('/article', Article.fetchAll);
   // 通过id查找文章

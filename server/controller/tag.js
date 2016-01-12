@@ -4,10 +4,10 @@ const Tag = require('./../schemas/tag');
 module.exports = {
 
   fetchArticle(req, res) {
-    res.send(405, 'Method Not Allowed');
+    res.status(405).send('Method Not Allowed');
   },
 
   fetchAll(req, res) {
-    res.send(405, 'Method Not Allowed');
+    res.status(405).send('Method Not Allowed');
   }
 };

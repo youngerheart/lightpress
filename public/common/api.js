@@ -11,10 +11,6 @@ const url = {
   comment: '/api/comment/:id/:article'
 };
 
-const config = {
-  cache: true
-};
-
 const APISDK = require('restfulapi-sdk');
-const API = new APISDK(url, config);
+const API = new APISDK(url, {});
 module.exports = () => {return API;};
