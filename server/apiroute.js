@@ -40,14 +40,14 @@ module.exports = (server) => {
   server.get('/article/:id', Article.fetchById);
 
   // 获取某个类别的文章
-  server.get('/category/:category', Category.fetchArticle);
+  server.get('/category/:id', Category.fetchArticle);
   // 获取所有类别
   server.get('/category', Category.fetchAll);
 
   // 获取某个标签的文章
-  server.get('/tag/:tag', Tag.fetchArticle);
+  server.get('/tag/:id', Tag.fetchArticle);
   // 获取所有标签
-  server.get('/category', Tag.fetchAll);
+  server.get('/tag', Tag.fetchAll);
 
   // 增加评论
   server.post('/comment', Comment.add);

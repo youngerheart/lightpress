@@ -1,0 +1,16 @@
+extends ./layout
+
+block content
+  div(ng-controller="other")
+    h2 categories
+      button(ng-click="categories()") categories
+    h2 categoryArticles
+    div id
+      input(ng-model="categoryId")
+      button(ng-click="categoryArticles()") articles
+    h2 tags
+      button(ng-click="tags()") tags
+    h2 tagArticles
+    div id
+      input(ng-model="tagId")
+      button(ng-click="tagArticles()") articles
