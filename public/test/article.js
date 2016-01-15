@@ -11,8 +11,8 @@ const Article = /* @ngInject */ function ($scope, API) {
         content: editContent,
         author: editAuthor,
         category: editCategory,
-        tag: editTag
-      }).cache((res) => {
+        tag: editTag ? editTag.split(',') : ''
+      }).then((res) => {
         console.log(res);
       }, (err) => {
         console.log(err);
@@ -23,7 +23,7 @@ const Article = /* @ngInject */ function ($scope, API) {
         content: editContent,
         author: editAuthor,
         category: editCategory,
-        tag: editTag
+        tag: editTag.split(',')
       }).then((res) => {
         console.log(res);
       }, (err) => {
@@ -43,7 +43,7 @@ const Article = /* @ngInject */ function ($scope, API) {
   };
 
   $scope.fetchall = () => {
-    API.article.cache().then((res) => {
+    API.article.get().then((res) => {
       console.log(res);
     }, (err) => {
       console.log(err);
@@ -51,7 +51,7 @@ const Article = /* @ngInject */ function ($scope, API) {
   };
 
   $scope.fetchbyid = () => {
-    API.article.del({
+    API.article.get({
       id: $scope.fetchbyidValue
     }).then((res) => {
       console.log(res);

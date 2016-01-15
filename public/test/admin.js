@@ -2,14 +2,14 @@ const Tool = require('./../tool');
 
 const Admin = /* @ngInject */ function ($scope, API) {
   // 获取配置信息
-  API.config.cache()
+  API.config.get()
   .then((res, refer) => {
     console.log(res, refer);
   }, (err) => {
     console.log(err);
   });
   // root获取管理员信息
-  API.admin.cache()
+  API.admin.get()
   .then((res) => {
     console.log(res);
   }, (err) => {
