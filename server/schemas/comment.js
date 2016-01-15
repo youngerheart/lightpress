@@ -8,7 +8,9 @@ const CommentSchema = new Schema({
     type: String,
     required: true
   },
+  userAgent: String,
   name: String,
+  content: String,
   article: {
     type: Schema.Types.ObjectId,
     ref: 'Article',

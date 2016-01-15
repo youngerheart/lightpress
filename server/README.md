@@ -162,9 +162,17 @@ url: `(POST) /api/comment`
 
 返回: `204 No content`
 
+**修改评论**
+
+url: `(PUT) /api/comment/:article`
+
+必要字段: `content, article`
+
+返回: `204 No content`
+
 **删除评论**
 
-url: `(DELETE) /api/comment/id/:id`
+url: `(DELETE) /api/comment/:id`
 
 返回: `204 No content`
 
@@ -172,5 +180,5 @@ url: `(DELETE) /api/comment/id/:id`
 
 url:
 
-`(GET) /api/comment/article/:article` 查看某个文章的评论
+`(GET) /api/comment/:article` 查看某个文章的评论
 `(GET) /api/comment` 查看所有文章的评论
