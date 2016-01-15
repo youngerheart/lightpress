@@ -29,15 +29,15 @@ module.exports = (server) => {
   server.get('/logout', Admin.isLogin, Admin.logout);
 
   // 增加文章
-  server.post('/article', Article.add);
+  server.post('/article', Admin.isLogin, Article.add);
   // 删除文章
-  server.delete('/article/id/:id', Article.del);
+  server.delete('/article/:id', Admin.isLogin, Article.del);
   // 修改文章
-  server.put('/article/id/:id', Article.change);
+  server.put('/article/:id', Admin.isLogin, Article.change);
   // 查找全部文章
   server.get('/article', Article.fetchAll);
   // 通过id查找文章
-  server.get('/article/id/:id', Article.fetchById);
+  server.get('/article/:id', Article.fetchById);
 
   // 获取某个类别的文章
   server.get('/category/:category', Category.fetchArticle);
