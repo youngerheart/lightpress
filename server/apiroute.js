@@ -44,9 +44,9 @@ module.exports = (server) => {
   // 获取所有类别
   server.get('/category', Category.fetchAll);
 
-  // 获取某个类别的文章
+  // 获取某个标签的文章
   server.get('/tag/:tag', Tag.fetchArticle);
-  // 获取所有类别
+  // 获取所有标签
   server.get('/category', Tag.fetchAll);
 
   // 增加评论

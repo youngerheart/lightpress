@@ -18,11 +18,9 @@
 
 *通过id查询时不可用*
 
-`rows` 显示的条目数，默认30
+`limit` 显示的条目数，默认30
 
-`page` 显示的页数，默认0
-
-`desc` 是否倒叙查询，默认是
+`offset` 起始条数，默认0
 
 ## 配置相关
 
@@ -56,7 +54,7 @@ url: `(POST) /api/admin`
 
 **注销管理者**
 
-url: `(DELETE) /api/admin/id/:id`
+url: `(DELETE) /api/admin/:id`
 
 返回: `204 No content`
 
@@ -106,13 +104,13 @@ url: `(POST) /api/article`
 
 **删除文章**
 
-url: `(DELETE) /api/article/id/:id`
+url: `(DELETE) /api/article/:id`
 
 返回: `204 No content`
 
 **修改文章**
 
-url: `(PUT) /api/article/id/:id`
+url: `(PUT) /api/article/:id`
 
 可能修改的字段: `title, content, category, tag, comment`
 
@@ -158,15 +156,15 @@ url:
 
 url: `(POST) /api/comment`
 
-必要字段: `ip, content, article`
+必要字段: `content, name`
 
 返回: `204 No content`
 
 **修改评论**
 
-url: `(PUT) /api/comment/:article`
+url: `(PUT) /api/comment/:id`
 
-必要字段: `content, article`
+可变字段: `content, name`
 
 返回: `204 No content`
 
