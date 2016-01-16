@@ -187,15 +187,15 @@ module.exports = {
   },
 
   fetchById(req, res) {
-    var id = req.params.id;
-    populate(Article.find({_id: id}, selectStr)).exec((err, article) => {
+    var params = req.params;
+    Tool.format(populate(Article.find({_id: params.id}, selectStr)), params).exec((err, article) => {
       if(err) res.status(400).send('参数错误');
       return res.status(200).send(article);
     });
   },
 
   fetchAll(req, res) {
-    populate(Article.find({}, selectStr)).exec((err, article) => {
+    Tool.format(populate(Article.find({}, selectStr)), req.params).exec((err, article) => {
       if(err) res.status(400).send('参数错误');
       return res.status(200).send(article);
     });

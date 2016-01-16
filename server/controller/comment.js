@@ -42,7 +42,7 @@ module.exports = {
       Article.findById(comment.article, (err, article) => {
         if(err) return res.status(400).send('参数错误');
         if(!article) return res.status(404).send('没有找到该文章');
-        article.comment.splice(objId(id), 1);
+        article.comment.splice(article.comment.indexOf(objId(id)), 1);
         article.save((err) => {
           if(err) return res.status(400).send('更新Article失败');
           comment.remove((err) => {
@@ -70,8 +70,9 @@ module.exports = {
   },
 
   fetchByArticle(req, res) {
-    const article = req.params.article;
-    Comment.find({article: article}, selectStr).exec((err, comments) => {
+    const params = req.params;
+    Tool.format(Comment.find({article: params.article}, selectStr), params)
+    .exec((err, comments) => {
       if(err) return res.status(400).send('参数错误');
       if(!comments) return res.status(404).send('没有找到任何评论');
       return res.status(200).send(comments);
@@ -79,7 +80,9 @@ module.exports = {
   },
 
   fetchAll(req, res) {
-    Comment.find({}, selectStr).exec((err, comments) => {
+    const params = req.params;
+    Tool.format(Comment.find({}, selectStr), params)
+    .exec((err, comments) => {
       if(err) return res.status(400).send('参数错误');
       if(!comments) return res.status(404).send('没有找到任何评论');
       return res.status(200).send(comments);

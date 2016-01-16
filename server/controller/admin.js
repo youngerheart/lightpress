@@ -62,7 +62,7 @@ module.exports = {
 
   // 查询admin
   fetchAll(req, res) {
-    Admin.fetch({}, selectStr, (err, admin) => {
+    Tool.format(Admin.fetch({}, selectStr), req.params).exec((err, admin) => {
       if(err) return res.send(400, '参数错误');
       return res.status(200).send(admin);
     });
