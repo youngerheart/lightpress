@@ -52,9 +52,11 @@ module.exports = (server) => {
   // 增加评论
   server.post('/comment', Comment.add);
   // 删除评论
-  server.delete('/comment/:id', Admin.isLogin, Comment.del);
+  server.delete('/comment/:id', Comment.del);
+  // 修改评论
+  server.put('/comment/:id', Comment.change);
   // 查看某个文章的评论
-  server.get('/comment/article/:article', Comment.fetchByArticle);
+  server.get('/comment/:article', Comment.fetchByArticle);
   // 查看所有文章的评论
-  server.get('/comment/article', Comment.fetchAll);
+  server.get('/comment', Comment.fetchAll);
 };
