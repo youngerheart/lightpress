@@ -1,7 +1,28 @@
+const Promise = require('promise');
+const Config = require('./controller/config');
+const Admin = require('./controller/admin');
+const Article = require('./controller/article');
+const Category = require('./controller/category');
+const Tag = require('./controller/tag');
+const Comment = require('./controller/comment');
+const DataFunc = (req, res, func) => {
+  return new Promise((resolve, reject) => {
+    func(req, res, (code, data) => {
+      if(code < 300) resolve(data);
+      else reject(data);
+    });
+  });
+};
+
 module.exports = (server) => {
   // 主页
   server.get('/', (req, res) => {
-    res.render('app/index');
+    DataFunc(req, res, Article.fetchAll)
+    .then((data) => {
+      res.render('app/index', data);
+    }, (data) => {
+      res.render('app/error', data);
+    });
   });
   // 初始化,配置,管理员相关
   server.get('/test/admin', (req, res) => {

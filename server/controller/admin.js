@@ -61,10 +61,10 @@ module.exports = {
   },
 
   // 查询admin
-  fetchAll(req, res) {
-    Tool.format(Admin.fetch({}, selectStr), req.params).exec((err, admin) => {
-      if(err) return res.send(400, '参数错误');
-      return res.status(200).send(admin);
+  fetchAll(req, res, func) {
+    Tool.format(Admin.find({}, selectStr), req.params).exec((err, admin) => {
+      if(err) return func(400, '参数错误');
+      return func(200, admin);
     });
   },
 

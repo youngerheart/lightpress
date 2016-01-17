@@ -4,6 +4,13 @@ const Article = require('./controller/article');
 const Category = require('./controller/category');
 const Tag = require('./controller/tag');
 const Comment = require('./controller/comment');
+const APIFunc = (func) => {
+  return (req, res) => {
+    func(req, res, (code, data) => {
+      res.status(code).send(data);
+    });
+  };
+};
 
 module.exports = (server) => {
   // 初始化博客
@@ -11,7 +18,7 @@ module.exports = (server) => {
   // 修改配置
   server.put('/config', Admin.isRoot, Config.change);
   // 查看配置
-  server.get('/config', Admin.isRoot, Config.fetch);
+  server.get('/config', Admin.isRoot, APIFunc(Config.fetch));
 
   // 增加管理者
   server.post('/admin', Admin.add);
@@ -22,11 +29,11 @@ module.exports = (server) => {
   // 修改登录者密码
   server.put('/admin/password', Admin.isLogin, Admin.changePassword, Admin.logout);
   // 显示管理者
-  server.get('/admin', Admin.isRoot, Admin.fetchAll);
+  server.get('/admin', Admin.isRoot, APIFunc(Admin.fetchAll));
   // 登录
   server.post('/login', Admin.login);
   // 登出
-  server.get('/logout', Admin.isLogin, Admin.logout);
+  server.get('/logout', Admin.isLogin, APIFunc(Admin.logout));
 
   // 增加文章
   server.post('/article', Admin.isLogin, Article.add);
@@ -35,19 +42,19 @@ module.exports = (server) => {
   // 修改文章
   server.put('/article/:id', Admin.isLogin, Article.change);
   // 查找全部文章
-  server.get('/article', Article.fetchAll);
+  server.get('/article', APIFunc(Article.fetchAll));
   // 通过id查找文章
-  server.get('/article/:id', Article.fetchById);
+  server.get('/article/:id', APIFunc(Article.fetchById));
 
   // 获取某个类别的文章
-  server.get('/category/:id', Category.fetchArticle);
+  server.get('/category/:id', APIFunc(Category.fetchArticle));
   // 获取所有类别
-  server.get('/category', Category.fetchAll);
+  server.get('/category', APIFunc(Category.fetchAll));
 
   // 获取某个标签的文章
-  server.get('/tag/:id', Tag.fetchArticle);
+  server.get('/tag/:id', APIFunc(Tag.fetchArticle));
   // 获取所有标签
-  server.get('/tag', Tag.fetchAll);
+  server.get('/tag', APIFunc(Tag.fetchAll));
 
   // 增加评论
   server.post('/comment', Comment.add);
@@ -56,7 +63,7 @@ module.exports = (server) => {
   // 修改评论
   server.put('/comment/:id', Comment.change);
   // 查看某个文章的评论
-  server.get('/comment/:article', Comment.fetchByArticle);
+  server.get('/comment/:article', APIFunc(Comment.fetchByArticle));
   // 查看所有文章的评论
-  server.get('/comment', Comment.fetchAll);
+  server.get('/comment', APIFunc(Comment.fetchAll));
 };

@@ -69,23 +69,23 @@ module.exports = {
     });
   },
 
-  fetchByArticle(req, res) {
+  fetchByArticle(req, res, func) {
     const params = req.params;
     Tool.format(Comment.find({article: params.article}, selectStr), params)
     .exec((err, comments) => {
-      if(err) return res.status(400).send('参数错误');
-      if(!comments) return res.status(404).send('没有找到任何评论');
-      return res.status(200).send(comments);
+      if(err) return func(400, '参数错误');
+      if(!comments) return func(404, '没有找到任何评论');
+      return func(200, comments);
     });
   },
 
-  fetchAll(req, res) {
+  fetchAll(req, res, func) {
     const params = req.params;
     Tool.format(Comment.find({}, selectStr), params)
     .exec((err, comments) => {
-      if(err) return res.status(400).send('参数错误');
-      if(!comments) return res.status(404).send('没有找到任何评论');
-      return res.status(200).send(comments);
+      if(err) return func(400, '参数错误');
+      if(!comments) return func(404, '没有找到任何评论');
+      return func(200, comments);
     });
   }
 };
