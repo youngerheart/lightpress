@@ -42,10 +42,10 @@ module.exports = {
     });
   },
 
-  fetch(req, res) {
+  fetch(req, res, func) {
     Config.find({}, (err, config) => {
-      if(err) return res.status(400).send('参数错误');
-      return res.status(200).send(config[0]);
+      if(err) return func(400, '参数错误');
+      return func(200, config[0]);
     });
   }
 };

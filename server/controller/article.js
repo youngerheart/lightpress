@@ -5,8 +5,8 @@ const Category = require('./../schemas/category');
 const Tag = require('./../schemas/tag');
 const Comment = require('./../schemas/comment');
 const Tool = require('./../tool');
-const selectStr = '-__v';
-const selectUserStr = '-__v -password';
+const selectStr = '-__v -article';
+const selectUserStr = '-__v -password -article';
 
 const populate = (obj) => {
   return obj.populate('author', selectUserStr).populate('category', selectStr).populate('tag', selectStr).populate('comment', selectStr);
@@ -190,18 +190,18 @@ module.exports = {
     });
   },
 
-  fetchById(req, res) {
+  fetchById(req, res, func) {
     var params = req.params;
-    Tool.format(populate(Article.find({_id: params.id}, selectStr)), params).exec((err, article) => {
-      if(err) res.status(400).send('参数错误');
-      return res.status(200).send(article);
+    Tool.format(populate(Article.find({_id: params.id}, selectStr)), params).exec((err, articles) => {
+      if(err) return func(400, '参数错误');
+      return func(200, articles);
     });
   },
 
-  fetchAll(req, res) {
-    Tool.format(populate(Article.find({}, selectStr)), req.params).exec((err, article) => {
-      if(err) res.status(400).send('参数错误');
-      return res.status(200).send(article);
+  fetchAll(req, res, func) {
+    Tool.format(populate(Article.find({}, selectStr)), req.params).exec((err, articles) => {
+      if(err) return func(400, '参数错误');
+      return func(200, articles);
     });
   }
 };
