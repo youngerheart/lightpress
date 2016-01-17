@@ -3,5 +3,6 @@ angular.module('lp-test', [])
 .controller('admin', require('./admin'))
 .controller('article', require('./article'))
 .controller('comment', require('./comment'))
+.controller('other', require('./other'))
 
 .run();

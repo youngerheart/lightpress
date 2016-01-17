@@ -6,8 +6,8 @@ const url = {
   login: '/api/login',
   logout: '/api/logout',
   article: '/api/article/:id',
-  category: '/api/category/:category',
-  tag: '/api/tag/:tag',
+  category: '/api/category/:id',
+  tag: '/api/tag/:id',
   comment: '/api/comment/:id/:article'
 };
 

@@ -132,7 +132,7 @@ url:
 
 **查找类别**
 
-`(GET) /api/category/:category` 获取某个类别的文章
+`(GET) /api/category/:id` 获取某个类别的文章
 
 `(GET) /api/category` 获取所有类别
 
@@ -144,7 +144,7 @@ url:
 
 **查找标签**
 
-`(GET) /api/tag/:tag` 获取某个类别的文章
+`(GET) /api/tag/:id` 获取某个类别的文章
 
 `(GET) /api/tag` 获取所有类别
 

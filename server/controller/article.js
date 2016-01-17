@@ -46,7 +46,7 @@ module.exports = {
           title: params.category
         });
       }
-      category.article.push(mongoose.Types.ObjectId(article._id));
+      category.article.push(objId(article._id));
       article.category = category._id;
       // 查找tag执行+1，要是没有则新增
       var tagArr = params.tag;
@@ -58,8 +58,8 @@ module.exports = {
               title: item
             });
           }
-          tag.article.push(mongoose.Types.ObjectId(article._id));
-          article.tag.push(mongoose.Types.ObjectId(tag._id));
+          tag.article.push(objId(article._id));
+          article.tag.push(objId(tag._id));
           tag.save((err) => {
             if(err) return res.status(400).send('储存Tag出错');
             if(index < tagArr.length - 1) return;
@@ -109,6 +109,7 @@ module.exports = {
   change(req, res) {
     checkAuth(req, res, (article, id) => {
       const params = Tool.checkField(req.body, ['title', 'content', 'category', 'tag']);
+      const articleId = objId(article._id);
       if(params.title) article.title = params.title;
       if(params.content) article.content = params.content;
       // category 相关操作
@@ -116,8 +117,9 @@ module.exports = {
         if(params.category) {
           Category.findById(article.category, (err, category) => {
             if(err) reject('访问Category出错');
+            if(!category) return res.status(404).send('没有找到该分类');
             if(params.category !== category.title) {
-              category.article.splice(category.article.indexOf(objId(category._id)), 1);
+              category.article.splice(category.article.indexOf(articleId), 1);
               Category.findOne({title: params.category}, (err, newCategory) => {
                 if(err) reject('访问Category出错');
                 if(!newCategory) {
@@ -125,7 +127,7 @@ module.exports = {
                     title: params.category
                   });
                 }
-                newCategory.article.push(objId(article._id));
+                if(newCategory.article.indexOf(articleId) === -1) newCategory.article.push(articleId);
                 article.category = newCategory._id;
                 category.save((err) => {
                   if(err) reject('更新Category出错');
@@ -147,7 +149,9 @@ module.exports = {
           var tagArr = [];
           article.tag.forEach((tagId, index) => {
             Tag.findById(tagId, (err, tag) => {
-              tag.article.splice(tag.article.indexOf(objId(article._id)));
+              if(err) return res.status(400).send('参数错误');
+              if(!tag) return res.status(404).send('没有找到该标签');
+              tag.article.splice(tag.article.indexOf(articleId), 1);
               tag.save((err) => {
                 if(err) reject('更新Tag出错');
                 if(index < article.tag.length - 1) return;
@@ -156,7 +160,7 @@ module.exports = {
                     if(err) reject('查找tag出错');
                     if(!tag) tag = new Tag({ title: tagTitle });
                     tagArr.push(objId(tag._id));
-                    tag.article.push(objId(article._id));
+                    if(tag.article.indexOf(articleId) === -1) tag.article.push(articleId);
                     tag.save((err) => {
                       if(err) reject('储存Tag出错');
                       if(index < params.tag.length - 1) return;
