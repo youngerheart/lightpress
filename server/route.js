@@ -1,4 +1,5 @@
 const Promise = require('promise');
+const Cache = require('memory-cache');
 const Config = require('./controller/config');
 const Admin = require('./controller/admin');
 const Article = require('./controller/article');
@@ -7,7 +8,13 @@ const Tag = require('./controller/tag');
 const Comment = require('./controller/comment');
 const DataFunc = (req, res, func) => {
   return new Promise((resolve, reject) => {
+    const cache = Cache.get(req.url);
+    if(cache) {
+      if(cache[0] < 300) resolve(cache[1]);
+      else reject(cache[1]);
+    }
     func(req, res, (code, data) => {
+      Cache.put(req.url, [code, data], 60000);
       if(code < 300) resolve(data);
       else reject(data);
     });
@@ -45,11 +52,11 @@ module.exports = (server) => {
     res.render('admin/login');
   });
   // 文章列表
-  server.get('/admin/login', (req, res) => {
+  server.get('/admin/list', (req, res) => {
     res.render('admin/list');
   });
   // 文章编辑
-  server.get('/admin/login', (req, res) => {
+  server.get('/admin/list', (req, res) => {
     res.render('admin/edit');
   });
 
