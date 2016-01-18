@@ -3,7 +3,8 @@ require('ng-annotate-loader');
 module.exports = {
   entry: {
     test: './public/test/index.js',
-    app: './public/app.js'
+    app: './public/app/index.js',
+    admin: './public/admin/index.js'
   },
   output: {
     path: './dist',
@@ -12,9 +13,9 @@ module.exports = {
   module: {
     //加载器配置
     loaders: [
-      // {test: /\.css$/, loader: 'style-loader!css-loader'},
+      //{test: /\.css$/, loader: 'style-loader!css-loader'},
       {test: /\.js$/, exclude: /node_modules|bower_components/, loader: 'babel!ng-annotate?add=true'},
-      // {test: /\.scss$/, loader: 'style!css!sass?sourceMap'},
+      {test: /\.css$/, loader: 'style!css!sass?sourceMap'},
       // {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}
     ]
   }

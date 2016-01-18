@@ -15,15 +15,46 @@ const DataFunc = (req, res, func) => {
 };
 
 module.exports = (server) => {
+
+  /**************用户相关**************/
   // 主页
   server.get('/', (req, res) => {
-    DataFunc(req, res, Article.fetchAll)
-    .then((data) => {
-      res.render('app/index', data);
+    var articles = DataFunc(req, res, Article.fetchAll);
+    var config = DataFunc(req, res, Config.fetch);
+    Promise.all([articles, config]).then((data) => {
+      res.render('app/index', {
+        articles: data[0],
+        config: data[1]
+      });
     }, (data) => {
-      res.render('app/error', data);
+      res.render('app/error', {
+        articles: data[0],
+        config: data[1]
+      });
     });
   });
+
+  // 文章页
+  server.get('/article/:title', (req, res) => {
+    res.render('app/article');
+  });
+
+  /**************内容管理相关**************/
+  // 登录页
+  server.get('/admin/login', (req, res) => {
+    res.render('admin/login');
+  });
+  // 文章列表
+  server.get('/admin/login', (req, res) => {
+    res.render('admin/list');
+  });
+  // 文章编辑
+  server.get('/admin/login', (req, res) => {
+    res.render('admin/edit');
+  });
+
+  /**************测试相关**************/
+
   // 初始化,配置,管理员相关
   server.get('/test/admin', (req, res) => {
     res.render('test/admin');
