@@ -1,8 +1,8 @@
 const Article = require('./../schemas/article');
 const Category = require('./../schemas/category');
 const Tool = require('./../tool');
-const selectStr = '-__v -article';
-const selectUserStr = '-__v -password -article';
+const selectStr = '-__v';
+const selectUserStr = '-__v -password';
 
 const populate = (obj) => {
   return obj.populate('author', selectUserStr).populate('category', selectStr).populate('tag', selectStr).populate('comment', selectStr);

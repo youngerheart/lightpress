@@ -1,0 +1,14 @@
+div.lparticleblock
+  div.lparticleblock-info
+    a(href="article/#{article.title}") #{article.title}
+    span #{moment(article.meta.createAt).format('YYYY-MM-DD')}
+  div.lparticleblock-link
+    span category
+    a.lpicon-category(href="category/#{article.category.title}") #{article.category.title}
+    span tags
+    for tag in article.tag
+      a.lpicon-tag(href="tag/#{tag.title}") #{tag.title}
+    if article.content.length < 100
+      div.lparticleblock-content #{article.content}
+    else
+      div.lparticleblock-content #{article.content.substr(1, 100)}...

@@ -1,0 +1,6 @@
+<div class="lpcommentlist">
+  <a ng-repeat="comment in comments">
+    <span ng-bind="comment.content"></span>
+    <span ng-bind="comment.meta.createAt | date: 'MM-dd HH:mm'"></span>
+  </a>
+</div>

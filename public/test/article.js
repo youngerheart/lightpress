@@ -1,4 +1,4 @@
-const Article = /* @ngInject */ function ($scope, API, Tool) {
+const Article = /* @ngInject */ function ($scope, API) {
   $scope.edit = () => {
     var {editId, editTitle, editContent, editAuthor, editCategory, editTag} = $scope;
     if(editId) {

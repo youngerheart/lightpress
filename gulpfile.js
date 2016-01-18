@@ -8,6 +8,7 @@ var watchArr = [
   'app.js',
   './public/**/*.js',
   './public/**/*.css',
+  './public/**/*.html',
   './server/**/*.js',
   'gulpfile.js',
   'webpack.config.js'
