@@ -1,0 +1,18 @@
+require('./index.html');
+require('./index.css');
+
+var commentList = /* @ngInject */ (API) => {
+  return {
+    restrict: 'E',
+    replace: true,
+    templateUrl: '/static/public/app/components/comment-list/index.html',
+    link: ($scope, $el) => {
+      API.comment.get().then((res) => {
+        $scope.comments = res;
+        $scope.$apply();
+      });
+    }
+  };
+};
+
+module.exports = commentList;

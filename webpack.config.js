@@ -1,3 +1,4 @@
+const path = require('path');
 require('ng-annotate-loader');
 
 module.exports = {
@@ -13,10 +14,10 @@ module.exports = {
   module: {
     //加载器配置
     loaders: [
-      //{test: /\.css$/, loader: 'style-loader!css-loader'},
       {test: /\.js$/, exclude: /node_modules|bower_components/, loader: 'babel!ng-annotate?add=true'},
       {test: /\.css$/, loader: 'style!css!sass?sourceMap'},
-      // {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}
+      {test: /\.html$/, loader: 'ngtemplate?prefix=/static&relativeTo=' + path.resolve(__dirname) + '!html' },
+      {test: /\.(png|jpg)$/, loader: 'url-loader'}
     ]
   }
 };

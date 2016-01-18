@@ -1,3 +1,4 @@
+const Cache = require('memory-cache');
 const Config = require('./controller/config');
 const Admin = require('./controller/admin');
 const Article = require('./controller/article');
@@ -6,8 +7,11 @@ const Tag = require('./controller/tag');
 const Comment = require('./controller/comment');
 const APIFunc = (func) => {
   return (req, res) => {
+    const cache = Cache.get(req.url);
+    if(cache) return res.status(cache[0]).send(cache[1]);
     func(req, res, (code, data) => {
-      res.status(code).send(data);
+      Cache.put(req.url, [code, data], 60000);
+      return res.status(code).send(data);
     });
   };
 };

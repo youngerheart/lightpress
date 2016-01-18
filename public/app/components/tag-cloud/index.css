@@ -1,0 +1,13 @@
+.lptagcloud {
+  margin: 0 10px 10px 10px;
+  > a {
+    padding: 0 10px;
+    font-size: 12px;
+    display: inline-block;
+    padding: 5px 6px 3px;
+    color: #fff;
+    background-color: #333;
+    border-radius: 2px;
+    margin: 0 10px 5px 0;
+  }
+}

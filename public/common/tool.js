@@ -7,4 +7,4 @@ const tool = {
   }
 };
 
-module.exports = tool;
+module.exports = () => { return tool; };
