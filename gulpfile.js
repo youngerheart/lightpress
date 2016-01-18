@@ -7,6 +7,15 @@ var webpackConfig = require('./webpack.config.js');
 var watchArr = [
   'app.js',
   './public/**/*.js',
+  './public/**/*.css',
+  './server/**/*.js',
+  'gulpfile.js',
+  'webpack.config.js'
+];
+
+var lintArr = [
+  'app.js',
+  './public/**/*.js',
   './server/**/*.js',
   'gulpfile.js',
   'webpack.config.js'
@@ -27,7 +36,7 @@ var lazyWatch = function(glob, task) {
 
 gulp.task('lint', ['webpack'], function() {
   return gulp
-  .src(watchArr)
+  .src(lintArr)
   .pipe(eslint())
   .pipe(eslint.format());
 });

@@ -43,9 +43,9 @@ module.exports = {
   },
 
   fetch(req, res, func) {
-    Config.find({}, (err, config) => {
+    Config.findOne({}, (err, config) => {
       if(err) return func(400, '参数错误');
-      return func(200, config[0]);
+      return func(200, config);
     });
   }
 };

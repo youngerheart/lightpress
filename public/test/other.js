@@ -1,6 +1,4 @@
-const Tool = require('./../tool');
-
-const Other = /* @ngInject */ function ($scope, API) {
+const Other = /* @ngInject */ function ($scope, API, Tool) {
   $scope.categories = () => {
     API.category.get()
     .then((res) => {

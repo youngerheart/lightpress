@@ -1,6 +1,4 @@
-const Tool = require('./../tool');
-
-const Admin = /* @ngInject */ function ($scope, API) {
+const Admin = /* @ngInject */ function ($scope, API, Tool) {
   // 获取配置信息
   API.config.get()
   .then((res, refer) => {

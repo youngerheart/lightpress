@@ -1,6 +1,4 @@
-const Tool = require('./../tool');
-
-const Article = /* @ngInject */ function ($scope, API) {
+const Article = /* @ngInject */ function ($scope, API, Tool) {
   $scope.edit = () => {
     var {editId, editTitle, editContent, editAuthor, editCategory, editTag} = $scope;
     if(editId) {
