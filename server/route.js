@@ -21,6 +21,13 @@ const DataFunc = (req, res, func) => {
   });
 };
 
+const isLogin = (req, res, next) => {
+  if(!req.session.admin) {
+    return res.redirect('/admin/login');
+  }
+  next();
+};
+
 module.exports = (server) => {
 
   /**************用户相关**************/
@@ -33,11 +40,8 @@ module.exports = (server) => {
         articles: data[0],
         config: data[1]
       });
-    }, (data) => {
-      res.render('app/error', {
-        articles: data[0],
-        config: data[1]
-      });
+    }, () => {
+      res.render('app/error', '获取数据失败');
     });
   });
 
@@ -47,17 +51,34 @@ module.exports = (server) => {
   });
 
   /**************内容管理相关**************/
+  // 文章列表
+  server.get('/admin', isLogin, (req, res) => {
+    var articles = DataFunc(req, res, Article.fetchAll);
+    var config = DataFunc(req, res, Config.fetch);
+    Promise.all([articles, config]).then((data) => {
+      res.render('admin/list', {
+        articles: data[0],
+        config: data[1]
+      });
+    }, () => {
+      res.render('app/error', '获取数据失败');
+    });
+  });
   // 登录页
   server.get('/admin/login', (req, res) => {
-    res.render('admin/login');
-  });
-  // 文章列表
-  server.get('/admin/list', (req, res) => {
-    res.render('admin/list');
+    DataFunc(req, res, Config.fetch).then((config) => {
+      res.render('admin/login', {config: config});
+    }, () => {
+      res.render('app/error', '获取数据失败');
+    });
   });
   // 文章编辑
-  server.get('/admin/list', (req, res) => {
+  server.get('/admin/edit', isLogin, (req, res) => {
     res.render('admin/edit');
+  });
+  // 设置
+  server.get('/admin/setting', isLogin, (req, res) => {
+    res.render('admin/setting');
   });
 
   /**************测试相关**************/

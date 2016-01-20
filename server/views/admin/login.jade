@@ -1,11 +1,17 @@
 doctype html
 html
-  block globalVars
   head
-    title #{siteTitle}
+    title login-#{config.name}
+  body.lpadminlogin(ng-app="lp-admin")
+    form(ng-controller="login")
+      div.lpformgroup.lpadminlogin-title lightpress-内容管理
+      div.lpformgroup.errmsg(ng-if="submited && (errMsg || !name || !password)" ng-bind="errMsg || '有内容未填写'")
+      div.lpformgroup.lpflex
+        label(for="name") username:
+        input(ng-model="name" ng-class="{'error': !name && submited}" id="name")
+      div.lpformgroup.lpflex
+        label(for="password") password:
+        input(ng-model="password" ng-class="{'error': !password && submited}" type="password" id="password")
+      button(ng-click="submit()") submit
     script(src="/static/node_modules/angular/angular.min.js")
     script(src="/static/dist/admin.js")
-  body(ng-app="lp-admin")
-    include components/sidebar
-    block content
-

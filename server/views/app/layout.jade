@@ -2,6 +2,7 @@ doctype html
 html
   block globalVars
   head
+    meta(charset="utf-8")
     title #{siteTitle}
     script(src="/static/node_modules/angular/angular.min.js")
     script(src="/static/dist/app.js")
@@ -9,3 +10,4 @@ html
     include components/sidebar
     div.lpcontent
       block content
+
