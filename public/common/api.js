@@ -5,7 +5,7 @@ const url = {
   password: '/api/admin/password',
   login: '/api/login',
   logout: '/api/logout',
-  article: '/api/article/:id',
+  article: '/api/article/:id/:type/:title',
   category: '/api/category/:id',
   tag: '/api/tag/:id',
   comment: '/api/comment/:id/:article'

@@ -10,7 +10,7 @@ html, body {
   top: 0;
   bottom: 0;
   left: 0;
-  width: 140px;
+  width: 150px;
   box-shadow: 1px 0 2px 1px #666;
   background-color: #333;
   color: #fff;
@@ -19,8 +19,34 @@ html, body {
   }
 }
 
+.lpadminsidebar-title {
+  margin: 20px 0;
+  padding: 0 10px;
+  i {
+    font-size: 30px;
+    margin-right: 5px;
+  }
+}
+
+.lpadminsidebar-list {
+  a {
+    padding: 0 10px;
+    display: block;
+    line-height: 30px;
+    i {
+      margin-right: 5px;
+    }
+    &.focus {
+      background-color: #38ccff;
+    }
+    &:hover {
+      background-color: #666;
+    }
+  }
+}
+
 .lpadmincontent {
-  padding: 20px 0 0 160px;
+  padding: 20px 0 0 170px;
   background-color: #f5f5f5;
   position: absolute;
   z-index: 1;
