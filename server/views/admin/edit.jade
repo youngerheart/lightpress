@@ -1,1 +1,16 @@
 extends layout
+block globalVars
+  - var siteTitle = '文章编辑'
+block content
+  div.lpformgroup
+    label(for="title") 标题
+    input(id="title" placeholder="请输入文章标题" ng-model="title")
+  div.lpformgroup
+    editblock(ng-model="content")
+  div.lpformgroup.lpflex
+    div.lpadmin-category
+      items-editblock(ng-model="category" title="分类" method="")
+    div.lpadmin-tag
+      items-editblock(ng-model="tag" title="分类" muti="true" method="")
+  div.lpformgroup
+    button 提交

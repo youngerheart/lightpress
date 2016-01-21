@@ -1,20 +1,4 @@
-.lp {
-  padding: 0;
-  margin: 0;
-  font-size: 14px;
-  color: #333;
-  ul, ol {
-    padding: 0;
-    margin: 0;
-  }
-  li {
-    list-style: none;
-  }
-  a {
-    text-decoration: none;
-    color: #333;
-  }
-}
+@import './../common/base.css';
 
 .lpsidebar {
   position: fixed;

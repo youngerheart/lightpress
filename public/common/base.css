@@ -1,0 +1,76 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+ul, ol {
+  padding: 0;
+  margin: 0;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+input {
+  border: 1px solid #d7dee4;
+  border-radius: 2px;
+  line-height: 26px;
+  min-width: 200px;
+  padding: 0 12px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #32a7f9;
+}
+
+input.error {
+  border-color: #ff6f4e;
+}
+
+button {
+  height: 30px;
+  padding: 0 22px;
+  border: 1px solid #dadada;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  color: #575f66;
+  line-height: 30px;
+}
+
+button:hover:not(:disabled) {
+  background: #f7f9fb;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+}
+
+button:focus {
+  outline: none;
+}
+
+button:disabled {
+  opacity: .6;
+}
+
+.errmsg {
+  padding: 4px 10px;
+  background-color: #ffcec3;
+}
+
+.lpformgroup {
+  margin-bottom: 10px;
+}
+
+.lpformgroup > label {
+  margin-right: 10px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.lpflex {
+  display: flex;
+}

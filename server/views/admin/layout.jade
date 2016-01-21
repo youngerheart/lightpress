@@ -2,9 +2,14 @@ doctype html
 html
   block globalVars
   head
-    title #{siteTitle}
+    meta(charset="utf-8")
+    title 内容管理 - #{siteTitle}
+    link(rel="stylesheet" href="/static/node_modules/simplemde/dist/simplemde.min.css")
+    link(rel="stylesheet" href="/static/node_modules/font-awesome/css/font-awesome.min.css")
     script(src="/static/node_modules/angular/angular.min.js")
+    script(src="/static/node_modules/simplemde/dist/simplemde.min.js")
     script(src="/static/dist/admin.js")
   body(ng-app="lp-admin")
     include components/sidebar
-    block content
+    div.lpadmincontent
+      block content
