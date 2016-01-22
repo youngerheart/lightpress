@@ -10,6 +10,22 @@ const populate = (obj) => {
 
 module.exports = {
 
+  add(req, res) {
+    var params = req.body;
+
+    Tag.findOne({title: params.title}, (err, tag) => {
+      if(err) return res.status(400).send('参数错误');
+      if(tag) return res.status(405).send('该标签已经存在了');
+      tag = new Tag({
+        title: params.title
+      });
+      tag.save((err) => {
+        if(err) return res.status(400).send('参数错误');
+        return res.status(200).send({id: tag._id});
+      }); 
+    });
+  },
+
   fetchArticle(req, res, func) {
     const params = req.params;
     Tag.findById(params.id, (err, tag) => {
