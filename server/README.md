@@ -122,7 +122,9 @@ url:
 
 `(GET) /api/article` 获取全部文章
 
-`(GET) /api/article/id/:id` 通过id查找文章
+`(GET) /api/article/:id` 通过id查找文章
+
+`(GET) /api/article/title/:title` 通过title查找文章
 
 返回: `200 OK [{title: ...}, ...]`
 

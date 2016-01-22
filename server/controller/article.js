@@ -192,9 +192,10 @@ module.exports = {
 
   fetchById(req, res, func) {
     var params = req.params;
-    Tool.format(populate(Article.find({_id: params.id}, selectStr)), params).exec((err, articles) => {
+    Tool.format(populate(Article.findOne({_id: params.id}, selectStr)), params).exec((err, article) => {
       if(err) return func(400, '参数错误');
-      return func(200, articles);
+      if(!article) return func(404, '没有找到该文章');
+      return func(200, article);
     });
   },
 
@@ -202,6 +203,15 @@ module.exports = {
     Tool.format(populate(Article.find({}, selectStr)), req.params).exec((err, articles) => {
       if(err) return func(400, '参数错误');
       return func(200, articles);
+    });
+  },
+
+  fetchByTitle(req, res, func) {
+    var params = req.params;
+    Tool.format(populate(Article.findOne({title: params.title}, selectStr)), params).exec((err, article) => {
+      if(err) return func(400, '参数错误');
+      if(!article) return func(404, '没有找到该文章');
+      return func(200, article);
     });
   }
 };

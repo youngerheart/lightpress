@@ -10,7 +10,7 @@ const APIFunc = (func) => {
     const cache = Cache.get(req.url);
     if(cache) return res.status(cache[0]).send(cache[1]);
     func(req, res, (code, data) => {
-      Cache.put(req.url, [code, data], 60000);
+      Cache.put(req.url, [code, data], 100);
       return res.status(code).send(data);
     });
   };
@@ -49,12 +49,18 @@ module.exports = (server) => {
   server.get('/article', APIFunc(Article.fetchAll));
   // 通过id查找文章
   server.get('/article/:id', APIFunc(Article.fetchById));
+  // 通过title查找文章
+  server.get('/article/title/:title', APIFunc(Article.fetchByTitle));
 
+  // 增加类别
+  server.post('/category', Admin.isLogin, Category.add);
   // 获取某个类别的文章
   server.get('/category/:id', APIFunc(Category.fetchArticle));
   // 获取所有类别
   server.get('/category', APIFunc(Category.fetchAll));
 
+  // 增加标签
+  server.post('/tag', Admin.isLogin, Tag.add);
   // 获取某个标签的文章
   server.get('/tag/:id', APIFunc(Tag.fetchArticle));
   // 获取所有标签

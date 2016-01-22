@@ -1,0 +1,11 @@
+<div class="lpitemseditblock">
+  <form class="lpitemseditblock-title lpflex">
+    <label ng-bind="title"></label>
+    <input ng-model="newTitle" required placeholder="添加新{{title}}">
+    <button ng-click="addItem()">添加</button>
+  </form>
+  <div class="lpitemseditblock-box">
+    <a ng-repeat="item in items" ng-bind="item.title" ng-click="itemClick(item.title)" ng-class="{'focus': showFocus(item.title)}"></a>
+  </div>
+  <input ng-if="required" ng-model="isEmpty" required>
+</div>

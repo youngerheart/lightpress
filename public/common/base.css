@@ -19,7 +19,6 @@ input {
   border: 1px solid #d7dee4;
   border-radius: 2px;
   line-height: 26px;
-  min-width: 200px;
   padding: 0 12px;
 }
 
@@ -56,7 +55,7 @@ button:disabled {
   opacity: .6;
 }
 
-.errmsg {
+.lperrmsg {
   padding: 4px 10px;
   background-color: #ffcec3;
 }

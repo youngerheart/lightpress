@@ -14,7 +14,7 @@ const DataFunc = (req, res, func) => {
       else reject(cache[1]);
     }
     func(req, res, (code, data) => {
-      Cache.put(req.url, [code, data], 60000);
+      Cache.put(req.url, [code, data], 100);
       if(code < 300) resolve(data);
       else reject(data);
     });
