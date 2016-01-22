@@ -84,7 +84,7 @@ url: `(POST) /api/login`
 
 必要字段: `name, password`
 
-返回: `204 No content`
+返回: `200 OK {id: ...}`
 
 **登出**
 
@@ -100,7 +100,7 @@ url: `(POST) /api/article`
 
 必要字段: `title, content, author, category`
 
-返回: `204 No content`
+返回: `200 OK {id: ...}`
 
 **删除文章**
 
@@ -128,7 +128,15 @@ url:
 
 ## 类别操作相关
 
-*类别的增删改跟随文章*
+**增加类别**
+
+`(POST) /api/category`
+
+必要字段: `title`
+
+返回: `200 OK {id: ...}`
+
+*类别的增删改同时跟随文章*
 
 **查找类别**
 
@@ -140,7 +148,15 @@ url:
 
 ## 标签操作相关
 
-*标签的增删改跟随文章*
+**增加标签**
+
+`(POST) /api/tag`
+
+必要字段: `title`
+
+返回: `200 OK {id: ...}`
+
+*标签的增删改同时跟随文章*
 
 **查找标签**
 
@@ -158,7 +174,7 @@ url: `(POST) /api/comment`
 
 必要字段: `content, name`
 
-返回: `204 No content`
+返回: `200 OK {id: ...}`
 
 **修改评论**
 

@@ -68,7 +68,7 @@ module.exports = {
               if(err) return res.status(400).send('储存Category出错');
               article.save((err) => {
                 if(err) return res.status(400).send('储存Article出错');
-                return res.status(204).send();
+                return res.status(200).send({id: article._id});
               });
             });
           });

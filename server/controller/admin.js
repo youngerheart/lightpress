@@ -19,7 +19,7 @@ module.exports = {
       });
       admin.save((err) => {
         if(err) return res.status(400).send('参数错误');
-        res.status(204).send();
+        return res.status(200).send({id: admin._id});
       }); 
     });
   },

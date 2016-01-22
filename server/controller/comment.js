@@ -28,7 +28,7 @@ module.exports = {
         if(err) return res.status(400).send('更新文章出错');
         comment.save((err) => {
           if(err) return res.status(400).send('储存留言出错');
-          return res.status(204).send();
+          return res.status(200).send(comment._id);
         });
       });
     });
