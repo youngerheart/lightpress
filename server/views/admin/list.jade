@@ -1,3 +1,18 @@
 extends layout
 block globalVars
   - var siteTitle = '文章列表'
+block content
+  div(ng-controller="list" class="lpadmin-list")
+    ul.lpblock
+      li
+        span.lpadmin-list-id #
+        span.lpadmin-list-title 标题
+        span.lpadmin-list-date 发布/修改日期
+        span.lpadmin-list-handle 操作
+      li(ng-repeat="item in list")
+        span.lpadmin-list-id(ng-bind="$index")
+        span.lpadmin-list-title(ng-bind="item.title")
+        span.lpadmin-list-date(ng-bind="formatTime(item)")
+        span.lpadmin-list-handle
+          a(ng-href="/admin/edit#?title={{item.title}}") 修改
+          a(ng-click="del(item._id, item.title, $index)" href="JavaScript:") 删除

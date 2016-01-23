@@ -2,7 +2,7 @@ var editblock = () => {
   return {
     restrict: 'E',
     replace: true,
-    template: '<textarea ng-keyup="getValue()"></textarea>',
+    template: '<textarea ng-keyup="getValue()" required></textarea>',
     scope: {content: '=ngModel'},
     link: ($scope, $el) => {
       var simplemde = new SimpleMDE({

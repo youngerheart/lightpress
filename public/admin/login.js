@@ -1,7 +1,8 @@
-const Admin = /* @ngInject */ function ($scope, API, Tool) {
+const Admin = /* @ngInject */ ($scope, API, Tool) => {
   $scope.submit = () => {
-    $scope.submited = true;
+    $scope.errMsg = '';
     var {name, password} = $scope;
+    if(!name || !password) return;
     API.login.post({}, {name, password}).then((res) => {
       location.href = '/admin';
     }, (err) => {

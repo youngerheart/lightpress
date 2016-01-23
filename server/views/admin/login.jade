@@ -5,6 +5,7 @@ html
   body.lpadminlogin(ng-app="lp-admin")
     form(ng-controller="login")
       div.lpformgroup.lpadminlogin-title lightpress-内容管理
+      div.lperrmsg(ng-if="errMsg" ng-bind="errMsg")
       div.lpformgroup.lpflex
         label(for="name") username:
         input(ng-model="name" id="name" required)

@@ -1,4 +1,5 @@
 require('./layout.css');
+
 angular.module('lp', [])
 .config(($locationProvider) => {
   $locationProvider.html5Mode(true);
