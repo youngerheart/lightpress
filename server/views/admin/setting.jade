@@ -1,3 +1,19 @@
 extends layout
 block globalVars
   - var siteTitle = '设置'
+block content
+  div.lpadminsetting(ng-controller="setting")
+    h3 站点管理
+    form.lpblock
+      div.lperrmsg(ng-if="configErrMsg" ng-bind="configErrMsg")
+      div.lpformgroup.lpflex
+        label(for="name") sitename:
+        input(ng-model="config.name" id="name" required)
+      div.lpformgroup.lpflex
+        label(for="desc")  description:
+        input(ng-model="config.description" id="desc" required)
+      button(ng-click="configSubmit()") submit
+    h3 管理员设置
+    form.lpblock
+      div.lperrmsg(ng-if="adminErrMsg" ng-bind="adminErrMsg")
+

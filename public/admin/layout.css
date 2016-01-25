@@ -119,3 +119,16 @@ html, body {
     }
   }
 }
+
+.lpadminsetting {
+  .lpformgroup {
+    width: 400px;
+    label {
+      flex: 1;
+      line-height: 28px;
+    }
+    input {
+      flex: 3;
+    }
+  }
+}

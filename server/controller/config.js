@@ -35,10 +35,11 @@ module.exports = {
   },
 
   change(req, res) {
-    var params = Tool.checkField(req.body, ['name', 'desc']);
+    var params = Tool.checkField(req.body, ['name', 'description']);
     Config.update({}, params, (err, updated) => {
       if(err) return res.status(404).send('没有找到该配置');
       if(!updated.nModified) return res.status(405).send('字段没有修改');
+      return res.status(204).send();
     });
   },
 
