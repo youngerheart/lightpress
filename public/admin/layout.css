@@ -55,6 +55,9 @@ html, body {
   bottom: 0;
   left: 0;
   overflow: auto;
+  .lpblock {
+    min-width: 400px;
+  }
 }
 
 .lpadminlogin {
@@ -124,11 +127,13 @@ html, body {
   .lpformgroup {
     width: 400px;
     label {
-      flex: 1;
-      line-height: 28px;
+      flex: 2;
     }
-    input {
+    input, span {
       flex: 3;
+    }
+    label, span {
+      line-height: 28px;
     }
   }
 }

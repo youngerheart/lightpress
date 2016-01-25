@@ -36,6 +36,8 @@ module.exports = (server) => {
   server.get('/admin', Admin.isRoot, APIFunc(Admin.fetchAll));
   // 登录
   server.post('/login', Admin.login);
+  // 显示登录者信息
+  server.get('/login', Admin.isLogin, APIFunc(Admin.fetchLogin));
   // 登出
   server.get('/logout', Admin.isLogin, APIFunc(Admin.logout));
 

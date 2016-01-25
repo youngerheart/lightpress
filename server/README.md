@@ -84,7 +84,13 @@ url: `(POST) /api/login`
 
 必要字段: `name, password`
 
-返回: `200 OK {id: ...}`
+返回: `204 No content`
+
+**获取登录者信息**
+
+url: `(GET) /api/login`
+
+返回: `200 OK {name: ...}`
 
 **登出**
 
