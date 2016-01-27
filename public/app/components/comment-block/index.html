@@ -8,8 +8,12 @@
       <div ng-bind="comment.content"></div>
     </li>
   </ul>
-  <form>
-    <textarea required></textarea>
+  <form name="commentform">
+    <div class="lpcommentblock-input">
+      <span>your name:</span>
+      <input ng-model="form.name">
+    </div>
+    <textarea ng-keydown="keySend()" ng-model="form.content" required></textarea>
     <span>press ctrl + enter to submit</span>
   </form>
 </div>
