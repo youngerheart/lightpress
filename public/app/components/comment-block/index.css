@@ -10,6 +10,13 @@
     > div {
       margin-bottom: 5px;
     }
+    a {
+      font-size: 14px;
+      cursor: pointer;
+      &:hover {
+        color: #38ccff;
+      }
+    }
   }
   form {
     display: flex;

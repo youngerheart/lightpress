@@ -6,7 +6,7 @@ var tagCloud = /* @ngInject */ (API) => {
     restrict: 'E',
     replace: true,
     templateUrl: '/static/public/app/components/tag-cloud/index.html',
-    scope: {type: '@'},
+    scope: {type: '@', title: '@'},
     link: ($scope, $el) => {
       API[$scope.type].get().then((res) => {
         $scope.tags = res;

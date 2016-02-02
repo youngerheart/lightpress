@@ -7,6 +7,7 @@ var commentList = /* @ngInject */ (API) => {
     replace: true,
     templateUrl: '/static/public/app/components/comment-list/index.html',
     link: ($scope, $el) => {
+      // 调用该文章评论
       API.comment.get().then((res) => {
         $scope.comments = res;
         $scope.$apply();

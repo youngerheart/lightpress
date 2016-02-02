@@ -2,8 +2,9 @@
   <ul>
     <li ng-repeat="comment in comments">
       <div>
-        <span class="lpcommentblock-ip" ng-bind="comment.ip"></span>
+        <span class="lpcommentblock-ip" ng-bind="comment.name || comment.ip"></span>
         <span class="lpcommentblock-time" ng-bind="comment.meta.createAt | date: 'MM-dd HH:ss'"></span>
+        <a ng-if="isAdmin" ng-click="commentDel(comment._id, $index)">delete</a>
       </div>
       <div ng-bind="comment.content"></div>
     </li>
