@@ -71,11 +71,15 @@ module.exports = {
 
   fetchByArticle(req, res, func) {
     const params = req.params;
-    Tool.format(Comment.find({article: params.article}, selectStr), params)
-    .exec((err, comments) => {
+    Article.findOne({title: params.article}, (err, article) => {
       if(err) return func(400, '参数错误');
-      if(!comments) return func(404, '没有找到任何评论');
-      return func(200, comments);
+      if(!article) return func(404, '没有找到该文章');
+      Tool.format(Comment.find({article: article._id}, selectStr), params)
+      .exec((err, comments) => {
+        if(err) return func(400, '参数错误');
+        if(!comments) return func(404, '没有找到任何评论');
+        return func(200, comments);
+      });
     });
   },
 

@@ -9,11 +9,12 @@ a {
   text-decoration: none;
   color: #333;
 }
-input {
+input, textarea {
   border: 1px solid #d7dee4;
   border-radius: 2px;
   line-height: 26px;
   padding: 0 12px;
+  resize: none;
 }
 
 textarea:focus, input:focus {
@@ -54,6 +55,10 @@ button:disabled {
   background-color: #fff;
   border: 1px solid #d7dee4;
   border-radius: 2px;
+}
+
+.lpblock-margin {
+  margin-top: 10px;
 }
 
 .lperrmsg {

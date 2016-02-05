@@ -28,11 +28,13 @@ module.exports = {
 
   fetchArticle(req, res, func) {
     const params = req.params;
-    Tool.format(populate(Article.find({category: params.id}, selectStr)), params)
-    .exec((err, articles) => {
+    Category.findOne({title: params.category}, (err, category) => {
       if(err) return func(400, '参数错误');
-      if(!articles) return func(404, '没有找到任何文章');
-      return func(200, articles);
+      if(!category) return func(404, '没有找到该分类');
+      Tool.format(populate(Article.find({_id: {$in: category.article}})), params).exec((err, articles) => {
+        if(err) return func(400, '参数错误');
+        return func(200, articles);
+      });
     });
   },
 

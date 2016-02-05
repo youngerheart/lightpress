@@ -1,0 +1,9 @@
+extends layout
+block globalVars
+  - var siteTitle = config.name
+  - var siteDescription = config.description
+block content
+  div.lpblock
+    h2 #{article.title}
+    div #{article.content}
+  comment-block(article="#{article.title}")

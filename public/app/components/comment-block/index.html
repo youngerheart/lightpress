@@ -1,0 +1,15 @@
+<div class="lpblock lpblock-margin lpcommentblock">
+  <ul>
+    <li ng-repeat="comment in comments">
+      <div>
+        <span class="lpcommentblock-ip" ng-bind="comment.ip"></span>
+        <span class="lpcommentblock-time" ng-bind="comment.meta.createAt | date: 'MM-dd HH:ss'"></span>
+      </div>
+      <div ng-bind="comment.content"></div>
+    </li>
+  </ul>
+  <form>
+    <textarea required></textarea>
+    <span>press ctrl + enter to submit</span>
+  </form>
+</div>
