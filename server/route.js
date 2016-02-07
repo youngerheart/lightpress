@@ -32,7 +32,7 @@ const getArticleInfo = (req, res, articles) => {
   var config = DataFunc(req, res, Config.fetch);
   Promise.all([articles, config]).then((data) => {
     var temp, params;
-    if(data[0].length) {
+    if(Array.isArray(data[0])) {
       temp = 'app/index';
       params = {
         articles: data[0],
