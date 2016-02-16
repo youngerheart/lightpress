@@ -4,6 +4,9 @@ const tool = {
       if(!param[key]) delete param[key];
     }
     return param;
+  },
+  format(str) {
+    return moment(str).format('YY-MM-DD HH:mm');
   }
 };
 

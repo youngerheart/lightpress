@@ -1,9 +1,5 @@
 .lpitemseditblock {
   width: 300px;
-  padding: 10px;
-  background-color: #fff;
-  border: 1px solid #d7dee4;
-  border-radius: 2px;
   margin-right: 10px;
   > input {
     height: 0;

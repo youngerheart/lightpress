@@ -68,6 +68,11 @@ module.exports = {
     });
   },
 
+  // 登录者信息
+  fetchLogin(req, res, func) {
+    return func(200, req.session.admin);
+  },
+
   // 检查登录状态
   isLogin(req, res, next) {
     if(!req.session.admin) {
@@ -98,13 +103,14 @@ module.exports = {
         if(err) return res.status(400).send('参数错误');
         if(!isMatch) return res.status(400).send('用户名或密码错误');
         // 设置cookie
-        req.session.admin = admin;
-        res.cookie('admin', JSON.stringify({
+        var adminInfo = {
           _id: admin._id,
           name: admin.name,
           email: admin.email,
           authority: admin.authority
-        })).status(204).send();
+        };
+        req.session.admin = adminInfo;
+        res.cookie('admin', JSON.stringify(adminInfo)).status(204).send();
       });
     });
   },

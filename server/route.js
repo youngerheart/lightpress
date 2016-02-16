@@ -28,26 +28,54 @@ const isLogin = (req, res, next) => {
   next();
 };
 
+const getArticleInfo = (req, res, articles) => {
+  var config = DataFunc(req, res, Config.fetch);
+  Promise.all([articles, config]).then((data) => {
+    var temp, params;
+    if(Array.isArray(data[0])) {
+      temp = 'app/index';
+      params = {
+        articles: data[0],
+        config: data[1]
+      };
+    } else {
+      temp = 'app/article';
+      params = {
+        article: data[0],
+        config: data[1]
+      };
+    }
+    res.render(temp, params);
+  }, () => {
+    res.render('app/error', '获取数据失败');
+  });
+};
+
 module.exports = (server) => {
 
   /**************用户相关**************/
   // 主页
   server.get('/', (req, res) => {
     var articles = DataFunc(req, res, Article.fetchAll);
-    var config = DataFunc(req, res, Config.fetch);
-    Promise.all([articles, config]).then((data) => {
-      res.render('app/index', {
-        articles: data[0],
-        config: data[1]
-      });
-    }, () => {
-      res.render('app/error', '获取数据失败');
-    });
+    getArticleInfo(req, res, articles);
   });
 
   // 文章页
   server.get('/article/:title', (req, res) => {
-    res.render('app/article');
+    var article = DataFunc(req, res, Article.fetchByTitle);
+    getArticleInfo(req, res, article);
+  });
+
+  // 类别文章页
+  server.get('/category/:category', (req, res) => {
+    var articles = DataFunc(req, res, Category.fetchArticle);
+    getArticleInfo(req, res, articles);
+  });
+
+  // 标签文章页
+  server.get('/tag/:tag', (req, res) => {
+    var articles = DataFunc(req, res, Tag.fetchArticle);
+    getArticleInfo(req, res, articles);
   });
 
   /**************内容管理相关**************/

@@ -1,4 +1,4 @@
-const Edit = /* @ngInject */ function ($scope, $location, API, Tool) {
+const Edit = /* @ngInject */ ($scope, $location, API, Tool) => {
   var title = $location.search().title;
   var id = null;
   if(title) {
@@ -18,7 +18,9 @@ const Edit = /* @ngInject */ function ($scope, $location, API, Tool) {
   $scope.categoryMethod = API.category;
   $scope.tagMethod = API.tag;
   $scope.submit = () => {
+    $scope.errMsg = '';
     var {title, content, category, tag} = $scope;
+    if(!title || !content || !category) return;
     if(id) {
       API.article.put({id}, {
         title,
@@ -26,8 +28,10 @@ const Edit = /* @ngInject */ function ($scope, $location, API, Tool) {
         category,
         tag
       }).then(() => {
-        $location.search('title', title);
-        location.search = '?title=' + title;
+        $scope.errMsg = '文章发布成功';
+        $scope.$apply();
+      }, (err) => {
+        $scope.errMsg = err;
       });
     } else {
       API.article.post({}, {
@@ -37,7 +41,10 @@ const Edit = /* @ngInject */ function ($scope, $location, API, Tool) {
         tag
       }).then((res) => {
         id = res._id;
-        location.search = '?title=' + title;
+        $scope.errMsg = '文章发布成功';
+        $scope.$apply();
+      }, (err) => {
+        $scope.errMsg = err;
       });
     }
   };

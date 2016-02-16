@@ -55,6 +55,9 @@ html, body {
   bottom: 0;
   left: 0;
   overflow: auto;
+  .lpblock {
+    min-width: 400px;
+  }
 }
 
 .lpadminlogin {
@@ -82,4 +85,55 @@ html, body {
 
 .lpadminlogin-title {
   font-size: 20px;
+}
+
+.lpadmin-edit textarea {
+  display: block!important;
+  position: absolute;
+  border: 0;
+  z-index: -1;
+  width: 0;
+  height: 0;
+  bottom: 30px;
+  left: 20px;
+  padding: 1px;
+  resize: none;
+}
+
+.lpadmin-list {
+  li {
+    display: flex;
+    line-height: 30px;
+    padding: 0 10px;
+    &:nth-child(odd) {
+      background-color: #f5f5f5;
+    }
+    &:first-child {
+      font-weight: bold;
+    }
+  }
+  .lpadmin-list-id { flex: 1; }
+  .lpadmin-list-title { flex: 5; }
+  .lpadmin-list-date { flex: 4; }
+  .lpadmin-list-handle {
+    flex: 4;
+    a {
+      margin-right: 10px;
+    }
+  }
+}
+
+.lpadminsetting {
+  .lpformgroup {
+    width: 400px;
+    label {
+      flex: 2;
+    }
+    input, span {
+      flex: 3;
+    }
+    label, span {
+      line-height: 28px;
+    }
+  }
 }

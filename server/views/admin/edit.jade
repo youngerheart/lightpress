@@ -1,8 +1,8 @@
 extends layout
 block globalVars
-  - var siteTitle = '文章编辑'
+  - var siteTitle = '写文章'
 block content
-  form(ng-controller="edit")
+  form(ng-controller="edit" name="edit" class="lpadmin-edit")
     div.lpformgroup
       label(for="title") 标题
       input(id="title" placeholder="请输入文章标题" ng-model="title" required)
@@ -14,5 +14,5 @@ block content
       div.lpadmin-tag
         items-editblock(ng-model="tag" title="标签" method="tagMethod" muti)
     div.lpformgroup
-      <div class="lperrmsg" ng-if="errMsg && formSubmited" ng-bind="errMsg"></div>
+      <div class="lperrmsg" ng-if="errMsg" ng-bind="errMsg"></div>
       button(ng-click="submit()") 提交

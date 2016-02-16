@@ -1,3 +1,41 @@
 extends layout
 block globalVars
   - var siteTitle = '设置'
+block content
+  div.lpadminsetting(ng-controller="setting")
+    h3 站点管理
+    form.lpblock
+      div.lperrmsg(ng-if="configErrMsg" ng-bind="configErrMsg")
+      div.lpformgroup.lpflex
+        label(for="name") sitename:
+        input(ng-model="config.name" id="name" required)
+      div.lpformgroup.lpflex
+        label(for="desc")  description:
+        input(ng-model="config.description" id="desc" required)
+      button(ng-click="configSubmit()") submit
+    h3 管理员信息
+    form.lpblock
+      div.lperrmsg(ng-if="adminErrMsg" ng-bind="adminErrMsg")
+      div.lpformgroup.lpflex
+        label(for="adminname") adminname:
+        input(ng-model="admin.name" id="adminname" required)
+      div.lpformgroup.lpflex
+        label(for="adminemail") adminemail:
+        input(ng-model="admin.email" id="adminemail" required)
+      div.lpformgroup.lpflex
+        label(for="authority") authority:
+        span(ng-if="admin.authority === 3") master
+        select(ng-model="admin.authority" ng-if="admin.authority < 3" id="authority" required)
+          option(value="2") author
+          option(value="1") user
+      button(ng-click="adminSubmit()") submit
+    h3 管理员密码
+    form.lpblock
+      div.lperrmsg(ng-if="passwordErrMsg" ng-bind="adminErrMsg")
+      div.lpformgroup.lpflex
+        label(for="adminname") adminpassword:
+        input(ng-model="password" required)
+      div.lpformgroup.lpflex
+        label(for="adminname") repeatpassword:
+        input(ng-model="repeatpw" required)
+      button(ng-click="passwordSubmit()") submit

@@ -28,7 +28,7 @@ module.exports = {
 
   fetchArticle(req, res, func) {
     const params = req.params;
-    Tag.findById(params.id, (err, tag) => {
+    Tag.findOne({title: params.tag}, (err, tag) => {
       if(err) return func(400, '参数错误');
       if(!tag) return func(404, '没有找到该分类');
       Tool.format(populate(Article.find({_id: {$in: tag.article}})), params).exec((err, articles) => {

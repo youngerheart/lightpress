@@ -1,3 +1,4 @@
 <div class="lptagcloud">
-  <a ng-repeat="tag in tags" ng-bind="tag.title + '(' + tag.article.length + ')'"></a>
+  <div ng-bind="title"></div>
+  <a ng-repeat="tag in tags" ng-bind="tag.title + '(' + tag.article.length + ')'" ng-href="/{{type}}/{{tag.title}}"></a>
 </div>

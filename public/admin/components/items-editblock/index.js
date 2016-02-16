@@ -20,10 +20,8 @@ var itemsEditblock = () => {
         if(muti) {
           if($scope.value.indexOf(title) === -1) $scope.value.push(title);
           else $scope.value.splice($scope.value.indexOf(title), 1);
-          $scope.isEmpty = $scope.value.length;
         } else {
           $scope.value = title;
-          $scope.isEmpty = !$scope.value;
         }
       };
       $scope.addItem = () => {
@@ -40,6 +38,11 @@ var itemsEditblock = () => {
         if(muti) return $scope.value.indexOf(title) !== -1;
         return $scope.value === title;
       };
+      $scope.$watch('value', (newVal) => {
+        if(!newVal) return;
+        if(muti) $scope.isEmpty = newVal.length;
+        else $scope.isEmpty = newVal;
+      });
     }
   };
 };
