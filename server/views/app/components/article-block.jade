@@ -8,7 +8,5 @@ div.lparticleblock
     span tags
     for tag in article.tag
       a.lpicon-tag(href="/tag/#{tag.title}") #{tag.title}
-    if article.content.length < 100
-      div.lparticleblock-content #{article.content}
-    else
-      div.lparticleblock-content #{article.content.substr(1, 100)}...
+    div.lparticleblock-content
+      != md(article.content.substr(0, 100))

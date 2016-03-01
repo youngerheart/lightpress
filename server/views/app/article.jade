@@ -5,5 +5,6 @@ block globalVars
 block content
   div.lpblock
     h2 #{article.title}
-    div #{article.content}
+    div
+      != md(article.content)
   comment-block(article="#{article.title}" id="#{article._id}" author="#{article.author.name}")
