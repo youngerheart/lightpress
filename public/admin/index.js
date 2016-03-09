@@ -12,4 +12,5 @@ angular.module('lp-admin', [])
 .controller('list', require('./list'))
 .controller('edit', require('./edit'))
 .controller('setting', require('./setting'))
+.controller('init', require('./init'))
 .run();

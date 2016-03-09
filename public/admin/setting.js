@@ -1,4 +1,4 @@
-const Setting = /* @ngInject */ ($scope, API, Tool) => {
+const Setting = /* @ngInject */ ($scope, $location, API, Tool) => {
   // 获取站点信息
   API.config.get().then((res) => {
     $scope.config = res;

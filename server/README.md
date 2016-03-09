@@ -28,7 +28,7 @@
 
 url: `(POST) /api/init`
 
-必要字段: `name, desc, rootName, rootPassword, rootEmail`
+必要字段: `name, description, rootName, rootPassword, rootEmail`
 
 返回: `204 No content`
 

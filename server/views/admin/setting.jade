@@ -8,20 +8,20 @@ block content
       div.lperrmsg(ng-if="configErrMsg" ng-bind="configErrMsg")
       div.lpformgroup.lpflex
         label(for="name") sitename:
-        input(ng-model="config.name" id="name" required)
+        input#name(ng-model="config.name" required)
       div.lpformgroup.lpflex
         label(for="desc")  description:
-        input(ng-model="config.description" id="desc" required)
+        input#desc(ng-model="config.description" required)
       button(ng-click="configSubmit()") submit
     h3 管理员信息
     form.lpblock
       div.lperrmsg(ng-if="adminErrMsg" ng-bind="adminErrMsg")
       div.lpformgroup.lpflex
         label(for="adminname") adminname:
-        input(ng-model="admin.name" id="adminname" required)
+        input#adminname(ng-model="admin.name" required)
       div.lpformgroup.lpflex
         label(for="adminemail") adminemail:
-        input(ng-model="admin.email" id="adminemail" required)
+        input#adminemail(ng-model="admin.email" required)
       div.lpformgroup.lpflex
         label(for="authority") authority:
         span(ng-if="admin.authority === 3") master
@@ -33,9 +33,9 @@ block content
     form.lpblock
       div.lperrmsg(ng-if="passwordErrMsg" ng-bind="adminErrMsg")
       div.lpformgroup.lpflex
-        label(for="adminname") adminpassword:
-        input(ng-model="password" required)
+        label(for="adminpassword") adminpassword:
+        input#adminpassword(type="password" ng-model="password" required)
       div.lpformgroup.lpflex
-        label(for="adminname") repeatpassword:
-        input(ng-model="repeatpw" required)
+        label(for="repeatpassword") repeatpassword:
+        input#repeatpassword(type="password" ng-model="repeatpw" required)
       button(ng-click="passwordSubmit()") submit
