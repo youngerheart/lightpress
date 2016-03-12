@@ -37,7 +37,6 @@ module.exports = {
       content: params.content,
       author: admin._id
     });
-
     // 查找category执行+1，要是没有则新增
     Category.findOne({title: params.category}, (err, category) => {
       if(err) return res.status(400).send('访问Category出错');
@@ -48,8 +47,18 @@ module.exports = {
       }
       category.article.push(objId(article._id));
       article.category = category._id;
+      const saveArticle = () => {
+        category.save((err) => {
+          if(err) return res.status(400).send('储存Category出错');
+          article.save((err) => {
+            if(err) return res.status(400).send('储存Article出错');
+            return res.status(200).send({id: article._id});
+          });
+        });
+      };
       // 查找tag执行+1，要是没有则新增
       var tagArr = params.tag;
+      if(!tagArr || !tagArr.length) saveArticle();
       tagArr.forEach((item, index) => {
         Tag.findOne({title: item}, (err, tag) => {
           if(err) return res.status(400).send('访问Tag出错');
@@ -64,13 +73,7 @@ module.exports = {
             if(err) return res.status(400).send('储存Tag出错');
             if(index < tagArr.length - 1) return;
             // 此时没有问题，则储存所有数据
-            category.save((err) => {
-              if(err) return res.status(400).send('储存Category出错');
-              article.save((err) => {
-                if(err) return res.status(400).send('储存Article出错');
-                return res.status(200).send({id: article._id});
-              });
-            });
+            saveArticle();
           });
         });
       });
@@ -85,19 +88,24 @@ module.exports = {
         Category.findById(article.category, (err, category) => {
           if(err || !category) return res.status(400).send('查找category失败');
           category.article.splice(category.article.indexOf(category._id), 1);
+          var removeArticle = () => {
+            category.save((err) => {
+              if(err) return res.status(400).send('更新Category出错');
+              article.remove((err) => {
+                if(err) return res.status(400).send('删除Article出错');
+                return res.status(204).send();
+              });
+            });
+          };
+          // 没有tag的情况
+          if(!article.tag.length) remove();
           article.tag.forEach((tagId, index) => {
             Tag.findById(tagId, (err, tag) => {
               tag.article.splice(tag.article.indexOf(article._id), 1);
               tag.save((err) => {
                 if(err) return res.status(400).send('更新Tag出错');
                 if(index < article.tag.length - 1) return;
-                category.save((err) => {
-                  if(err) return res.status(400).send('更新Category出错');
-                  article.remove((err) => {
-                    if(err) return res.status(400).send('删除Article出错');
-                    return res.status(204).send();
-                  });
-                });
+                removeArticle();
               });
             });
           });
@@ -144,7 +152,7 @@ module.exports = {
 
       // tag 相关操作
       var tagPro = new Promise((resolve, reject) => {
-        if(params.tag) {
+        if(params.tag && params.tag.length) {
           // 先全部删除，再全部加上吧= =
           var tagArr = [];
           article.tag.forEach((tagId, index) => {

@@ -39,7 +39,8 @@ module.exports = {
   },
 
   fetchAll(req, res, func) {
-    Tool.format(Tag.find({article: {$not: {$size: 0}}}, selectStr), req.params)
+    var zero = req.query.zero;
+    Tool.format(Tag.find(zero ? {} : {article: {$not: {$size: 0}}}, selectStr), req.params)
     .exec((err, tags) => {
       if(err) return func(400, '参数错误');
       return func(200, tags);

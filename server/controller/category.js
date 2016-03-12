@@ -39,7 +39,8 @@ module.exports = {
   },
 
   fetchAll(req, res, func) {
-    Tool.format(Category.find({article: {$not: {$size: 0}}}, selectStr), req.params)
+    var zero = req.query.zero;
+    Tool.format(Category.find(zero ? {} : {article: {$not: {$size: 0}}}, selectStr), req.params)
     .exec((err, categories) => {
       if(err) return func(400, '参数错误');
       if(!categories) return func(404, '没有找到任何分类');

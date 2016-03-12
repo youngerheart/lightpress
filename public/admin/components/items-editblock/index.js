@@ -11,7 +11,7 @@ var itemsEditblock = () => {
       if(!$scope.method) return;
       var muti = typeof $attrs.muti !== 'undefined';
       $scope.required = typeof $attrs.required !== 'undefined';
-      $scope.method.get().then((res) => {
+      $scope.method.get({zero: true}).then((res) => {
         $scope.items = res;
         $scope.$apply();
       });

@@ -1,11 +1,18 @@
 const Promise = require('promise');
 const Cache = require('memory-cache');
-const Config = require('./controller/config');
+const Config = require('./schemas/config');
 const Admin = require('./controller/admin');
 const Article = require('./controller/article');
 const Category = require('./controller/category');
 const Tag = require('./controller/tag');
 const Comment = require('./controller/comment');
+const staticInfo = require('./../static');
+var config = null;
+
+Config.findOne({}, (err, conf) => {
+  if(err) return;
+  config = conf;
+});
 
 const DataFunc = (req, res, func) => {
   return new Promise((resolve, reject) => {
@@ -30,23 +37,15 @@ const isLogin = (req, res, next) => {
 };
 
 const getArticleInfo = (req, res, articles) => {
-  var config = DataFunc(req, res, Config.fetch);
-  Promise.all([articles, config]).then((data) => {
-    if(!data[1]) res.redirect('/admin/init');
+  articles.then((data) => {
+    if(config) res.redirect('/admin/init');
     var temp, params;
-    if(Array.isArray(data[0])) {
-      temp = 'app/index';
-      params = {
-        articles: data[0],
-        config: data[1]
-      };
-    } else {
-      temp = 'app/article';
-      params = {
-        article: data[0],
-        config: data[1]
-      };
-    }
+    params = {
+      article: data,
+      config: config,
+      static: staticInfo[config.lang]
+    };
+    temp = Array.isArray(data[0]) ? 'app/index' : 'app/article';
     res.render(temp, params);
   }, () => {
     res.render('app/error', '获取数据失败');
@@ -83,12 +82,11 @@ module.exports = (server) => {
   /**************内容管理相关**************/
   // 文章列表
   server.get('/admin', isLogin, (req, res) => {
-    var articles = DataFunc(req, res, Article.fetchAll);
-    var config = DataFunc(req, res, Config.fetch);
-    Promise.all([articles, config]).then((data) => {
+    DataFunc(req, res, Article.fetchAll).then((data) => {
       res.render('admin/list', {
-        articles: data[0],
-        config: data[1]
+        articles: data,
+        config: config,
+        static: staticInfo[config.lang]
       });
     }, () => {
       res.render('app/error', '获取数据失败');
@@ -96,27 +94,24 @@ module.exports = (server) => {
   });
   // 登录页
   server.get('/admin/login', (req, res) => {
-    DataFunc(req, res, Config.fetch).then((config) => {
-      if(!config) res.redirect('/admin/init');
-      res.render('admin/login', {config: config});
-    }, () => {
-      res.render('app/error', '获取数据失败');
+    if(!config) res.redirect('/admin/init');
+    res.render('admin/login', {
+      config: config,
+      static: staticInfo[config.lang]
     });
   });
   // 文章编辑
   server.get('/admin/edit', isLogin, (req, res) => {
-    res.render('admin/edit');
+    res.render('admin/edit', {static: staticInfo[config.lang]});
   });
   // 设置
   server.get('/admin/setting', isLogin, (req, res) => {
-    res.render('admin/setting');
+    res.render('admin/setting', {static: staticInfo[config.lang]});
   });
 
   server.get('/admin/init', (req, res) => {
-    DataFunc(req, res, Config.fetch).then((config) => {
-      if(config) return res.redirect('/admin');
-      res.render('admin/init');
-    });
+    if(config) return res.redirect('/admin');
+    res.render('admin/init', {static: staticInfo[config.lang]});
   });
 
   /**************测试相关**************/
