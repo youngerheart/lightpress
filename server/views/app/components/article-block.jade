@@ -8,5 +8,5 @@ div.lparticleblock
     span tags
     for tag in article.tag
       a.lpicon-tag(href="/tag/#{tag.title}") #{tag.title}
-    div.lparticleblock-content
+    div.lparticleblock-content.markdown
       != md(article.content.substr(0, 100))
