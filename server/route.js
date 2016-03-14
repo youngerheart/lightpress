@@ -6,6 +6,7 @@ const Article = require('./controller/article');
 const Category = require('./controller/category');
 const Tag = require('./controller/tag');
 const Comment = require('./controller/comment');
+
 const DataFunc = (req, res, func) => {
   return new Promise((resolve, reject) => {
     const cache = Cache.get(req.url);
@@ -31,6 +32,7 @@ const isLogin = (req, res, next) => {
 const getArticleInfo = (req, res, articles) => {
   var config = DataFunc(req, res, Config.fetch);
   Promise.all([articles, config]).then((data) => {
+    if(!data[1]) res.redirect('/admin/init');
     var temp, params;
     if(Array.isArray(data[0])) {
       temp = 'app/index';
@@ -95,6 +97,7 @@ module.exports = (server) => {
   // 登录页
   server.get('/admin/login', (req, res) => {
     DataFunc(req, res, Config.fetch).then((config) => {
+      if(!config) res.redirect('/admin/init');
       res.render('admin/login', {config: config});
     }, () => {
       res.render('app/error', '获取数据失败');
@@ -107,6 +110,13 @@ module.exports = (server) => {
   // 设置
   server.get('/admin/setting', isLogin, (req, res) => {
     res.render('admin/setting');
+  });
+
+  server.get('/admin/init', (req, res) => {
+    DataFunc(req, res, Config.fetch).then((config) => {
+      if(config) return res.redirect('/admin');
+      res.render('admin/init');
+    });
   });
 
   /**************测试相关**************/
