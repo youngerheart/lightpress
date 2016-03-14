@@ -17,6 +17,7 @@ module.exports = {
     var config = new Config({
       name: params.name,
       description: params.description,
+      lang: params.lang
     });
     var root = new Admin({
       authority: 3,

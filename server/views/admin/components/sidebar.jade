@@ -3,12 +3,12 @@ header.lpadminsidebar
     i.fa.fa-mixcloud
     | lightpress
   div.lpadminsidebar-list
-    a(href="/admin" class= siteTitle === '文章列表' ? 'focus' : '')
+    a(href="/admin" class= siteTitle === static.articles ? 'focus' : '')
       i.fa.fa-list
-      | 文章列表
-    a(href="/admin/edit" class= siteTitle === '写文章' ? 'focus' : '')
+      | #{static.articles}
+    a(href="/admin/edit" class= siteTitle === static.edit ? 'focus' : '')
       i.fa.fa-pencil-square-o
-      | 写文章
-    a(href="/admin/setting" class= siteTitle === '设置' ? 'focus' : '')
+      | #{static.edit}
+    a(href="/admin/setting" class= siteTitle === static.setting ? 'focus' : '')
       i.fa.fa-tachometer
-      | 设置
+      | #{static.setting}

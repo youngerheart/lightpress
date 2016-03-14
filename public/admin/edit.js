@@ -30,6 +30,7 @@ const Edit = /* @ngInject */ ($scope, $location, API, Tool) => {
       }).then(() => {
         $scope.errMsg = '文章发布成功';
         $scope.$apply();
+        location.hash = `?title=${title}`;
       }, (err) => {
         $scope.errMsg = err;
       });

@@ -3,39 +3,39 @@ block globalVars
   - var siteTitle = '设置'
 block content
   div.lpadminsetting(ng-controller="setting")
-    h3 站点管理
+    h3 #{static.config}
     form.lpblock
       div.lperrmsg(ng-if="configErrMsg" ng-bind="configErrMsg")
       div.lpformgroup.lpflex
-        label(for="name") sitename:
+        label(for="name") #{static.sitename}:
         input#name(ng-model="config.name" required)
       div.lpformgroup.lpflex
-        label(for="desc")  description:
+        label(for="desc")  #{static.description}:
         input#desc(ng-model="config.description" required)
-      button(ng-click="configSubmit()") submit
-    h3 管理员信息
+      button(ng-click="configSubmit()") #{static.submit}
+    h3 #{static.adminInfo}
     form.lpblock
       div.lperrmsg(ng-if="adminErrMsg" ng-bind="adminErrMsg")
       div.lpformgroup.lpflex
-        label(for="adminname") adminname:
+        label(for="adminname") #{static.adminname}:
         input#adminname(ng-model="admin.name" required)
       div.lpformgroup.lpflex
-        label(for="adminemail") adminemail:
+        label(for="adminemail") #{static.adminemail}:
         input#adminemail(ng-model="admin.email" required)
       div.lpformgroup.lpflex
-        label(for="authority") authority:
+        label(for="authority") #{static.authority}:
         span(ng-if="admin.authority === 3") master
         select(ng-model="admin.authority" ng-if="admin.authority < 3" id="authority" required)
           option(value="2") author
           option(value="1") user
-      button(ng-click="adminSubmit()") submit
-    h3 管理员密码
+      button(ng-click="adminSubmit()") #{static.submit}
+    h3 #{static.adminpw}
     form.lpblock
       div.lperrmsg(ng-if="passwordErrMsg" ng-bind="adminErrMsg")
       div.lpformgroup.lpflex
-        label(for="adminpassword") adminpassword:
+        label(for="adminpassword") #{static.adminpassword}:
         input#adminpassword(type="password" ng-model="password" required)
       div.lpformgroup.lpflex
-        label(for="repeatpassword") repeatpassword:
+        label(for="repeatpassword") #{static.repeatpassword}:
         input#repeatpassword(type="password" ng-model="repeatpw" required)
-      button(ng-click="passwordSubmit()") submit
+      button(ng-click="passwordSubmit()") #{static.submit}
