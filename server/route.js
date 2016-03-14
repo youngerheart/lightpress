@@ -38,14 +38,14 @@ const isLogin = (req, res, next) => {
 
 const getArticleInfo = (req, res, articles) => {
   articles.then((data) => {
-    if(config) res.redirect('/admin/init');
+    if(!config) res.redirect('/admin/init');
     var temp, params;
     params = {
-      article: data,
       config: config,
       static: staticInfo[config.lang]
     };
-    temp = Array.isArray(data[0]) ? 'app/index' : 'app/article';
+    params[Array.isArray(data) ? 'articles' : 'article'] = data;
+    temp = Array.isArray(data) ? 'app/index' : 'app/article';
     res.render(temp, params);
   }, () => {
     res.render('app/error', '获取数据失败');

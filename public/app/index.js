@@ -1,4 +1,5 @@
 require('./layout.css');
+require('./md.css');
 
 angular.module('lp', [])
 .config(($locationProvider) => {
