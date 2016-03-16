@@ -16,6 +16,11 @@ const ConfigSchema = new Schema({
     type: String,
     required: true,
     default: 'zh-cn'
+  },
+  themes: {
+    type: String,
+    required: true,
+    default: 'default'
   }
 });
 
