@@ -80,4 +80,5 @@ button:disabled {
 
 .lpflex {
   display: flex;
+  flex-wrap: wrap;
 }

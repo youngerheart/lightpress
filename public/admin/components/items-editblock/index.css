@@ -1,6 +1,6 @@
 .lpitemseditblock {
   width: 300px;
-  margin-right: 10px;
+  margin: 10px 10px 0 0;
   > input {
     height: 0;
     width: 0;

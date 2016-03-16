@@ -7,4 +7,4 @@ block content
     h2 #{article.title}
     div.markdown
       != md(article.content)
-  comment-block(article="#{article.title}" id="#{article._id}" author="#{article.author.name}")
+  comment-block(article="#{article.title}" author="#{article.author.name}")

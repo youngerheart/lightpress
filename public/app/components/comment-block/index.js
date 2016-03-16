@@ -21,10 +21,10 @@ var commentBlock = /* @ngInject */ (API) => {
         if (event.ctrlKey && event.keyCode == 13) {
           event.preventDefault();
           var {name, content} = $scope.form;
-          API.comment.post({}, {article: $scope.id, name, content}).then((res) => {
-            var {name, content} = res.data;
+          API.comment.post({}, {article: $scope.article, name, content}).then((res) => {
             res.name = name;
             res.content = content;
+            $scope.form = {};
             $scope.comments.push(res);
             $scope.$apply();
           });
