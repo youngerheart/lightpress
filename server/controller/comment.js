@@ -20,7 +20,7 @@ module.exports = {
       content: params.content,
       article: params.article
     });
-    Article.findById(params.article, (err, article) => {
+    Article.findOne({title: params.article}, (err, article) => {
       if(err) return res.status(400).send('参数错误');
       if(!article) return res.status(404).send('没有找到该文章');
       article.comment.push(objId(comment._id));

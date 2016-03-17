@@ -9,9 +9,7 @@ block content
     div.lpformgroup
       editblock(ng-model="content" required)
     div.lpformgroup.lpflex
-      div.lpadmin-category
         items-editblock(ng-model="category" title="#{static.category}" method="categoryMethod" required)
-      div.lpadmin-tag
         items-editblock(ng-model="tag" title="#{static.tag}" method="tagMethod" muti)
     div.lpformgroup
       <div class="lperrmsg" ng-if="errMsg" ng-bind="errMsg"></div>

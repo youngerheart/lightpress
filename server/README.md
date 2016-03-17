@@ -180,7 +180,7 @@ url:
 
 url: `(POST) /api/comment`
 
-必要字段: `content, name`
+必要字段: `content, name, article`
 
 返回: `200 OK {id: ...}`
 
