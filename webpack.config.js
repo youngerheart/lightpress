@@ -1,10 +1,10 @@
 const path = require('path');
+const config = require('./config');
 require('ng-annotate-loader');
 
 module.exports = {
   entry: {
-    test: './public/test/index.js',
-    app: './public/app/index.js',
+    app: './theme/' + (config.theme || 'default') + '/app/index.js',
     admin: './public/admin/index.js'
   },
   output: {

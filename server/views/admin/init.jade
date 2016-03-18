@@ -8,12 +8,6 @@ html
       form.lpblock
         div.lperrmsg(ng-if="initErrMsg" ng-bind="initErrMsg")
         div.lpformgroup.lpflex
-          label(for="name") sitename:
-          input#name(ng-model="init.name" required)
-        div.lpformgroup.lpflex
-          label(for="desc")  description:
-          input#desc(ng-model="init.description" required)
-        div.lpformgroup.lpflex
           label(for="adminname") rootName:
           input#adminname(ng-model="init.rootName" required)
         div.lpformgroup.lpflex

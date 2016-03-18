@@ -120,5 +120,28 @@ module.exports = {
     delete req.session.admin;
     res.cookie('admin', '');
     res.status(204).send();
+  },
+
+  isEmpty(req, res, next) {
+    Admin.find({authority: 3}, (err, config) => {
+      if(err) return res.status(400).send('参数错误');
+      if(config.length) return res.status(405).send('博客已经初始化了');
+      next();
+    });
+  },
+
+  init(req, res) {
+    var params = req.body;
+    var root = new Admin({
+      authority: 3,
+      name: params.rootName,
+      email: params.rootEmail,
+      password: params.rootPassword
+    });
+
+    root.save((err) => {
+      if(err) return res.status(400).send('参数错误');
+      return res.status(204).send();
+    });
   }
 };

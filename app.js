@@ -3,6 +3,7 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const config = require('./config');
 const app = express();
 
 // 添加全局依赖
@@ -18,7 +19,7 @@ app.use(session({
   resave: true
 }));
 
-app.set('views', __dirname + '/server/views');
+app.set('views', [__dirname + '/server/views', __dirname + '/themes/' + (config.theme || 'default')]);
 app.set('view engine', 'jade');
 
 const port = process.env.PORT || 8080;
