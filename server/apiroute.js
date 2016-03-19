@@ -81,9 +81,9 @@ module.exports = (server) => {
   server.get('/comment', APIFunc(Comment.fetchAll));
 
   // 获得当前所有主题
-  server.get('/api/theme', Theme.get);
+  server.get('/theme', Theme.get);
   // 删除某个主题
-  server.delete('/api/theme/:id', Theme.del);
+  server.delete('/theme/:id', Theme.del);
   // 上传某个主题文件
-  server.post('/api/theme', Theme.add);
+  server.post('/theme', Theme.add);
 };
