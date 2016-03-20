@@ -5,6 +5,7 @@ const Article = require('./controller/article');
 const Category = require('./controller/category');
 const Tag = require('./controller/tag');
 const Comment = require('./controller/comment');
+const Theme = require('./controller/theme');
 const APIFunc = (func) => {
   return (req, res) => {
     const cache = Cache.get(req.url);
@@ -78,4 +79,11 @@ module.exports = (server) => {
   server.get('/comment/:article', APIFunc(Comment.fetchByArticle));
   // 查看所有文章的评论
   server.get('/comment', APIFunc(Comment.fetchAll));
+
+  // 获得当前所有主题
+  server.get('/api/theme', Theme.get);
+  // 删除某个主题
+  server.delete('/api/theme/:id', Theme.del);
+  // 上传某个主题文件
+  server.post('/api/theme', Theme.add);
 };

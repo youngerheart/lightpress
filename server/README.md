@@ -204,3 +204,11 @@ url:
 
 `(GET) /api/comment/:article` 查看某个文章的评论
 `(GET) /api/comment` 查看所有文章的评论
+
+## 主题相关
+
+`(GET) /api/theme` 获得当前所有主题
+
+`(DELETE) /api/theme/:id` 删除一个主题
+
+`(post) /api/theme/:id` 上传一个主题文件
