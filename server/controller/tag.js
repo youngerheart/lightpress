@@ -14,13 +14,16 @@ module.exports = {
     var params = req.body;
 
     Tag.findOne({title: params.title}, (err, tag) => {
-      if(err) return res.status(400).send('参数错误');
-      if(tag) return res.status(405).send('该标签已经存在了');
+      if(err) return res.status(400).send(err);
+      if(tag) return res.status(400).send({
+        name: 'TAG_EXIST_ERR',
+        message: '该标签已经存在了'
+      });
       tag = new Tag({
         title: params.title
       });
       tag.save((err) => {
-        if(err) return res.status(400).send('参数错误');
+        if(err) return res.status(400).send(err);
         return res.status(200).send({id: tag._id});
       }); 
     });
@@ -29,10 +32,13 @@ module.exports = {
   fetchArticle(req, res, func) {
     const params = req.params;
     Tag.findOne({title: params.tag}, (err, tag) => {
-      if(err) return func(400, '参数错误');
-      if(!tag) return func(404, '没有找到该分类');
+      if(err) return func(400, err);
+      if(!tag) return func(404, {
+        name: 'TAG_NOTFOUND_ERR',
+        message: '没有找到该标签'
+      });
       Tool.format(populate(Article.find({_id: {$in: tag.article}})), params).exec((err, articles) => {
-        if(err) return func(400, '参数错误');
+        if(err) return func(400, err);
         return func(200, articles);
       });
     });
@@ -42,7 +48,7 @@ module.exports = {
     var zero = req.query.zero;
     Tool.format(Tag.find(zero ? {} : {article: {$not: {$size: 0}}}, selectStr), req.params)
     .exec((err, tags) => {
-      if(err) return func(400, '参数错误');
+      if(err) return func(400, err);
       return func(200, tags);
     });
   }

@@ -41,7 +41,7 @@ module.exports = {
 
   // 增加sort,offset与limit处理
   format(schema, params) {
-    return schema.sort('-meta.createdAt')
+    return schema.sort('-meta.updateAt')
       .skip(Number(params.offset) || 0)
       .limit(Number(params.limit) || 30);
   }
