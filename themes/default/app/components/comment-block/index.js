@@ -1,13 +1,14 @@
 require('./index.css');
 require('./index.html');
 
-var commentBlock = /* @ngInject */ (API) => {
+var commentBlock = /* @ngInject */ (API, Lang) => {
   return {
     restrict: 'E',
     replace: true,
     scope: {article: '@', id: '@', author: '@'},
-    templateUrl: '/static/public/app/components/comment-block/index.html',
+    templateUrl: '/static/themes/default/app/components/comment-block/index.html',
     link: ($scope, $el) => {
+      $scope.Lang = Lang;
       $scope.form = {};
       $scope.admin = {};
       API.login.get().then((res) => {

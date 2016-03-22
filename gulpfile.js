@@ -9,7 +9,12 @@ var watchArr = [
   './public/**/*.js',
   './public/**/*.css',
   './public/**/*.html',
+  './themes/**/*.js',
+  './themes/**/*.css',
+  './themes/**/*.html',
   './server/**/*.js',
+  'static.js',
+  'config.js',
   'gulpfile.js',
   'webpack.config.js'
 ];

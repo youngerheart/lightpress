@@ -1,13 +1,14 @@
 require('./index.css');
 require('./index.html');
 
-var itemsEditblock = () => {
+var itemsEditblock = (Lang) => {
   return {
     restrict: 'E',
     replace: true,
     templateUrl: '/static/public/admin/components/items-editblock',
     scope: {method: '=', title: '@', value: '=ngModel', method: '='},
     link: ($scope, $el, $attrs) => {
+      $scope.Lang = Lang;
       if(!$scope.method) return;
       var muti = typeof $attrs.muti !== 'undefined';
       $scope.required = typeof $attrs.required !== 'undefined';
