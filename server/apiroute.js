@@ -1,11 +1,11 @@
 const Cache = require('memory-cache');
-const Config = require('./controller/config');
 const Admin = require('./controller/admin');
 const Article = require('./controller/article');
 const Category = require('./controller/category');
 const Tag = require('./controller/tag');
 const Comment = require('./controller/comment');
-const Theme = require('./controller/theme');
+const config = require('./../config');
+
 const APIFunc = (func) => {
   return (req, res) => {
     const cache = Cache.get(req.url);
@@ -19,11 +19,15 @@ const APIFunc = (func) => {
 
 module.exports = (server) => {
   // 初始化博客
-  server.post('/init', Config.isEmpty, Config.init);
-  // 修改配置
-  server.put('/config', Admin.isRoot, Config.change);
+  server.post('/init', Admin.isEmpty, Admin.init);
   // 查看配置
-  server.get('/config', Admin.isRoot, APIFunc(Config.fetch));
+  server.get('/config', Admin.isRoot, (req, res) => {
+    if(config.name) return res.status(200).send(config);
+    else return res.status(400).send({
+      name: 'CONFIG_ERR',
+      message: '未找到配置文件'
+    });
+  });
 
   // 增加管理者
   server.post('/admin', Admin.add);
@@ -79,11 +83,4 @@ module.exports = (server) => {
   server.get('/comment/:article', APIFunc(Comment.fetchByArticle));
   // 查看所有文章的评论
   server.get('/comment', APIFunc(Comment.fetchAll));
-
-  // 获得当前所有主题
-  server.get('/api/theme', Theme.get);
-  // 删除某个主题
-  server.delete('/api/theme/:id', Theme.del);
-  // 上传某个主题文件
-  server.post('/api/theme', Theme.add);
 };

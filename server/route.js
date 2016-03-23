@@ -1,18 +1,12 @@
 const Promise = require('promise');
 const Cache = require('memory-cache');
-const Config = require('./schemas/config');
 const Admin = require('./controller/admin');
 const Article = require('./controller/article');
 const Category = require('./controller/category');
 const Tag = require('./controller/tag');
 const Comment = require('./controller/comment');
 const staticInfo = require('./../static');
-var config = null;
-
-Config.findOne({}, (err, conf) => {
-  if(err) return;
-  config = conf;
-});
+var config = require('./../config');
 
 const DataFunc = (req, res, func) => {
   return new Promise((resolve, reject) => {
@@ -45,7 +39,7 @@ const getArticleInfo = (req, res, articles) => {
       static: staticInfo[config.lang]
     };
     params[Array.isArray(data) ? 'articles' : 'article'] = data;
-    temp = Array.isArray(data) ? 'app/index' : 'app/article';
+    temp = Array.isArray(data) ? 'temp/index' : 'temp/article';
     res.render(temp, params);
   }, () => {
     res.render('app/error', '获取数据失败');
@@ -112,24 +106,5 @@ module.exports = (server) => {
   server.get('/admin/init', (req, res) => {
     if(config) return res.redirect('/admin');
     res.render('admin/init', {static: staticInfo[config.lang]});
-  });
-
-  /**************测试相关**************/
-
-  // 初始化,配置,管理员相关
-  server.get('/test/admin', (req, res) => {
-    res.render('test/admin');
-  });
-  // 文章相关
-  server.get('/test/article', (req, res) => {
-    res.render('test/article');
-  });
-  // 评论相关
-  server.get('/test/comment', (req, res) => {
-    res.render('test/comment');
-  });
-  // 类别,标签,其他相关
-  server.get('/test/other', (req, res) => {
-    res.render('test/other');
   });
 };

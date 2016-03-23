@@ -3,16 +3,6 @@ block globalVars
   - var siteTitle = '设置'
 block content
   div.lpadminsetting(ng-controller="setting")
-    h3 #{static.config}
-    form.lpblock
-      div.lperrmsg(ng-if="configErrMsg" ng-bind="configErrMsg")
-      div.lpformgroup.lpflex
-        label(for="name") #{static.sitename}:
-        input#name(ng-model="config.name" required)
-      div.lpformgroup.lpflex
-        label(for="desc")  #{static.description}:
-        input#desc(ng-model="config.description" required)
-      button(ng-click="configSubmit()") #{static.submit}
     h3 #{static.adminInfo}
     form.lpblock
       div.lperrmsg(ng-if="adminErrMsg" ng-bind="adminErrMsg")
