@@ -14,6 +14,13 @@
 
 `500 Internal Server Error` 服务器发生错误
 
+## 通用报错参数
+
+{
+  name: 'XXX_ERR'
+  message: ...
+}
+
 ## 通用查询参数
 
 *通过id查询时不可用*
@@ -28,15 +35,9 @@
 
 url: `(POST) /api/init`
 
-必要字段: `name, description, rootName, rootPassword, rootEmail`
+必要字段: `rootName, rootPassword, rootEmail`
 
 返回: `204 No content`
-
-**修改配置**
-
-url: `(PUT) /api/config`
-
-可能修改字段 `name, desc`
 
 **查看配置**
 
