@@ -4,17 +4,17 @@
       <div>
         <span class="lpcommentblock-ip" ng-bind="comment.name || comment.ip"></span>
         <span class="lpcommentblock-time" ng-bind="comment.meta.createAt | date: 'MM-dd HH:ss'"></span>
-        <a ng-if="isAdmin" ng-click="commentDel(comment._id, $index)">delete</a>
+        <a ng-if="isAdmin" ng-click="commentDel(comment._id, $index)" ng-bind="Lang.delete"></a>
       </div>
       <div ng-bind="comment.content"></div>
     </li>
   </ul>
   <form name="commentform">
     <div class="lpcommentblock-input">
-      <span>your name:</span>
+      <span ng-bind="Lang.yourName + ':'"></span>
       <input ng-model="form.name">
     </div>
     <textarea ng-keydown="keySend()" ng-model="form.content" required></textarea>
-    <span>press ctrl + enter to submit</span>
+    <span ng-bind="Lang.commentText"></span>
   </form>
 </div>

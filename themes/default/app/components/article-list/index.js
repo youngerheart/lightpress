@@ -5,7 +5,7 @@ var articleList = /* @ngInject */ (API) => {
   return {
     restrict: 'E',
     replace: true,
-    templateUrl: '/static/public/app/components/article-list/index.html',
+    templateUrl: '/static/themes/default/app/components/article-list/index.html',
     link: ($scope, $el) => {
       API.article.get({limit: 5})
       .then((res) => {

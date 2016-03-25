@@ -22,8 +22,6 @@ app.use(session({
 app.set('views', [__dirname + '/server/views', __dirname + '/themes/' + (config.theme || 'default')]);
 app.set('view engine', 'jade');
 
-const port = process.env.PORT || 8080;
-
 const apiRouter = express.Router();
 const router = express.Router();
 
@@ -39,5 +37,5 @@ app.use('/static', express.static(__dirname));
 app.use('/api', apiRouter);
 app.use('', router);
 
-app.listen(port);
-console.log('Magic happens on port ' + port);
+app.listen(config.port || 8080);
+console.log('Magic happens on port ' + config.port || 8080);

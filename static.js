@@ -2,6 +2,7 @@ module.exports = {
   'zh-cn': {
     // pages
     login: '登录',
+
     // forms
     submit: '提交',
     username: '用户名',
@@ -13,6 +14,7 @@ module.exports = {
     authority: '权限',
     adminpassword: '输入密码',
     repeatpassword: '重复密码',
+
     // admin
     admin: '内容管理',
     articles: '文章列表',
@@ -30,6 +32,12 @@ module.exports = {
     newtag: '添加新标签',
     config: '站点管理',
     adminInfo: '管理员信息',
-    adminpw: '管理员密码'
+    adminpw: '管理员密码',
+
+    //other
+    yourName: '你的名字',
+    commentText: '按Ctrl + Enter提交',
+    addNew: '添加新',
+    add: '添加'
   }
 };
