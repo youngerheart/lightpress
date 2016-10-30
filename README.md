@@ -14,16 +14,19 @@ read `README.md` in every folders for more informations.
 
 ```
 .
-├─ admin
-│   ├─ pages
-│   └─ ...
-├─ core
-│   ├─ controllers
-│   ├─ models
-│   └─ service
-└─ themes
-    ├─ demo
-    │   ├─ pages
-    │   └─ ...
-    └─ ...
+├── admin
+│    ├── pages
+│    ├── static
+│    └── ...
+├── core
+│    ├── controllers
+│    ├── models
+│    ├── router
+│    └── services
+└── themes
+     ├── demo
+     │    ├── pages
+     │    ├── static
+     │    └── ...
+     └── ...
 ```
