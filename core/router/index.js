@@ -25,7 +25,7 @@ router.redirect('/', '/articles');
 router.use('*', Config.get);
 
 router.use('/:moduleName', setPage);
-router.get('/articles', Article.get, renderPage);
+router.get('/article', Article.list, renderPage);
 router.get('*', renderPage);
 
 export default router;

@@ -19,7 +19,7 @@ adminRouter.use(checkUrl, (ctx, next) => {
 adminRouter.redirect('/', '/article');
 adminRouter.get('/init', Config.getForInit, setPage, renderPage);
 adminRouter.use('/:moduleName', Config.get, setPage, isLogin);
-adminRouter.use('/article', Article.get);
+adminRouter.use('/article', Article.list);
 adminRouter.get('*', renderPage);
 
 export default adminRouter;

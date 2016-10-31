@@ -5,26 +5,32 @@
   <title>{{title}}</title>
   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
   <link rel="stylesheet" href="static/main.css">
+  <!-- 先引入 Vue -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/vue.resource/1.2.0/vue-resource.min.js"></script>
+  <!-- 引入组件库 -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  {{#if( config.moduleName === 'write' )}}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+  {{/if}}
 </head>
 <body>
   <div id="topbar">
-    <el-menu theme="dark" default-active="1" class="el-menu-demo" mode="horizontal">
+    <el-menu theme="dark" default-active="{{config.moduleName}}" class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <h1 id="title">lightpress</h1>
       {{#if( config.isLogin )}}
-      <el-menu-item index="1">article</el-menu-item>
-      <el-menu-item index="2">write</el-menu-item>
-      <el-menu-item index="3">theme</el-menu-item>
-      <el-menu-item index="4">config</el-menu-item>
+      <el-menu-item index="article">article</el-menu-item>
+      <el-menu-item index="write">write</el-menu-item>
+      <el-menu-item index="theme">theme</el-menu-item>
+      <el-menu-item index="config">config</el-menu-item>
       {{/if}}
     </el-menu>
   </div>
+  <div id="{{config.moduleName}}" class="content">
   {{{block ("body")}}}
+  </div>
+  <script src="static/layout.js"></script>
+  <script src="static/{{config.moduleName}}.js"></script>
 </body>
-<!-- 先引入 Vue -->
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/vue.resource/1.2.0/vue-resource.min.js"></script>
-<!-- 引入组件库 -->
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
-<script src="static/layout.js"></script>
-<script src="static/{{config.moduleName}}.js"></script>
 </html>

@@ -1,0 +1,77 @@
+{{extend ("./blocks/layout")}}
+{{set (title= 'write-' + config.blogName)}}
+{{#block ("body")}}
+<el-alert v-show="errMsg && totalArticle" :title="errMsg" type="error" :closable="false"></el-alert>
+<el-form ref="articleForm" v-show="!errMsg" :model="articleForm" :rules="articleRules" label-width="100px">
+  <el-form-item label="title" prop="title">
+    <el-input v-model="articleForm.title"></el-input>
+  </el-form-item>
+  <el-form-item label="content" prop="mdContent">
+    <div class="el-textarea"><markdown-editor ref="markdownEditor" v-model="articleForm.mdContent"></markdown-editor></div>
+  </el-form-item>
+  <el-form-item label="url name" prop="urlName">
+    <el-input v-model="articleForm.urlName"></el-input>
+  </el-form-item>
+  <el-form-item label="category" prop="category">
+    <span v-show="!categories.length">no usable categories</span>
+    <el-radio-group v-model="articleForm.category">
+      <el-radio :label="category._id" v-for="category in categories">{{%{{category.name}}%}}</el-radio>
+    </el-radio-group>
+    <div>
+      <el-button size="small" @click="isCategoryOpen = !isCategoryOpen">add new categories</el-button>
+    </div>
+  </el-form-item>
+  <el-form-item label="tag" prop="tag">
+    <span v-show="!tags.length">no usable tags</span>
+    <el-checkbox-group v-model="articleForm.tag">
+      <el-checkbox :label="tag._id" v-for="tag in tags">{{%{{tag.name}}%}}</el-checkbox>
+    </el-checkbox-group>
+    <div>
+      <el-button size="small" @click="isTagOpen = !isTagOpen">add new tags</el-button>
+    </div>
+  </el-form-item>
+  <el-form-item label="head image url" prop="headImgUrl">
+    <el-input v-model="articleForm.headImgUrl"></el-input>
+  </el-form-item>
+  <el-form-item label="publish time" prop="publishTime">
+    <el-date-picker
+      v-model="articleForm.publishTime"
+      type="datetime"
+      placeholder="select time"
+      align="left">
+    </el-date-picker>
+  </el-form-item>
+  <el-form-item prop="isDraft">
+    <el-checkbox v-model="articleForm.isDraft">save as draft</el-checkbox>
+  </el-form-item>
+  <el-form-item>
+    <el-button type="primary" @click="submitForm('articleForm')">submit</el-button>
+  </el-form-item>
+</el-form>
+<el-dialog title="add categories" v-model="isCategoryOpen">
+  <el-form ref="categoryForm" :model="categoryForm" :rules="categoryRules" label-width="80px">
+    <el-form-item label="name" prop="name">
+      <el-input v-model="categoryForm.name"></el-input>
+    </el-form-item>
+    <el-form-item label="urlName" prop="urlName">
+      <el-input v-model="categoryForm.urlName"></el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="submitForm('categoryForm')">submit</el-button>
+    </el-form-item>
+  </el-form>
+</el-dialog>
+<el-dialog title="add tags" v-model="isTagOpen">
+  <el-form ref="tagForm" :model="tagForm" :rules="tagRules" label-width="80px">
+    <el-form-item label="name" prop="name">
+      <el-input v-model="tagForm.name"></el-input>
+    </el-form-item>
+    <el-form-item label="urlName" prop="urlName">
+      <el-input v-model="tagForm.urlName"></el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="submitForm('tagForm')">submit</el-button>
+    </el-form-item>
+  </el-form>
+</el-dialog>
+{{/block}}

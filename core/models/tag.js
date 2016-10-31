@@ -6,11 +6,13 @@ const Schema = mongoose.Schema;
 const TagSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   urlName: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   }
 }, {
   timestamps: true

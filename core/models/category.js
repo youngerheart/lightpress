@@ -6,11 +6,13 @@ const Schema = mongoose.Schema;
 const CategorySchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   urlName: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   }
 }, {
   timestamps: true
@@ -18,4 +20,4 @@ const CategorySchema = new Schema({
 
 dealSchema(CategorySchema);
 
-export default mongoose.model('config', CategorySchema);
+export default mongoose.model('category', CategorySchema);

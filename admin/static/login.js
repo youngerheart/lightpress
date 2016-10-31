@@ -15,12 +15,9 @@ new Vue({
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$http.post('/api/login', this.form).then((res) => {
-            location.href = '/admin/articles';
+            location.href = '/admin/article';
           }, (err) => {
-            this.$alert(err.body.message, 'error happend.', {
-              confirmButtonText: 'ok',
-              type: 'error'
-            });
+            this.$message.error(`error happend - ${err.body.message}`);
           });
         }
       });

@@ -4,13 +4,15 @@ import {dealSchema} from '../services/tools';
 const Schema = mongoose.Schema;
 
 const ArticleSchema = new Schema({
-  name: {
+  title: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   urlName: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   mdContent: {
     type: String,
@@ -20,11 +22,15 @@ const ArticleSchema = new Schema({
     type: String,
     required: true
   },
-  isPublished: {
+  isDraft: {
     type: Boolean,
+    required: true,
+    default: false
+  },
+  publishTime: {
+    type: Date,
     required: true
   },
-  publishTime: Date,
   headImgUrl: String,
   category: {
     type: Schema.Types.ObjectId,
@@ -41,4 +47,4 @@ const ArticleSchema = new Schema({
 
 dealSchema(ArticleSchema);
 
-export default mongoose.model('config', ArticleSchema);
+export default mongoose.model('article', ArticleSchema);
