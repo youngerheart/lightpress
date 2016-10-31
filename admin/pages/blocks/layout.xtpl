@@ -1,9 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>lightpress</title>
+  <meta charset="utf-8">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+  <link rel="stylesheet" href="static/main.css">
 </head>
 <body>
+  <div id="topbar">
+    <el-menu theme="dark" default-active="1" class="el-menu-demo" mode="horizontal">
+      <h1 id="title">lightpress</h1>
+      {{#if( config.isLogin )}}
+      <el-menu-item index="1">article</el-menu-item>
+      <el-menu-item index="2">write</el-menu-item>
+      <el-menu-item index="3">theme</el-menu-item>
+      <el-menu-item index="4">config</el-menu-item>
+      {{/if}}
+    </el-menu>
+  </div>
   {{{block ("body")}}}
 </body>
+<!-- 先引入 Vue -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/vue.resource/1.2.0/vue-resource.min.js"></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="static/layout.js"></script>
+<script src="static/{{config.moduleName}}.js"></script>
 </html>

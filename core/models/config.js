@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import {dealSchema} from './../services/tools';
+import {dealSchema} from '../services/tools';
 
 const Schema = mongoose.Schema;
 
@@ -16,13 +16,18 @@ const ConfigSchema = new Schema({
     type: String,
     required: true
   },
+  email: {
+    type: String,
+    required: true
+  },
   urlById: {
     type: Boolean,
     default: false
   },
   totalTheme: {
     type: Schema.Types.ObjectId,
-    ref: 'theme'
+    ref: 'theme',
+    required: true
   }
 }, {
   timestamps: true

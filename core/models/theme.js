@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import {dealSchema} from './../services/tools';
+import {dealSchema} from '../services/tools';
 
 const Schema = mongoose.Schema;
 
@@ -16,10 +16,8 @@ const ThemeSchema = new Schema({
     type: Object,
     required: true
   },
-  sourceUrl: {
-    type: String,
-    required: true
-  },
+  homepage: String,
+  sourceUrl: String,
   version: {
     type: String,
     required: true

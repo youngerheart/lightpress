@@ -1,0 +1,28 @@
+{{extend ("./blocks/layout")}}
+{{set (title='blog initial')}}
+{{#block ("body")}}
+<div id="init" class="content">
+  <h2>welcome, let's make initial configs.</h2>
+  <el-form ref="form" :model="form" :rules="rules" ref="form" label-width="120px">
+    <el-form-item label="blog name" prop="blogName">
+      <el-input v-model="form.blogName"></el-input>
+    </el-form-item>
+    <el-form-item label="blog descption" prop="blogDesc">
+      <el-input v-model="form.blogDesc" type="textarea"></el-input>
+    </el-form-item>
+    <el-form-item label="password" prop="password" auto-complete="off">
+      <el-input type="password" v-model="form.password"></el-input>
+    </el-form-item>
+    <el-form-item label="repeat password" prop="repeatpw" auto-complete="off">
+      <el-input type="password" v-model="form.repeatpw"></el-input>
+    </el-form-item>
+    <el-form-item label="email" prop="email">
+      <el-input v-model="form.email"></el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="submitForm('form')">submit</el-button>
+      <el-button @click="resetForm('form')">reset</el-button>
+    </el-form-item>
+  </el-form>
+</div>
+{{/block}}

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import {dealSchema} from './../services/tools';
+import {dealSchema} from '../services/tools';
 
 const Schema = mongoose.Schema;
 

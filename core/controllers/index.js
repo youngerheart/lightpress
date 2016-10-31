@@ -1,10 +1,8 @@
-const Index = {
+export default {
   setPage(ctx, next) {
-    var {params, _lg, __lg} = ctx;
+    var {_lg, __lg} = ctx;
     __lg.pagePath = `${__dirname}/../../themes/${_lg.config.theme}/pages/`;
-    __lg.xtplPath = `${__lg.pagePath}${params.moduleName}.xtpl`;
+    __lg.xtplPath = `${__lg.pagePath}${_lg.config.moduleName}.xtpl`;
     return next();
   }
 };
-
-export default Index;

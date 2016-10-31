@@ -3,6 +3,13 @@ import RestError from './resterror';
 
 const Tool = {
   dealSchema() {},
+  getParams(params, fields) {
+    var newParams = {};
+    fields.forEach((item) => {
+      if (params[item] !== undefined) newParams[item] = params[item];
+    });
+    return newParams;
+  },
   async renderPage(ctx) {
     var {_lg, __lg} = ctx;
     try {
@@ -32,6 +39,10 @@ const Tool = {
       ctx.status = status || 500;
       if (name) ctx.body = {name, message, errors};
     }
+  },
+  checkUrl(ctx, next) {
+    if (ctx.url.split('.').length > 1) throw new RestError(403, 'REQUEST_INVALID_ERR');
+    return next();
   }
 };
 
