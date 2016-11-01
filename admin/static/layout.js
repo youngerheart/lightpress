@@ -8,6 +8,13 @@ _lp = {
     });
     if (key) return params[key];
     return params;
+  },
+  setData: (form, data) => {
+    var check = (data) => typeof data === 'object' ? data._id : data;
+    for (var key in form) {
+      if (Array.isArray(data[key])) form[key] = data[key].map(check);
+      else form[key] = check(data[key]);
+    }
   }
 };
 

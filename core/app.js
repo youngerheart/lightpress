@@ -30,7 +30,9 @@ app.use(async (ctx, next) => {
       else ctx.req.body = await parse(ctx) || {};
     };
     if (ctx.method !== 'GET' && ctx.method !== 'OPTIONS') await getBody();
-    ctx._lg = {}; // public params for pages.
+    ctx._lg = {
+      config: {}
+    }; // public params for pages.
     ctx.__lg = {} // private params.
     if (!ctx.session) ctx.session = {};
     await next();

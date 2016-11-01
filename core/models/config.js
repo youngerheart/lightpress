@@ -20,10 +20,6 @@ const ConfigSchema = new Schema({
     type: String,
     required: true
   },
-  urlById: {
-    type: Boolean,
-    default: false
-  },
   totalTheme: {
     type: Schema.Types.ObjectId,
     ref: 'theme',
