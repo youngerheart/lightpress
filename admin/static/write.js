@@ -115,7 +115,7 @@ new Vue({
     this.getData('category');
     if (this.totalArticle) {
       this.$http.get(`/api/article/${this.totalArticle}`).then((res) => {
-        _lp.setData(this.articleForm, res.body);
+        _lp.setData(this.articleForm, res.body, {publishTime: Date});
       }, (err) => {
         this.errMsg = err.body.message;
       });
@@ -132,7 +132,8 @@ new Vue({
         if (formName === 'articleForm') this.articleForm.htmlContent = this.simplemde.markdown(this.articleForm.mdContent);
         if (!valid) return;
         var moduleName = formName.replace('Form', '');
-        this.$http[this.totalArticle && moduleName === 'article' ? 'put' : 'post'](`/api/${moduleName}`, this[formName])
+        var isPut = this.totalArticle && moduleName === 'article';
+        this.$http[isPut ? 'put' : 'post'](`/api/${moduleName}${isPut ? `/${this[formName].urlName}` : ''}`, this[formName])
         .then(() => {
           switch (formName) {
             case 'categoryForm':
