@@ -1,5 +1,5 @@
 {{extend ("./blocks/layout")}}
-
+{{set (title= 'theme-' + config.blogName)}}
 {{#block ("body")}}
-<p>这是个 koa 的测试页面</p>
+<p>Indevelopment~</p>
 {{/block}}

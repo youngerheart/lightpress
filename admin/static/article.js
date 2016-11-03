@@ -15,7 +15,7 @@ new Vue({
     setUrlParams: _lp.setUrlParams,
     handleSearchClick() {
       if (!this.searchText) this.$message.error('type content is empty');
-      this.setUrlParams({search: this.searchText}, true);
+      else this.setUrlParams({search: this.searchText}, true);
     },
     handlePageChange(val) {
       this.setUrlParams({page: val});

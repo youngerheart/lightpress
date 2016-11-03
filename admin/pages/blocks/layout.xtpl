@@ -1,3 +1,4 @@
+{{set (tpl = func.getTpl(moduleName))}}
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,20 +18,22 @@
 </head>
 <body>
   <div id="topbar">
-    <el-menu theme="dark" default-active="{{moduleName}}" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+    <el-menu theme="dark" default-active="{{moduleName}}" class="el-menu-demo" mode="horizontal"  @select="handleSelect">
       <h1 id="title">lightpress</h1>
       {{#if( config.isLogin )}}
       <el-menu-item index="article">article</el-menu-item>
       <el-menu-item index="write">write</el-menu-item>
+      <el-menu-item index="category">category</el-menu-item>
+      <el-menu-item index="tag">tag</el-menu-item>
       <el-menu-item index="theme">theme</el-menu-item>
       <el-menu-item index="config">config</el-menu-item>
       {{/if}}
     </el-menu>
   </div>
-  <div id="{{moduleName}}" class="content">
+  <div id="{{tpl}}" class="content">
   {{{block ("body")}}}
   </div>
   <script src="static/layout.js"></script>
-  <script src="static/{{moduleName}}.js"></script>
+  <script src="static/{{tpl}}.js"></script>
 </body>
 </html>

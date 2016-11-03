@@ -1,0 +1,58 @@
+{{extend ("./blocks/layout")}}
+{{set (title= moduleName + '-' + config.blogName)}}
+{{set (count = extra.count)}}
+{{#block ("body")}}
+<div class="table-top">
+  <el-input
+    placeholder="type url name"
+    icon="search"
+    v-model="searchText"
+    :on-icon-click="handleSearchClick">
+  </el-input>
+</div>
+<el-alert v-show="!{{count}}" title="{{moduleName}} not found in that query" type="warning" :closable="false"></el-alert>
+<table v-show="{{count}}" class="table" cellpadding="0" cellspacing="0" border="0">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>urlName</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each(data)}}
+    <tr>
+      <td class="table-name">
+        <a href="/{{moduleName}}/{{this.urlName}}">{{this.name}}</a>
+        <div>
+          <a @click="openEdit('{{this.name}}', '{{this.urlName}}')">edit</a>
+          <a @click="handleDelete('{{this.urlName}}', '{{moduleName}}')">delete</a>
+        </div>
+      </td>
+      <td>{{this.urlName}}</td>
+      <td>{{extra.aggregate[this.urlName]}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<el-pagination
+  v-show="{{count}}"
+  layout="prev, pager, next"
+  :current-page="currentPage"
+  :total="{{count}}"
+  @current-change="handlePageChange">
+</el-pagination>
+<el-dialog title="edit {{moduleName}}" v-model="isOpen">
+  <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+    <el-form-item label="name" prop="name">
+      <el-input v-model="form.name"></el-input>
+    </el-form-item>
+    <el-form-item label="urlName" prop="urlName">
+      <el-input v-model="form.urlName"></el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="submitForm('form', '{{moduleName}}')">submit</el-button>
+    </el-form-item>
+  </el-form>
+</el-dialog>
+{{/block}}

@@ -13,7 +13,8 @@ const Tool = {
   },
   getQueryObj(query, moduleName, isList) {
     var {page, limit, sort, populate, search, ...otherQuery} = query;
-    if (moduleName === 'article') {
+    var isArticle = moduleName === 'article';
+    if (isArticle) {
       sort = '-publishTime';
       populate = 'category tag';
     }
@@ -24,7 +25,7 @@ const Tool = {
       page = page || 1;
       limit = limit || 10;
       sort = sort || '-createdAt';
-      if (!otherQuery.isDraft && !otherQuery.isRecycled) {
+      if (isArticle && !otherQuery.isDraft && !otherQuery.isRecycled) {
         otherQuery.isDraft = false;
         otherQuery.isRecycled = false;
       }

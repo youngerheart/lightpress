@@ -20,7 +20,7 @@ apiRouter.use(Config.get, Admin.isLogin);
 apiRouter.post('/login', Admin.login);
 
 apiRouter.post(baseUrl, Common.add, renderAPI);
-apiRouter.delete(singleUrl, Common.del, renderAPI);
+apiRouter.delete(singleUrl, Common.del, Common.extraDel, renderAPI);
 apiRouter.put(singleUrl, Common.edit, renderAPI);
 apiRouter.get(baseUrl, Common.list, renderAPI);
 apiRouter.get(countUrl, Common.count, renderAPI);

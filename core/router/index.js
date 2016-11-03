@@ -23,7 +23,8 @@ router.use('/:moduleName', checkUrl, (ctx, next) => {
   return next();
 });
 
-router.redirect('/', '/articles');
+router.redirect('/', '/article');
+
 router.use('*', Config.get, setPage);
 adminRouter.use(baseUrl, Common.list);
 adminRouter.use(countUrl, Common.count);

@@ -91,6 +91,7 @@ new Vue({
       articleRules: {
         title: _lp.getRule('title'),
         mdContent: _lp.getRule('content'),
+        urlName: _lp.getRule('urlName'),
         category: _lp.getRule('category'),
         publishTime: _lp.getRule('publishTime', 'date')
       },
