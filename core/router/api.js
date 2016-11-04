@@ -16,15 +16,20 @@ apiRouter.use('/:moduleName', checkUrl, (ctx, next) => {
 });
 
 apiRouter.post('/init', Theme.init, Config.init);
-apiRouter.use(Config.get, Admin.isLogin);
-apiRouter.post('/login', Admin.login);
+apiRouter.use(Config.get);
 
+apiRouter.get(baseUrl, Common.list, renderAPI, Common.getAggregate);
+apiRouter.get(countUrl, Common.count, renderAPI);
+apiRouter.get(singleUrl, Common.get, renderAPI);
+
+apiRouter.use(Admin.isLogin);
+
+apiRouter.post('/login', Admin.login);
+apiRouter.put('/config', Config.set);
+apiRouter.put('/password', Config.setPassword);
 apiRouter.post(baseUrl, Common.add, renderAPI);
 apiRouter.delete(singleUrl, Common.del, Common.extraDel, renderAPI);
 apiRouter.put(singleUrl, Common.edit, renderAPI);
-apiRouter.get(baseUrl, Common.list, renderAPI);
-apiRouter.get(countUrl, Common.count, renderAPI);
-apiRouter.get(singleUrl, Common.get, renderAPI);
 
 apiRouter.all('*', () => {
   throw new RestError(500, 'API_NOTFOUND_ERR', 'that API is not exist.');

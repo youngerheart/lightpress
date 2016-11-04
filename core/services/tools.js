@@ -12,23 +12,21 @@ const Tool = {
     return newParams;
   },
   getQueryObj(query, moduleName, isList) {
+    for (var key in query) {
+      if (query[key] === 'true') query[key] = true;
+      if (query[key] === 'false') query[key] = false;
+    }
     var {page, limit, sort, populate, search, ...otherQuery} = query;
-    var isArticle = moduleName === 'article';
-    if (isArticle) {
+    if (moduleName === 'article') {
       sort = '-publishTime';
       populate = 'category tag';
     }
     if (search) otherQuery.urlName = new RegExp(search);
     if (!moduleName) return otherQuery;
-    populate = populate || '';
     if (isList) {
       page = page || 1;
       limit = limit || 10;
       sort = sort || '-createdAt';
-      if (isArticle && !otherQuery.isDraft && !otherQuery.isRecycled) {
-        otherQuery.isDraft = false;
-        otherQuery.isRecycled = false;
-      }
       return {
         limit, sort, populate, ...otherQuery,
         skip: (page - 1) * limit

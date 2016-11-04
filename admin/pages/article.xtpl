@@ -1,5 +1,5 @@
 {{extend ("./blocks/layout")}}
-{{set (title= 'article-' + config.blogName)}}
+{{set (title= 'article<' + config.blogName)}}
 {{set (count = extra.count.isList)}}
 {{set (articleType = func.getArticleType(query))}}
 {{#block ("body")}}

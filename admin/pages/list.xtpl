@@ -1,5 +1,5 @@
 {{extend ("./blocks/layout")}}
-{{set (title= moduleName + '-' + config.blogName)}}
+{{set (title= moduleName + '<' + config.blogName)}}
 {{set (count = extra.count)}}
 {{#block ("body")}}
 <div class="table-top">
@@ -30,7 +30,7 @@
         </div>
       </td>
       <td>{{this.urlName}}</td>
-      <td>{{extra.aggregate[this.urlName]}}</td>
+      <td>{{this.count}}</td>
     </tr>
     {{/each}}
   </tbody>

@@ -24,7 +24,7 @@ adminRouter.get('/init', Config.getForInit, setPage, renderPage);
 
 adminRouter.use('*', Config.get, setPage, isLogin);
 
-adminRouter.use(baseUrl, Common.list, Common.extraCount, Common.extraAggregate);
+adminRouter.use(baseUrl, Common.list, Common.extraCount, Common.getAggregate);
 adminRouter.use(countUrl, Common.count);
 adminRouter.use(singleUrl, Common.get);
 
