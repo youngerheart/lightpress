@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="static/main.css">
+</head>
+<body>
+  <div id="{{moduleName}}" class="content">
+  {{{block ("body")}}}
+  </div>
+  <script src="static/layout.js"></script>
+  <script src="static/{{moduleName}}.js"></script>
+</body>
+</html>
