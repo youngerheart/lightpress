@@ -1,4 +1,29 @@
-{{extend ("./blocks/layout")}}
+{{extend ('./blocks/layout')}}
 {{set (title= config.blogName + ' | ' + config.blogDesc)}}
+{{set (count = extra.count.isList)}}
+{{set (page = query.page || 1)}}
 {{#block ("body")}}
+{{#if(data.length)}}
+<ul>
+  {{#each(data)}}
+  <li class="single">
+  {{include ('./blocks/single')}}
+  </li>
+  {{/each}}
+  <div class="pager">
+    {{#if(page > 1)}}
+    <a href="/article{{func.getSearchStr(query, {page: page - 1})}}">newer articles</a>
+    {{/if}}
+    {{#if(count > page * 10)}}
+    <a href="/article{{func.getSearchStr(query, {page: page + 1})}}">older articles</a>
+    {{/if}}
+  </div>
+</ul>
+{{elseif(data)}}
+<div class="single">
+  {{include ('./blocks/single')}}
+</div>
+{{else}}
+<h2>article not found (=・ω・=)</h2>
+{{/if}}
 {{/block}}

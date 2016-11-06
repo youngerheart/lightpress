@@ -1,0 +1,17 @@
+{{set (isList = !!this.urlName)}}
+{{set (data = this.urlName ? this : data)}}
+<div>
+  <div class="single-date">{{func.moment(data.publishTime).format('YY-MM-DD')}}</div>
+  <div class="single-category">
+    <a href="/article?category={{data.category.urlName}}">{{data.category.name}}</a>
+  </div>
+  <div class="single-tag">
+    {{#each(data.tag)}}
+    <a href="/article?tag={{this.urlName}}">{{this.name}}</a>
+    {{/each}}
+  </div>
+</div>
+<a href="/article/{{data.urlName}}">
+  <div class="single-title">{{data.title}}</div>
+  <div class="single-content">{{{data.htmlContent}}}{{isList ? '...' : ''}}</div>
+</a>

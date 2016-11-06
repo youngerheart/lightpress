@@ -1,8 +1,8 @@
-{{extend ("./blocks/layout")}}
+{{extend ('./blocks/layout')}}
 {{set (title= 'article<' + config.blogName)}}
 {{set (count = extra.count.isList)}}
 {{set (articleType = func.getArticleType(query))}}
-{{#block ("body")}}
+{{#block ('body')}}
 <div class="table-top">
   <a class="{{articleType === 'isPublished' ? 'focus' : ''}}" @click="setUrlParams()">published({{extra.count.isPublished}})</a>
   <a class="{{articleType === 'isDraft' ? 'focus' : ''}}" @click="setUrlParams({isDraft: true})">draft({{extra.count.isDraft}})</a>
@@ -35,10 +35,10 @@
           <a @click="checkRecycle('{{this.urlName}}', {{this.isRecycled}}, {{this.isDraft}})">{{this.isRecycled ? 'recover' : 'recycle'}}</a>
         </div>
       </td>
-      <td><a href="/category/{{this.category.urlName}}">{{this.category.name}}</a></td>
+      <td><a target="_blank" href="/article?category={{this.category.urlName}}">{{this.category.name}}</a></td>
       <td>
         {{#each(this.tag)}}
-        <a href="/tag/{{this.urlName}}">{{this.name}}</a>
+        <a target="_blank" href="/article?tag={{this.urlName}}">{{this.name}}</a>
         {{/each}}
       </td>
       <td>{{func.moment(this.publishTime).format('YY-MM-DD hh:ss')}}<br>{{this.isDraft ? 'save as draft' : 'published'}}</td>

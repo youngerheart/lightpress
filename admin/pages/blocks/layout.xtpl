@@ -31,7 +31,7 @@
     </el-menu>
   </div>
   <div id="{{tpl}}" class="content">
-  {{{block ("body")}}}
+  {{{block ('body')}}}
   </div>
   <script src="static/layout.js"></script>
   <script src="static/{{tpl}}.js"></script>

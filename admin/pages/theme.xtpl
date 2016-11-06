@@ -1,5 +1,5 @@
-{{extend ("./blocks/layout")}}
+{{extend ('./blocks/layout')}}
 {{set (title= 'theme<' + config.blogName)}}
-{{#block ("body")}}
+{{#block ('body')}}
 <p>Indevelopment~</p>
 {{/block}}

@@ -1,6 +1,6 @@
-{{extend ("./blocks/layout")}}
+{{extend ('./blocks/layout')}}
 
-{{#block ("body")}}
+{{#block ('body')}}
 <el-alert
 title="{{error}}"
 type="warning"
