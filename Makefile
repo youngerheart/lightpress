@@ -5,3 +5,6 @@ install:
 dev: install
 	@eslint --fix admin/**/*.js core/**/*.js theme/**/*.js
 	@nodemon core/index.js
+
+start: install
+	@nodemon core/muti.js
