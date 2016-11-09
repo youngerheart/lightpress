@@ -1,6 +1,7 @@
 import xtpl from 'xtpl';
 import RestError from './resterror';
 import func from './func';
+import {allowFields} from './args';
 
 const Tool = {
   dealSchema() {},
@@ -12,6 +13,7 @@ const Tool = {
     return newParams;
   },
   getQueryObj(query, moduleName, isList) {
+    query = Tool.getParams(query, allowFields);
     for (var key in query) {
       if (query[key] === 'true') query[key] = true;
       if (query[key] === 'false') query[key] = false;

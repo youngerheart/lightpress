@@ -71,6 +71,10 @@ div, input, textarea {
   padding-right: 270px;
 }
 
+.content-fill {
+  padding-right: 0;
+}
+
 .sidebar {
   width: 240px;
   position: absolute;

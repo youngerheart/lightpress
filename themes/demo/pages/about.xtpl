@@ -1,6 +1,6 @@
 {{extend ('./blocks/layout')}}
 {{set (title= config.blogName + ' | ' + config.blogDesc)}}
+{{set (hideSidebar= true)}}
 {{#block ("body")}}
-<h2>Error append (=・ω・=)</h2>
-<span>{{error.message}}</span>
+<h1>DUANG~DUANG~DUANG~</h1>
 {{/block}}
