@@ -1,0 +1,15 @@
+<div>
+  <div class="list-date">{{func.moment(this.publishTime).format('YY-MM-DD')}}</div>
+  <div class="list-category">
+    <a href="/article?category={{this.category.urlName}}">{{this.category.name}}</a>
+  </div>
+  <div class="tag">
+    {{#each(this.tag)}}
+    <a href="/article?tag={{this.urlName}}">{{this.name}}</a>
+    {{/each}}
+  </div>
+</div>
+<a href="/article/{{this.urlName}}">
+  <div class="list-title">{{this.title}}</div>
+  <div class="list-content">{{{this.htmlContent}}}...</div>
+</a>

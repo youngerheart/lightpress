@@ -1,6 +1,24 @@
 {{extend ('./blocks/layout')}}
-{{set (title= config.blogName + ' | ' + config.blogDesc)}}
+{{set (title= moduleName + ' | ' + config.blogDesc)}}
 {{set (hideSidebar= true)}}
 {{#block ("body")}}
-<h1>DUANG~DUANG~DUANG~</h1>
+<p>
+  <b>Name:</b>杨舸(gě) - youngerheart
+</p>
+<p> 
+  <b>Born:</b>1993.04.25
+</p>
+<p>
+  <b>Native:</b>
+  <a target="_blank" href="https://en.wikipedia.org/wiki/Xinjiang">XingJiang.China</a>
+</p>
+<p>
+  <b>Current:</b>
+  <a target="_blank" href="https://en.wikipedia.org/wiki/Shanghai">ShangHai.China</a>
+</p>
+<p>
+  <b>Contact:</b>
+  <a target="_blank" href="https://github.com/youngerheart"><img src="http://github.com/favicon.ico"></a>
+  <a target="_blank" href="http://space.bilibili.com/4373473"><img src="http://www.bilibili.com/favicon.ico"></a>
+</p>
 {{/block}}

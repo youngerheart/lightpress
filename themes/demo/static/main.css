@@ -62,30 +62,35 @@ div, input, textarea {
 .topbar-title h4 {
   margin: 0;
   font-size: 12px;
+  color: #999;
 }
 
 .content {
-  position: relative;
+  display: flex;
   width: 1000px;
   margin: auto;
-  padding-right: 270px;
 }
 
-.content-fill {
-  padding-right: 0;
+.content > div:first-child {
+  flex: 1;
 }
 
 .sidebar {
   width: 240px;
-  position: absolute;
   right: 0px;
-  top: 0px;
+  top: 30px;
+  margin-left: 30px;
+  margin-top: 30px;
 }
 
 .sidebar > div {
   margin-top: 30px;
   padding-bottom: 30px;
   border-bottom: 1px #eee solid;
+}
+
+.sidebar > div:last-child {
+  border-bottom: none;
 }
 
 .sidebar > div > h3 {
@@ -112,13 +117,13 @@ div, input, textarea {
   width: 40px;
   margin: 0;
   padding: 0;
-  border: 1px solid #eee;
+  border: 1px #eee solid;
   background-color: #fff;
   height: 30px;
 }
 
 .sidebar-search input {
-  border: 1px solid #eee;
+  border: 1px #eee solid;
   color: #1f2d3d;
   display: block;
   font-size: inherit;
@@ -129,37 +134,49 @@ div, input, textarea {
   outline: 0;
 }
 
-.single {
-  display: flex;
-  margin-top: 30px;
-  padding-bottom: 30px;
-  border-bottom: 1px #eee solid;
+.footer {
+  border-top: 1px #eee solid;
+  padding-top: 30px;
+  text-align: center;
+  line-height: 50px;
 }
 
-.single > div {
+#article > ul > li:first-child {
+  border-top: none;
+}
+
+.list {
+  display: flex;
+  padding-top: 30px;
+  margin-bottom: 30px;
+  border-top: 1px #eee solid;
+}
+
+.list > div {
   width: 160px;
   text-align: right;
   padding-right: 20px;
 }
 
-.single > a {
+.list > a {
   flex: 1;
 }
 
-.single-date {
+.list-date {
   font-size: 26px;
   font-weight: bold;
   color: #ccc;
 }
 
-.single-category {
+.list-category {
   margin: 5px 0 10px;
 }
 
-.single-tag a {
+.tag a {
+  vertical-align: bottom;
   font-size: 14px;
   display: inline-block;
-  padding: 2px 4px;
+  padding: 1px 4px;
   font-weight: normal;
   background-color: #666;
   border-radius: 4px;
@@ -167,64 +184,120 @@ div, input, textarea {
   color: #fff;
 }
 
-.single-tag a:hover {
+.tag a:hover {
   background-color: #20a0ff;
   transition: background-color .2s cubic-bezier(.645,.045,.355,1);
 }
 
-.single-title {
+.list-title {
   font-size: 26px;
   color: #333;
   margin-bottom: 4px;
 }
 
-.single-content {
+.list-content, .single-content {
   line-height: 26px;
   color: #666;
   font-weight: normal;
+}
+
+.pager {
+  margin-top: 30px;
+  padding-bottom: 30px;
+  font-size: 18px;
 }
 
 .pager > a {
   margin: 0 10px;
 }
 
-.pager > a:last-child {
+.pager-next {
   float: right;
 }
 
+.single {
+  margin-top: 30px;
+}
+
+.single-title {
+  color: #333;
+}
+
+.single-info {
+  border-bottom: 1px #eee solid;
+  padding-bottom: 20px;
+}
+
+.single-content {
+  padding-bottom: 30px;
+  border-bottom: 1px #eee solid;
+}
+
+#about {
+  padding: 30px 0;
+}
+
+#about b {
+  color: #333;
+  margin-right: 10px;
+}
+
+#about img {
+  height: 20px;
+  vertical-align: bottom;
+  margin-right: 5px;
+}
 
 @media (max-width: 1000px) {
   body {
     font-size: 14px;
   }
+
   .sidebar {
     display: none;
   }
+
   .topbar-title {
     float: none;
     margin-top: 0;
     text-align: center;
   }
+
+  .single-title {
+    margin: 10px 0;
+  }
+
   .topbar > div {
     text-align: center;
   }
+
   .topbar > div > a {
     font-size: 14px;
   }
+
   .content, .topbar > div {
     width: 100%;
-    padding: 0;
+    padding: 0 0 10px;
   }
-  .single {
-    padding: 0 20px 20px;
+
+  .list, .single, #about {
+    padding: 10px 20px 0;
+    margin: 10px 0 0;
   }
-  .single > div {
+
+  .list > div {
     width: 120px;
   }
-  .topbar-title a, .single-date, .single-title {
+
+  .topbar-title a, .list-date, .list-title, .single-title {
     font-size: 18px;
   }
-  .single-tag a {
+
+  .tag a {
     font-size: 12px;
+  }
+
+  .pager {
+    font-size: 14px;
   }
 }

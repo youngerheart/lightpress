@@ -134,5 +134,13 @@ export default {
     }
     ctx.status = 204;
     return next();
+  },
+  async extraArticle(ctx, next) {
+    var {publishTime} = ctx._lg.data;
+    ctx._lg.extra.article = {
+      previous: await Model.article.findOne({publishTime: {$lt: publishTime}}).sort({publishTime: -1}).select('_id urlName title'),
+      next: await Model.article.findOne({publishTime: {$gt: publishTime}}).sort({publishTime: 1}).select('_id urlName title')
+    };
+    return next();
   }
 };

@@ -13,6 +13,7 @@ router.use('/api', apiRouter.routes());
 router.use('/admin', adminRouter.routes());
 
 router.redirect('/', '/article');
+router.redirect('/favicon.ico', '/static/favicon.ico');
 
 router.use('*', Config.get);
 
@@ -27,7 +28,7 @@ router.use('/:moduleName', checkUrl, (ctx, next) => {
 }, setPage);
 
 router.use('/article', Common.list, Common.extraCount, Common.extraAggregate);
-router.use('/article/:id', Common.get);
+router.use('/article/:id', Common.get, Common.extraArticle);
 router.get('*', renderPage);
 
 export default router;

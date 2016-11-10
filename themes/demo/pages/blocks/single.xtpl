@@ -1,17 +1,25 @@
-{{set (isList = !!this.urlName)}}
-{{set (data = this.urlName ? this : data)}}
+{{set (previous = extra.article.previous)}}
+{{set (next = extra.article.next)}}
 <div>
-  <div class="single-date">{{func.moment(data.publishTime).format('YY-MM-DD')}}</div>
-  <div class="single-category">
+  <h1 class="single-title">{{data.title}}</h1>
+  <div class="single-info">
+    <span>{{func.moment(data.publishTime).format('YY-MM-DD hh:mm')}}</span>
     <a href="/article?category={{data.category.urlName}}">{{data.category.name}}</a>
+    <span class="tag">
+      {{#each(data.tag)}}
+      <a href="/article?tag={{this.urlName}}">{{this.name}}</a>
+      {{/each}}
+    </span>
   </div>
-  <div class="single-tag">
-    {{#each(data.tag)}}
-    <a href="/article?tag={{this.urlName}}">{{this.name}}</a>
-    {{/each}}
-  </div>
+<div id="wrapper" class="single-content">{{{data.htmlContent}}}</div>
 </div>
-<a href="/article/{{data.urlName}}">
-  <div class="single-title">{{data.title}}</div>
-  <div class="single-content">{{{data.htmlContent}}}{{isList ? '...' : ''}}</div>
-</a>
+{{#if(previous || next)}}
+<div class="pager">
+  {{#if(previous)}}
+  <a href="/article/{{previous.urlName}}">previous: {{previous.title}}</a>
+  {{/if}}
+  {{#if(next)}}
+  <a class="pager-next" href="/article/{{next.urlName}}">next: {{next.title}}</a>
+  {{/if}}
+{{/if}}
+</div>
