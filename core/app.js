@@ -1,5 +1,4 @@
 import Koa from 'koa';
-import Router from 'koa-router';
 import mongoose from 'mongoose';
 import session from 'koa-session';
 import convert from 'koa-convert';

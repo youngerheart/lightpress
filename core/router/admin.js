@@ -2,7 +2,7 @@ import Router from 'koa-router';
 import send from 'koa-send';
 import Config from '../controllers/config';
 import Common from '../controllers/common';
-import {setPage, isLogin} from '../controllers/admin';
+import {setPage, isLogin, checkToken} from '../controllers/admin';
 import {renderPage, checkUrl} from '../services/tools';
 import {baseUrl, countUrl, singleUrl} from '../services/args';
 
@@ -21,6 +21,8 @@ adminRouter.use('/:moduleName', checkUrl, (ctx, next) => {
 adminRouter.redirect('/', '/admin/article');
 
 adminRouter.get('/init', Config.getForInit, setPage, renderPage);
+
+adminRouter.get('/resetpw/:token', Config.get, setPage, checkToken, renderPage);
 
 adminRouter.use('*', Config.get, setPage, isLogin);
 

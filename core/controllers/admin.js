@@ -1,4 +1,5 @@
 import md5 from 'md5';
+import rp from 'request-promise';
 import RestError from '../services/resterror';
 import func from '../services/func';
 
@@ -31,6 +32,22 @@ export default {
   logout(ctx, next) {
     ctx.session.config = null;
     ctx.status = 204;
+  },
+  async resetpwmail(ctx, next) {
+    var {email} = ctx.req.body;
+    if (email !== ctx._lg.config.email) throw new RestError(400, 'PARAM_REQUIRED_ERR', 'email is wrong');
+    var {token} = await rp({url: 'https://lightpress.timehub.cc/user/resetpwmail', method: 'POST', body: {origin: ctx.origin, email}, json: true});
+    ctx.session.token = token;
+    ctx.status = 204;
+  },
+  checkToken(ctx, next) {
+    var {token} = ctx.params;
+    ctx.session.config = null;
+    if (token !== ctx.session.token) {
+      if (ctx.type === 'text/html') ctx.redirect('/admin/login');
+      else throw new RestError(400, 'TOKEN_REQUIRED_ERR', 'token is wrong');
+    }
+    return next();
   }
 };
 

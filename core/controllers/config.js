@@ -46,5 +46,13 @@ export default {
     await Config.update({}, {password: md5(params.newPassword)});
     ctx.session.config = null;
     ctx.status = 204;
+  },
+  async resetpw(ctx) {
+    var {password} = ctx.__lg.config;
+    var newPassword = md5(getParams(ctx.req.body, ['password']).password);
+    if (password === newPassword) throw new RestError(400, 'CONFIG_FAILED_ERR', 'password should be different');
+    await Config.update({}, {password: newPassword});
+    ctx.session.token = null;
+    ctx.status = 204;
   }
 };

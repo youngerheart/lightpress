@@ -2,12 +2,26 @@
 {{set (title= 'login<' + config.blogName)}}
 {{#block ('body')}}
 <h2>login for manage.</h2>
-<el-form ref="form" :model="form" :rules="rules" ref="form" label-width="100px">
+<el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-width="100px">
   <el-form-item label="password" prop="password" auto-complete="off">
-    <el-input type="password" v-model="form.password"></el-input>
+    <el-input type="password" v-model="loginForm.password"></el-input>
   </el-form-item>
   <el-form-item>
-    <el-button type="primary" @click="submitForm('form')">submit</el-button>
+    <el-button type="primary" @click="submitForm('loginForm')">submit</el-button>
+    <a class="login-resetpw" @click="isDialogOpen=true">forget password?</a>
   </el-form-item>
 </el-form>
+
+<el-dialog title="reset password" v-model="isDialogOpen" size="small">
+  <el-alert title="enter your configured email" type="info" :closable="false"></el-alert>
+  <el-form ref="resetpwmailForm" :model="resetpwmailForm" :rules="resetpwmailRules" label-width="60px">
+    <el-form-item label="email" prop="email" auto-complete="off">
+      <el-input type="email" v-model="resetpwmailForm.email"></el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="submitForm('resetpwmailForm')">submit</el-button>
+    </el-form-item>
+  </el-form>
+</el-dialog>
+
 {{/block}}

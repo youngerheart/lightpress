@@ -22,9 +22,13 @@ apiRouter.get(baseUrl, Common.list, renderAPI, Common.getAggregate);
 apiRouter.get(countUrl, Common.count, renderAPI);
 apiRouter.get(singleUrl, Common.get, renderAPI);
 
+apiRouter.post('/resetpwmail', Admin.resetpwmail);
+apiRouter.put('/resetpw/:token', Admin.checkToken, Config.resetpw);
+
 apiRouter.use(Admin.isLogin);
 
 apiRouter.post('/login', Admin.login);
+apiRouter.get('/logout', Admin.logout);
 apiRouter.put('/config', Config.set);
 apiRouter.put('/password', Config.setPassword);
 apiRouter.post(baseUrl, Common.add, renderAPI);
