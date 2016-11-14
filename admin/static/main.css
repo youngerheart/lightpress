@@ -24,6 +24,10 @@ body {
   text-decoration: none;
 }
 
+#topbar .el-menu-item:last-child {
+  float: right;
+}
+
 .content {
   padding: 20px;
 }
