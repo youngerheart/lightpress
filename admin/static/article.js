@@ -3,7 +3,8 @@ new Vue({
   data() {
     return {
       searchText: '',
-      currentPage: 1
+      currentPage: 1,
+      activeIndex: -1
     };
   },
   created() {
@@ -32,6 +33,10 @@ new Vue({
           this.$message.error(`error happend - ${err.body.message}`);
         });
       });
+    },
+    toggleItem(index) {
+      if (index === this.activeIndex) this.activeIndex = -1;
+      else this.activeIndex = index;
     }
   }
 });

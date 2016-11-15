@@ -28,6 +28,10 @@ body {
   float: right;
 }
 
+#topbar .topbar-label {
+  display: none;
+}
+
 .content {
   padding: 20px;
 }
@@ -126,6 +130,10 @@ body {
   margin-left: 3px;
 }
 
+.table-name i {
+  display: none;
+}
+
 .table-top {
   margin-bottom: 10px;
   line-height: 40px;
@@ -147,4 +155,85 @@ body {
 .table-top .el-input {
   float: right;
   width: 200px;
+}
+
+@media (max-width: 1000px) {
+  #topbar .el-menu-item {
+    width: auto;
+    display: none;
+    float: none!important;
+  }
+
+  #topbar .topbar-label {
+    display: block;
+    margin-left: 18%;
+    font-size: 20px;
+    text-align: center;
+    line-height: 60px;
+  }
+
+  #topbar .topbar-label i {
+    font-size: 16px;
+    margin-left: 10px;
+  }
+
+  #topbar.active .el-menu-item {
+    display: block;
+  }
+
+  #topbar.active .topbar-label i, .table tr.active .table-name i {
+    transform: rotate(180deg);
+  }
+
+  .table th {
+    display: none;
+  }
+
+  .table th:first-child {
+    display: block;
+  }
+
+  .table td {
+    box-sizing: border-box;
+    width: 100%;
+    display: none;
+    padding-left: 30%; 
+    position: relative;
+  }
+
+  .table tr.active td {
+    display: block;
+  }
+
+  .table td::before {
+    position: absolute;
+    left: 13px;
+    display: block;
+    overflow: hidden;
+    width: 27%;
+    content: attr(data-colname);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .table td.table-name {
+    padding-left: 10px;
+    display: block;
+  }
+
+  .table td.table-name::before {
+    display: none;
+  }
+
+  .table-name i {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 19px;
+  }
+
+  .table-name > div {
+    visibility: visible;
+  }
 }

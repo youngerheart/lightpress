@@ -18,10 +18,11 @@
   {{/if}}
 </head>
 <body>
-  <div id="topbar">
+  <div id="topbar" :class="{active: topbarVisible}">
     <el-menu default-active="{{moduleName}}" class="el-menu-demo" mode="horizontal"  @select="handleSelect">
       <a title="lightpress" target="_blank" href="https://github.com/youngerheart/lightpress"><img id="title" src="/admin/static/light.png"></a>
       {{#if( config.isLogin )}}
+      <a @click="topbarVisible = !topbarVisible" class="topbar-label">{{moduleName}}<i class="el-icon-arrow-down"></i></a>
       <el-menu-item index="article">article</el-menu-item>
       <el-menu-item index="write">write</el-menu-item>
       <el-menu-item index="category">category</el-menu-item>
