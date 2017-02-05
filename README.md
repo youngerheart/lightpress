@@ -1,20 +1,27 @@
 # lightpress
-developing light blog
 
-## base on
-* front-end: angular, webpack
-* back-end: express, mongoose
+so many times, or love? (laugh)
 
 ## develop
 
-```php
-$ brew install mongodb
-$ mongod
-// run
-$ make dev
 ```
+$ make dev
+``` 
 
-view api in `127.0.0.1:8080`
+## structure
 
-## docs
-view api docs in `server` and DB docs in `server/schemas`
+read `README.md` in every folders for more informations.
+
+```
+.
+├─ admin
+│   ├─ controllers
+│   └─ src
+├─ core
+│   ├─ apis
+│   ├─ models
+│   └─ service
+└─ themes
+    ├─ controllers
+    └─ src
+```
