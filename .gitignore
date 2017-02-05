@@ -1,9 +1,6 @@
-*.swp
-.DS_Store
-.sass-cache
 *.log
-bower_components
-node_modules
-dist
+*.swp
 .idea
-*.png
+.DS_Store
+node_modules
+dist/
