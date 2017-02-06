@@ -15,13 +15,15 @@ read `README.md` in every folders for more informations.
 ```
 .
 ├─ admin
-│   ├─ controllers
-│   └─ src
+│   ├─ pages
+│   └─ ...
 ├─ core
-│   ├─ apis
+│   ├─ controllers
 │   ├─ models
 │   └─ service
 └─ themes
-    ├─ controllers
-    └─ src
+    ├─ demo
+    │   ├─ pages
+    │   └─ ...
+    └─ ...
 ```
