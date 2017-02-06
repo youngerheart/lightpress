@@ -1,6 +1,6 @@
 const Config = {
   get(ctx, next) {
-    ctx._lg.info = {theme: 'demo', name: 'hehe'};
+    ctx._lg.config = {theme: 'demo'};
     return next();
   },
   set(ctx) {
