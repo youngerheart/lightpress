@@ -1,10 +1,13 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-
+import mongoose from 'mongoose';
 import router from './router';
 import {renderErrorPage} from './services/tools';
+import {dbUri, dbOptions, serverPort} from './config';
 
 const app = new Koa();
+
+mongoose.connect(dbUri || 'mongodb://127.0.0.1:27017/lightpress', dbOptions || {});
 
 app.use(async (ctx, next) => {
   const start = new Date();
@@ -21,6 +24,6 @@ app.use(async (ctx, next) => {
 
 app.use(router.routes());
 
-app.listen(3000, () => {
-  process.stderr.write(`Server running at http://localhost:3000\n`);
+app.listen(serverPort, () => {
+  process.stderr.write(`Server running at http://localhost:${serverPort}\n`);
 });
