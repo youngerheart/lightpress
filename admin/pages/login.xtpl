@@ -1,15 +1,13 @@
 {{extend ("./blocks/layout")}}
 {{set (title= 'login-' + config.blogName)}}
 {{#block ("body")}}
-<div id="login" class="content">
-  <h2>login for manage.</h2>
-  <el-form ref="form" :model="form" :rules="rules" ref="form" label-width="100px">
-    <el-form-item label="password" prop="password" auto-complete="off">
-      <el-input type="password" v-model="form.password"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm('form')">submit</el-button>
-    </el-form-item>
-  </el-form>
-</div>
+<h2>login for manage.</h2>
+<el-form ref="form" :model="form" :rules="rules" ref="form" label-width="100px">
+  <el-form-item label="password" prop="password" auto-complete="off">
+    <el-input type="password" v-model="form.password"></el-input>
+  </el-form-item>
+  <el-form-item>
+    <el-button type="primary" @click="submitForm('form')">submit</el-button>
+  </el-form-item>
+</el-form>
 {{/block}}

@@ -37,10 +37,7 @@ new Vue({
               }
             });
           }, (err) => {
-            this.$alert(err.body.message, 'error happend.', {
-              confirmButtonText: 'ok',
-              type: 'error'
-            });
+            this.$message.error(`error happend - ${err.body.message}`);
           });
         }
       });

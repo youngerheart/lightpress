@@ -8,7 +8,9 @@
     'mocha': true
   },
   "globals": {
-    'Vue': true
+    'Vue': true,
+    '_lp': true,
+    'SimpleMDE': true
   },
   "parserOptions": {
     "sourceType": "module"

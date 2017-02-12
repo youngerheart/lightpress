@@ -27,7 +27,7 @@
 
 | field | type | description |
 | --- | --- | --- |
-| name | String ||
+| title | String ||
 | urlName | String | name for legal url |
 | mdContent | String ||
 | htmlContent | String ||
