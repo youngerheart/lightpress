@@ -8,6 +8,7 @@ body {
   overflow: auto;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
+  font-size: 14px;
 }
 
 #topbar #title {
@@ -40,7 +41,56 @@ body {
 #write .markdown-editor .editor-toolbar {
   border: 0;
 }
+
 #write .markdown-editor .CodeMirror {
   border-width: 1px 0 1px 0;
   border-radius: 0;
+}
+
+#article .table {
+  width: 100%;
+  border: 1px solid #dfe6ec;
+  color: #1f2d3d;
+}
+
+#article .table th, #article .table td {
+  padding: 5px 10px;
+  vertical-align: top;
+}
+
+#article .table th {
+  text-align: left;
+  font-size: 16px;
+  line-height: 30px;
+  border-bottom: 1px solid #dfe6ec;
+}
+
+#article .table tbody tr:nth-child(2n-1) {
+  background-color: #fafafa;
+}
+
+#article table a {
+  color: #00a0d2;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#article .table_name > a {
+  font-size: 20px;
+}
+
+#article .table_name div {
+  line-height: 14px;
+  visibility: hidden;
+}
+
+#article tr:hover div {
+  visibility: visible;
+}
+
+#article .table_name div > a {
+  font-size: 14px;
+  font-weight: normal;
+  cursor: pointer;
+  margin-left: 3px;
 }

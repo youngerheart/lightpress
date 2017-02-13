@@ -1,5 +1,6 @@
 import xtpl from 'xtpl';
 import RestError from './resterror';
+import func from './func';
 
 const Tool = {
   dealSchema() {},
@@ -10,8 +11,16 @@ const Tool = {
     });
     return newParams;
   },
+  getQueryObj() {
+    return {};
+  },
+  async renderAPI(ctx) {
+    ctx.body = ctx._lg.data;
+  },
   async renderPage(ctx) {
     var {_lg, __lg} = ctx;
+    _lg.query = ctx.query;
+    _lg.func = func;
     try {
       ctx.body = await new Promise((resolve, reject) => {
         xtpl.renderFile(__lg.xtplPath, _lg, function(error, content) {
@@ -25,7 +34,11 @@ const Tool = {
   },
   async renderErrorPage(ctx, err) {
     var {_lg, __lg} = ctx;
+    process.stderr.write(err.stack + '\n');
     try {
+      _lg.error = err;
+      if (!__lg.pagePath) throw err;
+      _lg.moduleName = 'error';
       ctx.body = await new Promise((resolve, reject) => {
         xtpl.renderFile(`${__lg.pagePath}/error.xtpl`, _lg, function(error, content) {
           if (error) reject(err);
@@ -34,7 +47,6 @@ const Tool = {
       });
     } catch (err) {
       ctx.type = 'json';
-      process.stderr.write(err.stack + '\n');
       let {status, name, message, errors} = err;
       ctx.status = status || 500;
       if (name) ctx.body = {name, message, errors};
@@ -42,6 +54,7 @@ const Tool = {
   },
   checkUrl(ctx, next) {
     if (ctx.url.split('.').length > 1) throw new RestError(403, 'REQUEST_INVALID_ERR');
+    if (ctx.method !== 'GET' && ctx.type === 'text/html') throw new RestError(403, 'REQUEST_METHOD_ERR');
     return next();
   }
 };

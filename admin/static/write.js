@@ -1,12 +1,7 @@
 Vue.component('markdown-editor', {
   props: {
     previewClass: String,
-    configs: {
-      type: Object,
-      default() {
-        return {};
-      }
-    },
+    value: String,
     validateEvent: {
       type: Boolean,
       default: true
@@ -15,28 +10,26 @@ Vue.component('markdown-editor', {
   mounted() {
     this.initialize();
   },
+  watch: {
+    value(val) {
+      var value = this.simplemde.value();
+      if (val && !value) this.simplemde.value(val);
+    }
+  },
   methods: {
     initialize() {
       let configs = {};
-      Object.assign(configs, this.configs);
-      configs.element = configs.element || this.$el.firstChild;
-      configs.initialValue = configs.initialValue || '';
+      configs.element = this.$el.firstChild;
+      configs.initialValue = this.value;
       // 实例化编辑器
       this.simplemde = new SimpleMDE(configs);
-      // 判断是否开启代码高亮
-      if (configs.renderingConfig && configs.renderingConfig.codeSyntaxHighlighting) {
-        require.ensure([], () => {
-          const theme = configs.renderingConfig.highlightingTheme || 'default';
-          window.hljs = require('highlight.js');
-          require(`highlight.js/styles/${theme}.css`);
-        }, 'highlight');
-      }
       // 添加自定义 previewClass
       const className = this.previewClass || '';
       this.addPreviewClass(className);
       // 绑定输入事件
       this.simplemde.codemirror.on('change', () => {
         this.$emit('input', this.simplemde.value());
+        this.dispatch('ElFormItem', 'el.form.change');
       });
       this.simplemde.codemirror.on('blur', () => {
         if (this.validateEvent) {
@@ -122,9 +115,7 @@ new Vue({
     this.getData('category');
     if (this.totalArticle) {
       this.$http.get(`/api/article/${this.totalArticle}`).then((res) => {
-        for (var key in this.articleForm) {
-          this.articleForm[key] = res.body[key];
-        }
+        _lp.setData(this.articleForm, res.body);
       }, (err) => {
         this.errMsg = err.body.message;
       });

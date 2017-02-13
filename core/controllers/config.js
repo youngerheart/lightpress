@@ -11,15 +11,13 @@ export default {
       else throw new RestError(400, 'CONFIG_NOTFOUND_ERR', 'config uninitialized');
     }
     var {blogName, blogDesc, totalTheme} = config;
-    var {moduleName} = ctx.params;
     ctx.__lg.config = config;
-    ctx._lg.config = {theme: totalTheme.name, moduleName, blogName, blogDesc};
+    ctx._lg.config = {theme: totalTheme.name, blogName, blogDesc};
     return next();
   },
   async getForInit(ctx, next) {
     var config = await Config.findOne({});
     if (config) ctx.redirect('/admin/article');
-    ctx._lg.config = {moduleName: 'init'};
     return next();
   },
   async init(ctx) {

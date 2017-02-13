@@ -8,7 +8,6 @@
 | blogDesc | String ||
 | password | String ||
 | email | String ||
-| urlById | Boolean | use _id for url |
 | totalTheme | ObjectId ||
 
 ## theme

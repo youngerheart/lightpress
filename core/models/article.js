@@ -27,6 +27,11 @@ const ArticleSchema = new Schema({
     required: true,
     default: false
   },
+  isRecycled: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
   publishTime: {
     type: Date,
     required: true
@@ -40,7 +45,12 @@ const ArticleSchema = new Schema({
   tag: [{
     type: Schema.Types.ObjectId,
     ref: 'tag'
-  }]
+  }],
+  views: {
+    type: Number,
+    required: true,
+    default: 0
+  }
 }, {
   timestamps: true
 });

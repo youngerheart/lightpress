@@ -1,5 +1,9 @@
 {{extend ("./blocks/layout")}}
 
 {{#block ("body")}}
-<p>这是个 404 的测试页面</p>
+<el-alert
+title="{{error}}"
+type="warning"
+:closable="false">
+</el-alert>
 {{/block}}
