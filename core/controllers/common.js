@@ -15,27 +15,34 @@ export default {
     ctx.body = {_id: model._id};
   },
   async del() {},
-  async edit() {},
+  async edit(ctx, next) {},
   async list(ctx, next) {
     var {moduleName} = ctx.params;
-    var query = getQueryObj(ctx.query);
-    ctx._lg.data = moduleName === 'article' ?
-      await Model[moduleName].find(query).populate('category tag') :
-      await Model[moduleName].find(query);
+    var {skip, limit, sort, populate, ...query} = getQueryObj(ctx.query, moduleName, true);
+    ctx._lg.data = await Model[moduleName].find(query).populate(populate).skip(skip).limit(limit).sort(sort);
     return next();
   },
   async get(ctx, next) {
     var {moduleName} = ctx.params;
-    var query = getQueryObj(ctx.query);
-    ctx._lg.data = moduleName === 'article' ?
-      await Model[moduleName].findOne(query).populate('category tag') :
-      await Model[moduleName].findOne(query);
+    var {populate, ...query} = getQueryObj(ctx.query, moduleName);
+    ctx._lg.data = await Model[moduleName].findOne(query).populate(populate);
     return next();
   },
   async count(ctx, next) {
     var {moduleName} = ctx.params;
     var query = getQueryObj(ctx.query);
     ctx._lg.data = await Model[moduleName].count(query);
+    return next();
+  },
+  async extraCount(ctx, next) {
+    var {moduleName} = ctx.params;
+    var query = getQueryObj(ctx.query);
+    ctx._lg.extra.count = moduleName === 'article' ?
+    {
+      isPublished: await Model[moduleName].count({...query, isDraft: false, isRecycled: false}),
+      isDraft: await Model[moduleName].count({...query, isDraft: true, isRecycled: false}),
+      isRecycled: await Model[moduleName].count({...query, isRecycled: true})
+    } : await Model[moduleName].count(query);
     return next();
   }
 };

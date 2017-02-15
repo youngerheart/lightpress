@@ -19,7 +19,7 @@ apiRouter.post('/init', Theme.init, Config.init);
 apiRouter.use(Config.get, Admin.isLogin);
 apiRouter.post('/login', Admin.login);
 
-apiRouter.post(singleUrl, Common.add, renderAPI);
+apiRouter.post(baseUrl, Common.add, renderAPI);
 apiRouter.delete(singleUrl, Common.del, renderAPI);
 apiRouter.put(singleUrl, Common.edit, renderAPI);
 apiRouter.get(baseUrl, Common.list, renderAPI);

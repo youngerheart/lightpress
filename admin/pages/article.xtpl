@@ -1,36 +1,54 @@
 {{extend ("./blocks/layout")}}
 {{set (title= 'article-' + config.blogName)}}
+{{set (count = extra.count[func.getArticleType(query)])}}
 {{#block ("body")}}
-  <table class="table" cellpadding="0" cellspacing="0" border="0">
-    <thead>
-      <tr>
-        <th>name</th>
-        <th>category</th>
-        <th>tags</th>
-        <th>status</th>
-        <th>views</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each(data)}}
-      <tr>
-        <td class="table_name">
-          <a href="/article/{{this.urlName}}">{{this.title}}</a>
-          <div>
-            <a href="/admin/write?article={{this.urlName}}">edit</a>
-            <a>recycle</a>
-          </div>
-        </td>
-        <td><a href="/category/{{this.category.urlName}}">{{this.category.name}}</a></td>
-        <td>
-          {{#each(this.tag)}}
-          <a href="/tag/{{this.urlName}}">{{this.name}}</a>
-          {{/each}}
-        </td>
-        <td>{{func.moment(this.publishTime).format('YY-MM-DD hh:ss')}}<br>{{this.isDraft ? 'save as draft' : 'published'}}</td>
-        <td>{{this.views || 0}}</td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
+<div class="article-top">
+  <a href="/admin/article">published({{extra.count.isPublished}})</a>
+  <a href="/admin/article?isDraft=true">draft({{extra.count.isDraft}})</a>
+  <a href="/admin/article?isRecycled=true">recycled({{extra.count.isRecycled}})</a>
+  <el-input
+    placeholder="type url name"
+    icon="search"
+    v-model="searchText"
+    :on-icon-click="handleSearchClick">
+  </el-input>
+</div>
+<el-alert v-show="!{{count}}" title="articles not found in that query" type="warning" :closable="false"></el-alert>
+<table v-show="{{count}}" class="table" cellpadding="0" cellspacing="0" border="0">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>category</th>
+      <th>tags</th>
+      <th>status</th>
+      <th>views</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each(data)}}
+    <tr>
+      <td class="table-name">
+        <a href="/article/{{this.urlName}}">{{this.title}}</a>
+        <div>
+          <a href="/admin/write?article={{this.urlName}}">edit</a>
+          <a>recycle</a>
+        </div>
+      </td>
+      <td><a href="/category/{{this.category.urlName}}">{{this.category.name}}</a></td>
+      <td>
+        {{#each(this.tag)}}
+        <a href="/tag/{{this.urlName}}">{{this.name}}</a>
+        {{/each}}
+      </td>
+      <td>{{func.moment(this.publishTime).format('YY-MM-DD hh:ss')}}<br>{{this.isDraft ? 'save as draft' : 'published'}}</td>
+      <td>{{this.views || 0}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<el-pagination
+  v-show="{{count}}"
+  layout="prev, pager, next"
+  :total="{{count}}">
+</el-pagination>
 {{/block}}

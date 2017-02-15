@@ -38,6 +38,10 @@ body {
   padding: 0;
 }
 
+.el-pagination {
+  margin-top: 15px;
+  padding: 0;
+}
 #write .markdown-editor .editor-toolbar {
   border: 0;
 }
@@ -75,11 +79,11 @@ body {
   font-weight: bold;
 }
 
-#article .table_name > a {
+#article .table-name > a {
   font-size: 20px;
 }
 
-#article .table_name div {
+#article .table-name div {
   line-height: 14px;
   visibility: hidden;
 }
@@ -88,9 +92,26 @@ body {
   visibility: visible;
 }
 
-#article .table_name div > a {
+#article .table-name div > a {
   font-size: 14px;
   font-weight: normal;
   cursor: pointer;
   margin-left: 3px;
+}
+
+#article .article-top {
+  margin-bottom: 10px;
+  line-height: 40px;
+}
+
+#article .article-top a {
+  margin: 0 3px;
+  color: #00a0d2;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#article .article-top .el-input {
+  float: right;
+  width: 200px;
 }
