@@ -12,20 +12,25 @@ const Tool = {
     return newParams;
   },
   getQueryObj(query, moduleName, isList) {
-    var {page, limit, sort, populate, ...otherQuery} = query;
+    var {page, limit, sort, populate, search, ...otherQuery} = query;
     if (moduleName === 'article') {
       sort = '-publishTime';
       populate = 'category tag';
     }
-    populate = populate || ''
+    if (search) otherQuery.urlName = new RegExp(search);
     if (!moduleName) return otherQuery;
+    populate = populate || '';
     if (isList) {
-      page = page || 0;
+      page = page || 1;
       limit = limit || 10;
       sort = sort || '-createdAt';
+      if (!otherQuery.isDraft && !otherQuery.isRecycled) {
+        otherQuery.isDraft = false;
+        otherQuery.isRecycled = false;
+      }
       return {
         limit, sort, populate, ...otherQuery,
-        skip: page * limit
+        skip: (page - 1) * limit
       };
     } else return {populate, ...otherQuery};
   },
