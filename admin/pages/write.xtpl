@@ -1,7 +1,7 @@
 {{extend ("./blocks/layout")}}
 {{set (title= 'write-' + config.blogName)}}
 {{#block ("body")}}
-<el-alert v-show="errMsg && totalArticle" :title="errMsg" type="error" :closable="false"></el-alert>
+<el-alert v-show="errMsg && totalArticle" :title="errMsg" type="warning" :closable="false"></el-alert>
 <el-form ref="articleForm" v-show="!errMsg" :model="articleForm" :rules="articleRules" label-width="100px">
   <el-form-item label="title" prop="title">
     <el-input v-model="articleForm.title"></el-input>

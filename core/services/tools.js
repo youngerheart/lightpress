@@ -11,8 +11,23 @@ const Tool = {
     });
     return newParams;
   },
-  getQueryObj() {
-    return {};
+  getQueryObj(query, moduleName, isList) {
+    var {page, limit, sort, populate, ...otherQuery} = query;
+    if (moduleName === 'article') {
+      sort = '-publishTime';
+      populate = 'category tag';
+    }
+    populate = populate || ''
+    if (!moduleName) return otherQuery;
+    if (isList) {
+      page = page || 0;
+      limit = limit || 10;
+      sort = sort || '-createdAt';
+      return {
+        limit, sort, populate, ...otherQuery,
+        skip: page * limit
+      };
+    } else return {populate, ...otherQuery};
   },
   async renderAPI(ctx) {
     ctx.body = ctx._lg.data;

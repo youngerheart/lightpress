@@ -31,7 +31,8 @@ app.use(async (ctx, next) => {
     };
     if (ctx.method !== 'GET' && ctx.method !== 'OPTIONS') await getBody();
     ctx._lg = {
-      config: {}
+      config: {},
+      extra: {}
     }; // public params for pages.
     ctx.__lg = {} // private params.
     if (!ctx.session) ctx.session = {};
