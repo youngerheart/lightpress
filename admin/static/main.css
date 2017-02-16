@@ -51,60 +51,61 @@ body {
   border-radius: 0;
 }
 
-#article .table {
+.table {
   width: 100%;
   border: 1px solid #dfe6ec;
   color: #1f2d3d;
 }
 
-#article .table th, #article .table td {
+.table th, .table td {
   padding: 5px 10px;
   vertical-align: top;
 }
 
-#article .table th {
+.table th {
   text-align: left;
   font-size: 16px;
   line-height: 30px;
   border-bottom: 1px solid #dfe6ec;
 }
 
-#article .table tbody tr:nth-child(2n-1) {
+.table tbody tr:nth-child(2n-1) {
   background-color: #fafafa;
 }
 
-#article table a {
+.table a {
   color: #00a0d2;
   text-decoration: none;
   font-weight: bold;
 }
 
-#article .table-name > a {
+.table-name > a {
   font-size: 20px;
 }
 
-#article .table-name div {
+.table-name div {
   line-height: 14px;
   visibility: hidden;
 }
 
-#article tr:hover div {
+.table tr:hover div {
   visibility: visible;
 }
 
-#article .table-name div > a {
+.table-name div > a {
   font-size: 14px;
   font-weight: normal;
   cursor: pointer;
   margin-left: 3px;
 }
 
-#article .article-top {
+.table-top {
   margin-bottom: 10px;
   line-height: 40px;
+  height: 40px;
 }
 
-#article .article-top a {
+.table-top a {
   margin: 0 3px;
   color: #00a0d2;
   font-size: 16px;
@@ -112,11 +113,11 @@ body {
   cursor: pointer;
 }
 
-#article .article-top a.focus {
+.table-top a.focus {
   color: #1f2d3d;
 }
 
-#article .article-top .el-input {
+.table-top .el-input {
   float: right;
   width: 200px;
 }

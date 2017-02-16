@@ -3,7 +3,7 @@
 {{set (count = extra.count.isList)}}
 {{set (articleType = func.getArticleType(query))}}
 {{#block ("body")}}
-<div class="article-top">
+<div class="table-top">
   <a class="{{articleType === 'isPublished' ? 'focus' : ''}}" @click="setUrlParams()">published({{extra.count.isPublished}})</a>
   <a class="{{articleType === 'isDraft' ? 'focus' : ''}}" @click="setUrlParams({isDraft: true})">draft({{extra.count.isDraft}})</a>
   <a class="{{articleType === 'isRecycled' ? 'focus' : ''}}" @click="setUrlParams({isRecycled: true})">recycled({{extra.count.isRecycled}})</a>

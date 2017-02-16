@@ -7,13 +7,14 @@ export default {
   async get(ctx, next) {
     var config = await Config.findOne({}).populate('totalTheme');
     if (!config) {
-      if (ctx.type === 'html') ctx.redirect('/admin/init');
+      if (ctx.type === 'text/html') ctx.redirect('/admin/init');
       else throw new RestError(400, 'CONFIG_NOTFOUND_ERR', 'config uninitialized');
+    } else {
+      var {blogName, blogDesc, totalTheme} = config;
+      ctx.__lg.config = config;
+      ctx._lg.config = {theme: totalTheme.name, blogName, blogDesc};
+      return next();
     }
-    var {blogName, blogDesc, totalTheme} = config;
-    ctx.__lg.config = config;
-    ctx._lg.config = {theme: totalTheme.name, blogName, blogDesc};
-    return next();
   },
   async getForInit(ctx, next) {
     var config = await Config.findOne({});
