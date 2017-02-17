@@ -7,6 +7,12 @@ import RestError from '../services/resterror';
 import {getQueryObj} from '../services/tools';
 
 const Model = {config, theme, article, category, tag};
+const setArticleQuery = (query) => {
+  if (!query.isDraft && !query.isRecycled) {
+    query.isDraft = false;
+    query.isRecycled = false;
+  }
+};
 
 export default {
   async add(ctx, next) {
@@ -30,27 +36,30 @@ export default {
   async list(ctx, next) {
     var {moduleName} = ctx.params;
     var {skip, limit, sort, populate, ...query} = getQueryObj(ctx.query, moduleName, true);
-    ctx._lg.data = await Model[moduleName].find(query).populate(populate).skip(skip).limit(limit).sort(sort);
-    if (!ctx._lg.data) throw new RestError(404, 'DATA_NOTFOUND_ERR');
+    if (moduleName === 'article') setArticleQuery(query);
+    ctx._lg.data = await Model[moduleName].find(query).populate(populate || '').skip(skip).limit(limit).sort(sort);
+    if (!ctx._lg.data) throw new RestError(404, 'DATA_NOTFOUND_ERR', 'data is not found');
     return next();
   },
   async get(ctx, next) {
     var {moduleName, id} = ctx.params;
     var {populate, ...query} = getQueryObj(ctx.query, moduleName);
     query.urlName = id;
-    ctx._lg.data = await Model[moduleName].findOne(query).populate(populate);
-    if (!ctx._lg.data) throw new RestError(404, 'DATA_NOTFOUND_ERR');
+    ctx._lg.data = await Model[moduleName].findOne(query).populate(populate || '');
+    if (!ctx._lg.data) throw new RestError(404, 'DATA_NOTFOUND_ERR', 'data is not found');
     return next();
   },
   async count(ctx, next) {
     var {moduleName} = ctx.params;
-    var query = getQueryObj(ctx.query);
+    var query = getQueryObj(ctx.query, moduleName);
     ctx._lg.data = await Model[moduleName].count(query);
     return next();
   },
   async extraCount(ctx, next) {
     var {moduleName} = ctx.params;
-    var query = getQueryObj(ctx.query);
+    var query = getQueryObj(ctx.query, moduleName);
+    if (moduleName === 'article') setArticleQuery(query);
+    delete query.populate;
     ctx._lg.extra.count = moduleName === 'article' ?
     {
       isPublished: await Model[moduleName].count({isDraft: false, isRecycled: false}),
@@ -60,12 +69,13 @@ export default {
     } : await Model[moduleName].count(query);
     return next();
   },
-  async extraAggregate(ctx, next) {
+  async getAggregate(ctx, next) {
     var {moduleName} = ctx.params;
-    var pointer = {};
     if (['tag', 'category'].indexOf(moduleName) === -1) return next();
+    var pointer = {};
+    var query = getQueryObj(ctx.query);
     var paramArr = [{
-      $match: getQueryObj(ctx.query)
+      $match: query
     }, {
       $group: {_id: `$${moduleName}`, count: {'$sum': 1}}
     }];
@@ -75,7 +85,9 @@ export default {
     data.forEach((item) => {
       if (item._id) pointer[item._id.urlName] = item.count;
     });
-    ctx._lg.extra.aggregate = pointer;
+    ctx._lg.data.forEach((item) => {
+      item.count = pointer[item.urlName] || 0;
+    });
     return next();
   },
   async extraDel(ctx, next) {

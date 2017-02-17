@@ -1,4 +1,38 @@
 {{extend ("./blocks/layout")}}
-{{set (title= 'config-' + config.blogName)}}
+{{set (title= 'config<' + config.blogName)}}
 {{#block ("body")}}
+<el-tabs type="border-card">
+  <el-tab-pane label="general">
+    <el-form ref="configForm" :model="configForm" :rules="configRules" label-width="120px">
+      <el-form-item label="blog name" prop="blogName">
+        <el-input ref="blogName" v-model="configForm.blogName" value="{{config.blogName}}"></el-input>
+      </el-form-item>
+      <el-form-item label="blog descption" prop="blogDesc">
+        <el-input ref="blogDesc" v-model="configForm.blogDesc" value="{{config.blogDesc}}"></el-input>
+      </el-form-item>
+      <el-form-item label="email" prop="email">
+        <el-input ref="email" v-model="configForm.email" value="{{config.email}}"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('configForm')">submit</el-button>
+      </el-form-item>
+    </el-form>
+  </el-tab-pane>
+  <el-tab-pane label="password">
+    <el-form ref="passwordForm" :model="passwordForm" :rules="passwordRules" label-width="120px">
+      <el-form-item label="password" prop="password">
+        <el-input v-model="passwordForm.password"></el-input>
+      </el-form-item>
+      <el-form-item label="new password" prop="newPassword">
+        <el-input v-model="passwordForm.newPassword"></el-input>
+      </el-form-item>
+      <el-form-item label="repeat password" prop="repeatpw">
+        <el-input v-model="passwordForm.repeatpw"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('passwordForm')">submit</el-button>
+      </el-form-item>
+    </el-form>
+  </el-tab-pane>
+</el-tabs>
 {{/block}}

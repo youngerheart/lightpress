@@ -13,7 +13,7 @@ Vue.component('markdown-editor', {
   watch: {
     value(val) {
       var value = this.simplemde.value();
-      if (val && !value) this.simplemde.value(val);
+      if (val !== value) this.simplemde.value(val);
     }
   },
   methods: {
@@ -108,19 +108,20 @@ new Vue({
       isCategoryOpen: false,
       isTagOpen: false,
       totalArticle: _lp.getUrlParams('article'),
-      errMsg: ''
+      errMsg: '',
+      saveTime: '',
+      oldContent: ''
     };
   },
   created() {
     this.getData('tag');
     this.getData('category');
-    if (this.totalArticle) {
-      this.$http.get(`/api/article/${this.totalArticle}`).then((res) => {
-        _lp.setData(this.articleForm, res.body, {publishTime: Date});
-      }, (err) => {
-        this.errMsg = err.body.message;
-      });
-    }
+    var saveObj = JSON.parse(localStorage.getItem('autosave') || '{}');
+    if (saveObj.saveTime && (!this.totalArticle || saveObj.totalArticle && saveObj.totalArticle === this.totalArticle)) {
+      this.saveTime = saveObj.saveTime;
+      this.oldContent = saveObj.articleForm.mdContent;
+      _lp.setData(this.articleForm, saveObj.articleForm, {publishTime: Date});
+    } else if (this.totalArticle) this.getServerArticle();
   },
   computed: {
     simplemde() {
@@ -128,6 +129,16 @@ new Vue({
     }
   },
   methods: {
+    getServerArticle() {
+      this.$http.get(`/api/article/${this.totalArticle}`).then((res) => {
+        _lp.setData(this.articleForm, res.body, {publishTime: Date});
+        this.oldContent = res.body.mdContent;
+        this.saveTime = '';
+        localStorage.removeItem('autosave');
+      }, (err) => {
+        this.errMsg = err.body.message;
+      });
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (formName === 'articleForm') this.articleForm.htmlContent = this.simplemde.markdown(this.articleForm.mdContent);
@@ -167,6 +178,19 @@ new Vue({
       }, (err) => {
         this.$message.error(`error happend - ${err.body.message}`);
       });
+    },
+    autosave(val) {
+      if (Math.abs(val.length - this.oldContent.length) > 10) {
+        var saveTime = _lp.dateFormat('MM-dd hh:mm');
+        var saveObj = {
+          totalArticle: this.totalArticle,
+          articleForm: this.articleForm,
+          saveTime
+        };
+        localStorage.setItem('autosave', JSON.stringify(saveObj));
+        this.saveTime = saveTime;
+        this.oldContent = val;
+      }
     }
   }
 });

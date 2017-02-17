@@ -1,5 +1,5 @@
 {{extend ("./blocks/layout")}}
-{{set (title= 'login-' + config.blogName)}}
+{{set (title= 'login<' + config.blogName)}}
 {{#block ("body")}}
 <h2>login for manage.</h2>
 <el-form ref="form" :model="form" :rules="rules" ref="form" label-width="100px">

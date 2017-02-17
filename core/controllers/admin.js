@@ -1,3 +1,4 @@
+import md5 from 'md5';
 import RestError from '../services/resterror';
 import func from '../services/func';
 
@@ -23,8 +24,12 @@ export default {
   login(ctx, next) {
     var {config} = ctx.__lg;
     var {password} = ctx.req.body;
-    if (config.password !== password) throw new RestError(400, 'LOGIN_FAILED_ERR', 'password is wrong');
+    if (config.password !== md5(password)) throw new RestError(400, 'LOGIN_FAILED_ERR', 'password is wrong');
     ctx.session.config = config._id;
+    ctx.status = 204;
+  },
+  logout(ctx, next) {
+    ctx.session.config = null;
     ctx.status = 204;
   }
 };

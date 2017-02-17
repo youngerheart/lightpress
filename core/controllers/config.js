@@ -1,3 +1,4 @@
+import md5 from 'md5';
 import RestError from '../services/resterror';
 import Config from '../models/config';
 // import Theme from '../models/theme';
@@ -10,9 +11,9 @@ export default {
       if (ctx.type === 'text/html') ctx.redirect('/admin/init');
       else throw new RestError(400, 'CONFIG_NOTFOUND_ERR', 'config uninitialized');
     } else {
-      var {blogName, blogDesc, totalTheme} = config;
+      var {blogName, blogDesc, totalTheme, email} = config;
       ctx.__lg.config = config;
-      ctx._lg.config = {theme: totalTheme.name, blogName, blogDesc};
+      ctx._lg.config = {theme: totalTheme.name, blogName, blogDesc, email};
       return next();
     }
   },
@@ -27,8 +28,23 @@ export default {
     var {theme} = ctx.__lg;
     var params = getParams(ctx.req.body, ['blogName', 'blogDesc', 'password', 'email']);
     params.totalTheme = theme._id;
+    params.password = md5(params.password);
     config = new Config(params);
     await config.save();
     ctx.body = {_id: config._id};
+  },
+  async set(ctx) {
+    var params = getParams(ctx.req.body, ['blogName', 'blogDesc', 'email']);
+    await Config.update({}, params);
+    ctx.status = 204;
+  },
+  async setPassword(ctx) {
+    var {password} = ctx.__lg.config;
+    var params = getParams(ctx.req.body, ['password', 'newPassword']);
+    if (params.password === params.newPassword) throw new RestError(400, 'CONFIG_FAILED_ERR', 'password should be different');
+    if (password !== md5(params.password)) throw new RestError(400, 'CONFIG_FAILED_ERR', 'password is wrong');
+    await Config.update({}, {password: md5(params.newPassword)});
+    ctx.session.config = null;
+    ctx.status = 204;
   }
 };
