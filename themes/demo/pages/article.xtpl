@@ -1,1 +1,4 @@
-<h2>{{body.title}}</h2>
+{{extend ("./blocks/layout")}}
+{{set (title= config.blogName + ' | ' + config.blogDesc)}}
+{{#block ("body")}}
+{{/block}}

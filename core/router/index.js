@@ -13,6 +13,8 @@ const router = new Router();
 router.use('/api', apiRouter.routes());
 router.use('/admin', adminRouter.routes());
 
+router.use('*', Config.get);
+
 router.get('/static/*', async (ctx) => {
   await send(ctx, `/themes/${ctx._lg.config.theme}${ctx.url}`);
 });
@@ -21,14 +23,11 @@ router.use('/:moduleName', checkUrl, (ctx, next) => {
   ctx.type = 'text/html';
   ctx._lg.moduleName = ctx.params.moduleName;
   return next();
-});
+}, setPage);
 
 router.redirect('/', '/article');
-
-router.use('*', Config.get, setPage);
-adminRouter.use(baseUrl, Common.list);
-adminRouter.use(countUrl, Common.count);
-adminRouter.use(singleUrl, Common.get);
+router.use(baseUrl, Common.list);
+router.use(singleUrl, Common.get);
 router.get('*', renderPage);
 
 export default router;
