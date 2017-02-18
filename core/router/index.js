@@ -12,7 +12,7 @@ const router = new Router();
 router.use('/api', apiRouter.routes());
 router.use('/admin', adminRouter.routes());
 
-adminRouter.redirect('/', '/article');
+router.redirect('/', '/article');
 
 router.use('*', Config.get);
 

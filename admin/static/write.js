@@ -117,7 +117,7 @@ new Vue({
     this.getData('tag');
     this.getData('category');
     var saveObj = JSON.parse(localStorage.getItem('autosave') || '{}');
-    if (saveObj.saveTime && (!this.totalArticle || saveObj.totalArticle && saveObj.totalArticle === this.totalArticle)) {
+    if (saveObj.saveTime && (!this.totalArticle && !saveObj.totalArticle || saveObj.totalArticle && saveObj.totalArticle === this.totalArticle)) {
       this.saveTime = saveObj.saveTime;
       this.oldContent = saveObj.articleForm.mdContent;
       _lp.setData(this.articleForm, saveObj.articleForm, {publishTime: Date});
