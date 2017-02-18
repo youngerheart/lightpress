@@ -1,6 +1,6 @@
-{{extend ("./blocks/layout")}}
+{{extend ('./blocks/layout')}}
 {{set (title= 'config<' + config.blogName)}}
-{{#block ("body")}}
+{{#block ('body')}}
 <el-tabs type="border-card">
   <el-tab-pane label="general">
     <el-form ref="configForm" :model="configForm" :rules="configRules" label-width="120px">

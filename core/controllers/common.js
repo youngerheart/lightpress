@@ -7,11 +7,33 @@ import RestError from '../services/resterror';
 import {getQueryObj} from '../services/tools';
 
 const Model = {config, theme, article, category, tag};
-const setArticleQuery = (query) => {
+
+const setArticleQuery = async (query) => {
   if (!query.isDraft && !query.isRecycled) {
     query.isDraft = false;
     query.isRecycled = false;
   }
+  if (query.tag) query.tag = (await Model.tag.findOne({urlName: query.tag}))._id;
+  if (query.category) query.category = (await Model.category.findOne({urlName: query.category}))._id;
+};
+
+const getAggregateData = async (moduleName, query) => {
+  var paramArr = [{
+    $match: query || {}
+  }, {
+    $group: {_id: `$${moduleName}`, count: {'$sum': 1}}
+  }];
+  if (moduleName === 'tag') paramArr.unshift({$unwind: `$${moduleName}`});
+  var data = await Model.article.aggregate(paramArr);
+  data = await Model[moduleName].populate(data, {path: '_id'});
+  if (!query) {
+    data = data.map((item) => {
+      item = JSON.parse(JSON.stringify(item));
+      item._id.count = item.count;
+      return item._id;
+    });
+  }
+  return data;
 };
 
 export default {
@@ -36,9 +58,13 @@ export default {
   async list(ctx, next) {
     var {moduleName} = ctx.params;
     var {skip, limit, sort, populate, ...query} = getQueryObj(ctx.query, moduleName, true);
-    if (moduleName === 'article') setArticleQuery(query);
-    ctx._lg.data = await Model[moduleName].find(query).populate(populate || '').skip(skip).limit(limit).sort(sort);
-    if (!ctx._lg.data) throw new RestError(404, 'DATA_NOTFOUND_ERR', 'data is not found');
+    if (moduleName === 'article') await setArticleQuery(query);
+    ctx._lg.data = await Model[moduleName].find(query).select('-mdContent').populate(populate || '').skip(skip).limit(limit).sort(sort);
+    if (moduleName === 'article') {
+      ctx._lg.data.forEach((item) => {
+        item.htmlContent = item.htmlContent.replace(/<[^>]+>/g, '').substr(0, 100);
+      });
+    }
     return next();
   },
   async get(ctx, next) {
@@ -58,7 +84,7 @@ export default {
   async extraCount(ctx, next) {
     var {moduleName} = ctx.params;
     var query = getQueryObj(ctx.query, moduleName);
-    if (moduleName === 'article') setArticleQuery(query);
+    if (moduleName === 'article') await setArticleQuery(query);
     delete query.populate;
     ctx._lg.extra.count = moduleName === 'article' ?
     {
@@ -74,20 +100,18 @@ export default {
     if (['tag', 'category'].indexOf(moduleName) === -1) return next();
     var pointer = {};
     var query = getQueryObj(ctx.query);
-    var paramArr = [{
-      $match: query
-    }, {
-      $group: {_id: `$${moduleName}`, count: {'$sum': 1}}
-    }];
-    if (moduleName === 'tag') paramArr.unshift({$unwind: `$${moduleName}`});
-    var data = await Model.article.aggregate(paramArr);
-    data = await Model[moduleName].populate(data, {path: '_id'});
+    var data = await getAggregateData(moduleName, query);
     data.forEach((item) => {
       if (item._id) pointer[item._id.urlName] = item.count;
     });
     ctx._lg.data.forEach((item) => {
       item.count = pointer[item.urlName] || 0;
     });
+    return next();
+  },
+  async extraAggregate(ctx, next) {
+    ctx._lg.extra.category = await getAggregateData('category');
+    ctx._lg.extra.tag = await getAggregateData('tag');
     return next();
   },
   async extraDel(ctx, next) {

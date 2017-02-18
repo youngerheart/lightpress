@@ -1,6 +1,6 @@
-{{extend ("./blocks/layout")}}
+{{extend ('./blocks/layout')}}
 {{set (title='blog initial')}}
-{{#block ("body")}}
+{{#block ('body')}}
 <h2>welcome, let's make initial configs.</h2>
 <el-form ref="form" :model="form" :rules="rules" label-width="120px">
   <el-form-item label="blog name" prop="blogName">

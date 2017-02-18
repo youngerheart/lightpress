@@ -10,5 +10,13 @@ export default {
   },
   getTpl(moduleName) {
     return tplObj[moduleName] || moduleName;
+  },
+  getSearchStr(query, newQuery) {
+    var arr = [];
+    query = Object.assign(query, newQuery);
+    for (var key in query) {
+      arr.push(`${key}=${query[key]}`);
+    }
+    return '?' + arr.join('&');
   }
 };

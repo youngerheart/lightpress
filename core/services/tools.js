@@ -21,7 +21,7 @@ const Tool = {
       sort = '-publishTime';
       populate = 'category tag';
     }
-    if (search) otherQuery.urlName = new RegExp(search);
+    if (search) otherQuery.$or = [{title: new RegExp(search, 'i')}, {urlName: new RegExp(search, 'i')}];
     if (!moduleName) return otherQuery;
     if (isList) {
       page = page || 1;

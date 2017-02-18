@@ -1,7 +1,7 @@
-{{extend ("./blocks/layout")}}
+{{extend ('./blocks/layout')}}
 {{set (title= moduleName + '<' + config.blogName)}}
 {{set (count = extra.count)}}
-{{#block ("body")}}
+{{#block ('body')}}
 <div class="table-top">
   <el-input
     placeholder="type url name"
@@ -23,7 +23,7 @@
     {{#each(data)}}
     <tr>
       <td class="table-name">
-        <a href="/{{moduleName}}/{{this.urlName}}">{{this.name}}</a>
+        <a target="_blank" href="/article?{{moduleName}}={{this.urlName}}">{{this.name}}</a>
         <div>
           <a @click="openEdit('{{this.name}}', '{{this.urlName}}')">edit</a>
           <a @click="handleDelete('{{this.urlName}}', '{{moduleName}}')">delete</a>
