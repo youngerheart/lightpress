@@ -24,7 +24,7 @@ a:hover {
   transition: color .2s cubic-bezier(.645,.045,.355,1);
 }
 
-ul, li {
+article > ul, article > ul > li {
   list-style: none;
   margin: 0;
   padding: 0;
