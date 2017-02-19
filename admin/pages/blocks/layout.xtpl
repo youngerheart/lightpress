@@ -18,8 +18,8 @@
 </head>
 <body>
   <div id="topbar">
-    <el-menu theme="dark" default-active="{{moduleName}}" class="el-menu-demo" mode="horizontal"  @select="handleSelect">
-      <h1 id="title">lightpress</h1>
+    <el-menu default-active="{{moduleName}}" class="el-menu-demo" mode="horizontal"  @select="handleSelect">
+      <a title="lightpress" target="_blank" href="https://github.com/youngerheart/lightpress"><img id="title" src="/admin/static/light.png"></a>
       {{#if( config.isLogin )}}
       <el-menu-item index="article">article</el-menu-item>
       <el-menu-item index="write">write</el-menu-item>

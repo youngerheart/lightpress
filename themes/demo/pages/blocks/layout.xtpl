@@ -5,24 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{title}}</title>
   <link rel="stylesheet" href="/static/main.css">
+  <link rel="stylesheet" href="/static/markdown.css">
 </head>
 <body>
-  <div class="topbar"><div>
+  <header class="topbar"><div>
     <div class="topbar-title">
       <a href="/article">{{config.blogName}}</a>
       <h4>{{config.blogDesc}}</h4>
     </div>
-    <a href="/about">about</a>
-  </div></div>
-  <div id="{{moduleName}}" class="content {{hideSidebar ? 'content-fill' : ''}}">
+    About
+    <a target="_blank" href="https://github.com/youngerheart/lightpress">lightpress</a>
+    <a href="/about">youngerheart</a>
+  </div></header>
+  <div class="content">
+    <div id="{{moduleName}}">
     {{{block ("body")}}}
+    </div>
     {{#if(!hideSidebar)}}
     <div class="sidebar">
       {{include ('./sidebar')}}
     </div>
     {{/if}}
   </div>
+  <footer class="footer">Copyright ©2017 <a href="/about">youngerheart</a> All rights reserved</footer>
   <script src="/static/layout.js"></script>
-  <script src="/static/{{moduleName}}.js"></script>
 </body>
 </html>

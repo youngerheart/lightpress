@@ -3,13 +3,13 @@
   <button>go</button>
 </form>
 <div>
-  <h3>category</h3>
+  <h3>Category</h3>
   {{#each(extra.category)}}
   <a href="/article?category={{this.urlName}}">{{this.name}}({{this.count}})</a>
   {{/each}}
 </div>
 <div>
-  <h3>tag</h3>
+  <h3>Tag</h3>
   {{#each(extra.tag)}}
   <a href="/article?tag={{this.urlName}}">{{this.name}}({{this.count}})</a>
   {{/each}}

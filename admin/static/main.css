@@ -13,12 +13,10 @@ body {
 
 #topbar #title {
   float: left;
-  height: 60px;
-  line-height: 60px;
-  font-size: 30px;
+  height: 40px;
   margin: 0;
-  padding: 0 20px;
-  color: #fff;
+  padding: 10px;
+  margin-left: 10px;
 }
 
 #topbar .el-menu-item a {

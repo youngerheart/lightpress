@@ -6,18 +6,20 @@
 {{#if(data.length)}}
 <ul>
   {{#each(data)}}
-  <li class="single">
-  {{include ('./blocks/single')}}
+  <li class="list">
+  {{include ('./blocks/list')}}
   </li>
   {{/each}}
+  {{#if(page > 1 || count > page * 10)}}
   <div class="pager">
     {{#if(page > 1)}}
     <a href="/article{{func.getSearchStr(query, {page: page - 1})}}">newer articles</a>
     {{/if}}
     {{#if(count > page * 10)}}
-    <a href="/article{{func.getSearchStr(query, {page: page + 1})}}">older articles</a>
+    <a class="pager-next" href="/article{{func.getSearchStr(query, {page: page + 1})}}">older articles</a>
     {{/if}}
   </div>
+  {{/if}}
 </ul>
 {{elseif(data && data.urlName)}}
 <div class="single">
