@@ -4,7 +4,6 @@
   border: 0;
   font-weight: inherit;
   font-style: inherit;
-  font-size: 100%;
   font-family: inherit;
   vertical-align: baseline; }
 
@@ -22,49 +21,33 @@
   border: none; }
 #wrapper input, #wrapper textarea {
   margin: 0; }
-
-#wrapper {
-  /* Text elements
-  --------------------------------------------------------------*/
-  padding: 20px; }
   #wrapper p, #wrapper ul, #wrapper ol, #wrapper dl, #wrapper td, #wrapper input, #wrapper textarea, #wrapper div {
     color: #333; }
   #wrapper h1, #wrapper h2, #wrapper h3, #wrapper h4, #wrapper h5, #wrapper h6 {
     color: #333;
     letter-spacing: 0; }
   #wrapper h1 {
-    font-size: 3em;
     line-height: 1;
     margin-bottom: 0.5em; }
   #wrapper h2 {
-    font-size: 2em;
     margin-bottom: 0.75em; }
   #wrapper h3 {
-    font-size: 1.5em;
     line-height: 1;
     margin-bottom: 1em; }
   #wrapper h4 {
-    font-size: 1.2em;
     line-height: 1.25;
     margin-bottom: 1.25em; }
   #wrapper h5 {
-    font-size: 1em;
     margin-bottom: 1.5em; }
-  #wrapper h6 {
-    font-size: 1em; }
   #wrapper p {
-    margin: 0 0 1.5em;
-    font-size: 1.2em; }
+    margin: 0 0 1.5em; }
   #wrapper ul, #wrapper ol {
     color: #444;
     margin: 1em 2em; }
   #wrapper ul {
-    list-style-type: circle;
-    font-size: 1.05em; }
+    list-style-type: circle; }
   #wrapper ol {
     list-style-type: decimal; }
-  #wrapper li p {
-    font-size: 1em; }
   #wrapper li > p:first-child {
     margin: 0; }
   #wrapper dl {
@@ -91,7 +74,6 @@
   #wrapper pre, #wrapper code, #wrapper tt {
     color: #8b8074;
     font-family: Menlo, Monaco, monospace;
-    font-size: 1em;
     font-weight: bold;
     text-align: left;
     margin: 2em 0; }
@@ -99,14 +81,9 @@
     display: block;
     margin: 1.5em 0;
     line-height: 1.5; }
-  #wrapper span.amp {
-    font-style: italic; }
   #wrapper img {
     max-width: 100%;
     height: auto; }
-  #wrapper .footnote {
-    font-size: .8em;
-    vertical-align: super; }
   #wrapper caption, #wrapper col, #wrapper colgroup, #wrapper table, #wrapper tbody, #wrapper td, #wrapper tfoot, #wrapper th, #wrapper thead, #wrapper tr {
     border-spacing: 0; }
   #wrapper caption {
@@ -115,24 +92,7 @@
     display: inline-block;
     margin: .5em 0 1.8em;
     position: relative; }
-  #wrapper .poetry pre {
-    display: block;
-    font-family: Georgia, Garamond, serif !important;
-    font-size: 110% !important;
-    font-style: italic;
-    line-height: 1.6em;
-    margin-left: 1em; }
-    #wrapper .poetry pre code {
-      font-family: Georgia, Garamond, serif !important;
-      word-break: break-all;
-      word-break: break-word;
-      /* Non standard for webkit */
-      -webkit-hyphens: auto;
-      -moz-hyphens: auto;
-      hyphens: auto;
-      white-space: pre-wrap; }
-  #wrapper sup, #wrapper sub, #wrapper a.footnote {
-    font-size: 1.4ex;
+  #wrapper sup, #wrapper sub {
     height: 0;
     line-height: 1;
     position: relative;

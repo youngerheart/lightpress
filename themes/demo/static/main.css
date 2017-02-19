@@ -12,6 +12,10 @@ body {
   color: #666;
 }
 
+div, input, textarea {
+  box-sizing: border-box;
+}
+
 a {
   cursor: pointer;
   color: #666;
@@ -24,14 +28,10 @@ a:hover {
   transition: color .2s cubic-bezier(.645,.045,.355,1);
 }
 
-article > ul, article > ul > li {
+#article > ul {
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-div, input, textarea {
-  box-sizing: border-box;
 }
 
 .topbar {
@@ -153,7 +153,7 @@ div, input, textarea {
 }
 
 .list > div {
-  width: 160px;
+  width: 140px;
   text-align: right;
   padding-right: 20px;
 }
@@ -229,6 +229,7 @@ div, input, textarea {
 }
 
 .single-content {
+  margin-top: 30px;
   padding-bottom: 30px;
   border-bottom: 1px #eee solid;
 }
@@ -286,7 +287,7 @@ div, input, textarea {
   }
 
   .list > div {
-    width: 120px;
+    width: 110px;
   }
 
   .topbar-title a, .list-date, .list-title, .single-title {
