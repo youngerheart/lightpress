@@ -14,11 +14,13 @@
     </div>
     <a href="/about">about</a>
   </div></div>
-  <div id="{{moduleName}}" class="content">
+  <div id="{{moduleName}}" class="content {{hideSidebar ? 'content-fill' : ''}}">
     {{{block ("body")}}}
+    {{#if(!hideSidebar)}}
     <div class="sidebar">
       {{include ('./sidebar')}}
     </div>
+    {{/if}}
   </div>
   <script src="/static/layout.js"></script>
   <script src="/static/{{moduleName}}.js"></script>

@@ -13,8 +13,13 @@ const setArticleQuery = async (query) => {
     query.isDraft = false;
     query.isRecycled = false;
   }
-  if (query.tag) query.tag = (await Model.tag.findOne({urlName: query.tag}))._id;
-  if (query.category) query.category = (await Model.category.findOne({urlName: query.category}))._id;
+  var setField = async (query, field) => {
+    query[field] = await Model[field].findOne({urlName: query[field]});
+    if (!query[field]) throw new RestError(404, 'DATA_NOTFOUND_ERR', `that ${field} is not found`);
+    else query[field] = query[field]._id;
+  };
+  if (query.tag) await setField(query, 'tag');
+  if (query.category) await setField(query, 'category');
 };
 
 const getAggregateData = async (moduleName, query) => {
@@ -51,7 +56,7 @@ export default {
   },
   async edit(ctx, next) {
     var {moduleName, id} = ctx.params;
-    ctx.__lg.updated = await Model[moduleName].update({urlName: id}, ctx.req.body);
+    ctx.__lg.updated = await Model[moduleName].findOneAndUpdate({urlName: id}, ctx.req.body);
     ctx.status = 204;
     return next();
   },

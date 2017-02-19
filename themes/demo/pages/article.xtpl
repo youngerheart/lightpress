@@ -19,7 +19,7 @@
     {{/if}}
   </div>
 </ul>
-{{elseif(data)}}
+{{elseif(data && data.urlName)}}
 <div class="single">
   {{include ('./blocks/single')}}
 </div>

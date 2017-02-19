@@ -6,5 +6,6 @@ export default {
   tplObj: {
     category: 'list',
     tag: 'list'
-  }
+  },
+  allowFields: ['urlName', 'page', 'limit', 'sort', 'populate', 'search', 'isDraft', 'isRecycled', 'tag', 'category']
 };
