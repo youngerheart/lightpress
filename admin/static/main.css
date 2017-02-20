@@ -40,6 +40,17 @@ body {
   margin-top: 15px;
   padding: 0;
 }
+
+#login .login-resetpw {
+  margin-left: 30px;
+  color: #4db3ff;
+  cursor: pointer;
+}
+
+#login .el-alert {
+  margin-bottom: 20px;
+}
+
 #write .markdown-editor .editor-toolbar {
   border: 0;
 }
@@ -47,6 +58,10 @@ body {
 #write .markdown-editor .CodeMirror {
   border-width: 1px 0 1px 0;
   border-radius: 0;
+}
+
+#write .markdown-editor .CodeMirror-scroll {
+  max-height: 500px;
 }
 
 #write .autosave {

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <title>{{title}}</title>
   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
-  <link rel="stylesheet" href="static/main.css">
+  <link rel="stylesheet" href="/admin/static/main.css">
   <!-- 先引入 Vue -->
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/vue.resource/1.2.0/vue-resource.min.js"></script>
@@ -27,13 +27,14 @@
       <el-menu-item index="tag">tag</el-menu-item>
       <el-menu-item index="theme">theme</el-menu-item>
       <el-menu-item index="config">config</el-menu-item>
+<!--       <a @click="logout">logout</a> -->
       {{/if}}
     </el-menu>
   </div>
   <div id="{{tpl}}" class="content">
   {{{block ('body')}}}
   </div>
-  <script src="static/layout.js"></script>
-  <script src="static/{{tpl}}.js"></script>
+  <script src="/admin/static/layout.js"></script>
+  <script src="/admin/static/{{tpl}}.js"></script>
 </body>
 </html>
