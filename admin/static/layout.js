@@ -62,6 +62,19 @@ new Vue({
   methods: {
     handleSelect(key) {
       location.href = `/admin/${key || 'article'}`;
+    },
+    logout() {
+      this.$confirm('ready for logout?', {
+        confirmButtonText: 'ok',
+        cancelButtonText: 'cancel',
+        type: 'warning'
+      }).then(() => {
+        this.$http.get('/api/logout').then(() => {
+          location.href = '/admin/login';
+        }, (err) => {
+          this.$message.error(`error happend - ${err.body.message}`);
+        });
+      });
     }
   }
 });
