@@ -2,16 +2,16 @@ import Router from 'koa-router';
 import send from 'koa-send';
 import Config from './../controllers/config';
 import Common from '../controllers/common';
-import {renderPage, checkUrl} from './../services/tools';
+import {renderPage, checkUrl, dotSend} from './../services/tools';
 import {setPage} from './../controllers';
-import {validFolders} from '../config';
+import {permittedDir} from '../config';
 import apiRouter from './api';
 import adminRouter from './admin';
 
 const router = new Router();
-
-router.get(validFolders, async (ctx) => {
-  await send(ctx, ctx.url);
+router.get(`${permittedDir}/*`, async (ctx, next) => {
+  await dotSend(ctx);
+  return next();
 });
 
 router.use('/api', apiRouter.routes());

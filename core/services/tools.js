@@ -1,4 +1,6 @@
 import xtpl from 'xtpl';
+import send from 'send';
+import parseUrl from 'parseUrl';
 import RestError from './resterror';
 import func from './func';
 import {allowFields} from './args';
@@ -77,6 +79,28 @@ const Tool = {
     if (ctx.url.split('.').length > 1) throw new RestError(403, 'REQUEST_INVALID_ERR');
     if (ctx.method !== 'GET' && ctx.type === 'text/html') throw new RestError(403, 'REQUEST_METHOD_ERR');
     return next();
+  },
+  dotSend(ctx) {
+    return new Promise(function (resolve, reject) {
+      send(ctx.req, process.cwd() + ctx.url, {dotfiles: 'allow'})
+        .on('error', function (err) {
+            reject(err);
+        })
+        .on('directory', function () {
+            ctx.throw(404);
+        })
+        .on('headers', function (req, path, stat) {
+            ctx.status = 200;
+        })
+        .on('stream', function (stream) {
+            ctx.body = stream;
+            resolve();
+        })
+        .on('end', function () {
+            resolve();
+        })
+        .pipe(ctx.res);
+    });
   }
 };
 
