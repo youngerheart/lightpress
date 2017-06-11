@@ -4,10 +4,15 @@ import Config from './../controllers/config';
 import Common from '../controllers/common';
 import {renderPage, checkUrl} from './../services/tools';
 import {setPage} from './../controllers';
+import {validFolders} from '../config';
 import apiRouter from './api';
 import adminRouter from './admin';
 
 const router = new Router();
+
+router.get(validFolders, async (ctx) => {
+  await send(ctx, ctx.url);
+});
 
 router.use('/api', apiRouter.routes());
 router.use('/admin', adminRouter.routes());

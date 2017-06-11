@@ -27,22 +27,23 @@
   </thead>
   <tbody>
     {{#each(data)}}
-    <tr>
+    <tr :class="{active: activeIndex==={{xindex}}}">
       <td class="table-name">
         <a href="/article/{{this.urlName}}">{{this.title}}</a>
         <div>
           <a href="/admin/write?article={{this.urlName}}">edit</a>
           <a @click="checkRecycle('{{this.urlName}}', {{this.isRecycled}}, {{this.isDraft}})">{{this.isRecycled ? 'recover' : 'recycle'}}</a>
         </div>
+        <i class="el-icon-arrow-down" @click="toggleItem({{xindex}})"></i>
       </td>
-      <td><a target="_blank" href="/article?category={{this.category.urlName}}">{{this.category.name}}</a></td>
-      <td>
+      <td data-colname="category"><a target="_blank" href="/article?category={{this.category.urlName}}">{{this.category.name}}</a></td>
+      <td data-colname="tag">
         {{#each(this.tag)}}
         <a target="_blank" href="/article?tag={{this.urlName}}">{{this.name}}</a>
         {{/each}}
       </td>
-      <td>{{func.moment(this.publishTime).format('YY-MM-DD hh:ss')}}<br>{{this.isDraft ? 'save as draft' : 'published'}}</td>
-      <td>{{this.views || 0}}</td>
+      <td data-colname="publish time">{{func.moment(this.publishTime).format('YY-MM-DD hh:ss')}}<br>{{this.isDraft ? 'save as draft' : 'published'}}</td>
+      <td data-colname="views">{{this.views || 0}}</td>
     </tr>
     {{/each}}
   </tbody>
