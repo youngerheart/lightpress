@@ -8,8 +8,8 @@ export default {
   async get(ctx, next) {
     var config = await Config.findOne({}).populate('totalTheme');
     if (!config) {
-      if (ctx.type === 'text/html') ctx.redirect('/admin/init');
-      else throw new RestError(400, 'CONFIG_NOTFOUND_ERR', 'config uninitialized');
+      if (ctx.type === 'json') throw new RestError(400, 'CONFIG_NOTFOUND_ERR', 'config uninitialized');
+      else ctx.redirect('/admin/init');
     } else {
       var {blogName, blogDesc, totalTheme, email} = config;
       ctx.__lg.config = config;
