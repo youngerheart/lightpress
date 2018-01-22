@@ -146,26 +146,26 @@ new Vue({
         var moduleName = formName.replace('Form', '');
         var isPut = this.totalArticle && moduleName === 'article';
         this.$http[isPut ? 'put' : 'post'](`/api/${moduleName}${isPut ? `/${this[formName].urlName}` : ''}`, this[formName])
-        .then(() => {
-          switch (formName) {
-            case 'categoryForm':
-              this.isCategoryOpen = false;
-              this.getData('category');
-              break;
-            case 'tagForm':
-              this.isTagOpen = false;
-              this.getData('tag');
-              break;
-            case 'articleForm':
-              this.$message({
-                message: 'publish succeed',
-                type: 'success'
-              });
-              break;
-          }
-        }, (err) => {
-          this.$message.error(`error happend - ${err.body.message}`);
-        });
+          .then(() => {
+            switch (formName) {
+              case 'categoryForm':
+                this.isCategoryOpen = false;
+                this.getData('category');
+                break;
+              case 'tagForm':
+                this.isTagOpen = false;
+                this.getData('tag');
+                break;
+              case 'articleForm':
+                this.$message({
+                  message: 'publish succeed',
+                  type: 'success'
+                });
+                break;
+            }
+          }, (err) => {
+            this.$message.error(`error happend - ${err.body.message}`);
+          });
       });
     },
     getData(moduleName) {

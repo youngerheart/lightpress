@@ -8,7 +8,7 @@ import {baseUrl, countUrl, singleUrl} from '../services/args';
 
 const adminRouter = new Router();
 
-adminRouter.get('/static/*', async (ctx) => {
+adminRouter.get('/static/*', async(ctx) => {
   await send(ctx, ctx.url);
 });
 

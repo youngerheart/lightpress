@@ -1,5 +1,15 @@
 # models
 
+## common
+
+* `createdAt` & `updatedAt` will be included in all schemas by using `timestamps` option.
+*
+
+| field | type | description |
+| --- | --- | --- |
+| createdAt | Date ||
+| updatedAt | Date ||
+
 ## config
 
 | field | type | description |
@@ -49,3 +59,13 @@
 | --- | --- | --- |
 | name | String ||
 | urlName | String | name for legal url |
+
+## comment
+
+| field | type | description |
+| --- | --- | --- |
+| userIP | String ||
+| nickname | String ||
+| content | String ||
+| reply | ObjectId ||
+| article | ObjectId ||

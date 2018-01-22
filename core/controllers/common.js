@@ -8,12 +8,12 @@ import {getQueryObj} from '../services/tools';
 
 const Model = {config, theme, article, category, tag};
 
-const setArticleQuery = async (query) => {
+const setArticleQuery = async(query) => {
   if (!query.isDraft && !query.isRecycled) {
     query.isDraft = false;
     query.isRecycled = false;
   }
-  var setField = async (query, field) => {
+  var setField = async(query, field) => {
     query[field] = await Model[field].findOne({urlName: query[field]});
     if (!query[field]) throw new RestError(404, 'DATA_NOTFOUND_ERR', `that ${field} is not found`);
     else query[field] = query[field]._id;
@@ -22,7 +22,7 @@ const setArticleQuery = async (query) => {
   if (query.category) await setField(query, 'category');
 };
 
-const getAggregateData = async (moduleName, query) => {
+const getAggregateData = async(moduleName, query) => {
   var paramArr = [{
     $match: query || {}
   }, {
@@ -92,12 +92,12 @@ export default {
     if (moduleName === 'article') await setArticleQuery(query);
     delete query.populate;
     ctx._lg.extra.count = moduleName === 'article' ?
-    {
-      isPublished: await Model[moduleName].count({isDraft: false, isRecycled: false}),
-      isDraft: await Model[moduleName].count({isDraft: true, isRecycled: false}),
-      isRecycled: await Model[moduleName].count({isRecycled: true}),
-      isList: await Model[moduleName].count(query)
-    } : await Model[moduleName].count(query);
+      {
+        isPublished: await Model[moduleName].count({isDraft: false, isRecycled: false}),
+        isDraft: await Model[moduleName].count({isDraft: true, isRecycled: false}),
+        isRecycled: await Model[moduleName].count({isRecycled: true}),
+        isList: await Model[moduleName].count(query)
+      } : await Model[moduleName].count(query);
     return next();
   },
   async getAggregate(ctx, next) {
