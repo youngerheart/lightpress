@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import {dealSchema} from '../services/tools';
+import {mailValidate} from '../services/args';
 
 const Schema = mongoose.Schema;
 
@@ -18,7 +19,8 @@ const ConfigSchema = new Schema({
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    match: mailValidate
   },
   totalTheme: {
     type: Schema.Types.ObjectId,

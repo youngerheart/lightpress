@@ -48,11 +48,4 @@
     {{/each}}
   </tbody>
 </table>
-<el-pagination
-  v-show="{{count}}"
-  layout="prev, pager, next"
-  :current-page="currentPage"
-  :total="{{count}}"
-  @current-change="handlePageChange">
-</el-pagination>
 {{/block}}

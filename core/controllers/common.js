@@ -3,10 +3,11 @@ import theme from '../models/theme';
 import article from '../models/article';
 import category from '../models/category';
 import tag from '../models/tag';
+import comment from '../models/comment';
 import RestError from '../services/resterror';
 import {getQueryObj} from '../services/tools';
 
-const Model = {config, theme, article, category, tag};
+const Model = {config, theme, article, category, tag, comment};
 
 const setArticleQuery = async(query) => {
   if (!query.isDraft && !query.isRecycled) {
@@ -136,11 +137,13 @@ export default {
     return next();
   },
   async extraArticle(ctx, next) {
-    var {publishTime} = ctx._lg.data;
+    var {publishTime, _id} = ctx._lg.data;
     ctx._lg.extra.article = {
       previous: await Model.article.findOne({publishTime: {$lt: publishTime}}).sort({publishTime: -1}).select('_id urlName title'),
       next: await Model.article.findOne({publishTime: {$gt: publishTime}}).sort({publishTime: 1}).select('_id urlName title')
     };
+    // get all comments
+    ctx._lg.extra.comments = await Model.comment.find({belong: _id}).sort({createdAt: -1}).populate('reply');
     return next();
   }
 };

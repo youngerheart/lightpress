@@ -1,5 +1,6 @@
 {{set (previous = extra.article.previous)}}
 {{set (next = extra.article.next)}}
+{{set (comments = extra.article.comments)}}
 <div>
   <h1 class="single-title">{{data.title}}</h1>
   <div class="single-info">
@@ -12,6 +13,25 @@
     </span>
   </div>
   <div id="wrapper" class="single-content">{{{data.htmlContent}}}</div>
+</div>
+<h3>Comments</h3>
+{{#if(comments.length)}}
+{{#each(data.tag)}}
+{{/each}}
+{{else}}
+No comment.
+{{/if}}
+<div>
+  <dl>
+    <dt>nickname:</dt><dd><input><dd>
+    <dt>email:</dt><dd><input><dd>
+  </dl>
+  <dl>
+    <textarea></textarea>
+  </dl>
+  <dl>
+    <button>submit</button>
+  </dl>
 </div>
 {{#if(previous || next)}}
 <div class="pager">
