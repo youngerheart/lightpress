@@ -16,6 +16,25 @@ div, input, textarea {
   box-sizing: border-box;
 }
 
+input, input:focus, textarea, textarea:focus {
+  outline: none;
+}
+
+input, textarea {
+  border: 1px #eee solid;
+  width: 100%;
+  padding: 5px;
+}
+
+textarea {
+  resize: none;
+  min-height: 80px;
+}
+
+input:focus, textarea:focus {
+  border-color: #1fa67a;
+}
+
 a {
   cursor: pointer;
   color: #666;
@@ -202,9 +221,12 @@ a:hover {
   font-weight: normal;
 }
 
-.pager {
-  margin-top: 30px;
+.single-bottom {
+  margin-top:30px;
   padding-bottom: 30px;
+}
+
+.pager {
   font-size: 18px;
 }
 
@@ -237,6 +259,16 @@ a:hover {
 
 .single-content a {
   text-decoration: underline;
+}
+
+.comment {}
+
+.commentform dt, .commentform dd {
+  display: inline-block;
+}
+
+.commentform dd {
+  margin: 0 10px;
 }
 
 #about {

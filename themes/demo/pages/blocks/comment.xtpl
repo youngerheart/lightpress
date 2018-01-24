@@ -1,0 +1,22 @@
+{{set (comments = extra.article.comments)}}
+<h3>Comments</h3>
+<div class="single-content comment">
+  {{#if(comments.length)}}
+  {{#each(data.tag)}}
+  {{/each}}
+  {{else}}
+  No comment.
+  {{/if}}
+</div>
+<div class="single-bottom commentform">
+  <dl>
+    <dt>nickname:</dt><dd><input><dd>
+    <dt>email:</dt><dd><input><dd>
+  </dl>
+  <dl>
+    <textarea></textarea>
+  </dl>
+  <dl>
+    <button>submit</button>
+  </dl>
+</div>
