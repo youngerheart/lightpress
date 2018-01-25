@@ -22,7 +22,11 @@ app.use(async(ctx, next) => {
     // 直接解析出post参数, 这里的co-body 的 parse 总是有神奇的 bug
     var getBody = async() => {
       let type = ctx.headers['content-type'];
-      if (type.indexOf('application/json') > -1) {ctx.req.body = await parse.json(ctx) || {};} else if (type.indexOf('application/x-www-from-urlencoded') > -1) {ctx.req.body = await parse.form(ctx) || {};} else ctx.req.body = await parse(ctx) || {};
+      if (type.indexOf('application/json') > -1) {
+        ctx.req.body = await parse.json(ctx) || {};
+      } else if (type.indexOf('application/x-www-from-urlencoded') > -1) {
+        ctx.req.body = await parse.form(ctx) || {};
+      } else ctx.req.body = await parse(ctx) || {};
     };
     if (ctx.method !== 'GET' && ctx.method !== 'OPTIONS') await getBody();
     ctx._lg = {

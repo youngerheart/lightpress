@@ -5,7 +5,7 @@
 <div class="table-top">
   <el-input
     placeholder="type url name"
-    icon="search"
+    suffix-icon="search"
     v-model="searchText"
     :on-icon-click="handleSearchClick">
   </el-input>

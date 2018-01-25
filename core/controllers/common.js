@@ -23,6 +23,10 @@ const setArticleQuery = async(query) => {
   if (query.category) await setField(query, 'category');
 };
 
+const getOthersQuery = (moduleName, id) => {
+  return ['article', 'tag', 'category'].indexOf(moduleName) === -1 ? {_id: id} : {$or: [{_id: id}, {urlName: id}]};
+};
+
 const getAggregateData = async(moduleName, query) => {
   var paramArr = [{
     $match: query || {}
@@ -45,19 +49,21 @@ const getAggregateData = async(moduleName, query) => {
 export default {
   async add(ctx, next) {
     var {moduleName} = ctx.params;
+    var extra = ctx._lg.extra;
     var model = new Model[moduleName](ctx.req.body);
     await model.save();
-    ctx.body = {_id: model._id};
+    ctx._lg.data = {_id: model._id};
+    if (Object.keys(extra).length > 0) ctx._lg.data.extra = extra;
     return next();
   },
   async del(ctx, next) {
     var {moduleName, id} = ctx.params;
-    ctx.__lg.removed = await Model[moduleName].findOneAndRemove({urlName: id});
+    ctx.__lg.removed = await Model[moduleName].findOneAndRemove(getOthersQuery(moduleName, id));
     return next();
   },
   async edit(ctx, next) {
     var {moduleName, id} = ctx.params;
-    ctx.__lg.updated = await Model[moduleName].findOneAndUpdate({urlName: id}, ctx.req.body);
+    ctx.__lg.updated = await Model[moduleName].findOneAndUpdate(getOthersQuery(moduleName, id), ctx.req.body);
     ctx.status = 204;
     return next();
   },

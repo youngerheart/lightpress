@@ -11,17 +11,18 @@ _lp = {
     return key ? _lp.urlParams[key] : _lp.urlParams;
   },
   setUrlParams(obj, isProp) {
-    if (!obj) {
+    if (!obj || Object.keys(obj).length === 0) {
       location.search = '';
-      return;
-    }
-    var params = isProp ? _lp.getUrlParams() : obj;
-    if (isProp) {
-      for (var key in obj) {
-        params[key] = obj[key];
+    } else {
+      var params = isProp ? _lp.getUrlParams() : obj;
+      if (isProp) {
+        for (var key in obj) {
+          params[key] = obj[key];
+        }
       }
+      location.search = Object.keys(params).map((key) => `${key}=${params[key]}`).join('&');
     }
-    location.search = '?' + Object.keys(params).map((key) => `${key}=${params[key]}`).join('&');
+
   },
   setData: (form, data, extra = {}) => {
     var check = (data) => data && typeof data === 'object' ? data._id : data;

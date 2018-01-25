@@ -14,13 +14,8 @@ const CommentSchema = new Schema({
     type: String,
     required: true
   },
-  reply: {
-    type: Schema.Types.ObjectId,
-    ref: 'comment'
-  },
   email: {
     type: String,
-    required: true,
     match: mailValidate
   },
   belong: {

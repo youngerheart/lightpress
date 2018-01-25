@@ -1,10 +1,18 @@
 // 生成调用接口的函数
-const $http = (params = {}) => {
-  const {method = 'get'， url = '', args = [], defer} = params;
-  // if (typeof defer !== 'function') return;
+const $http = (params = {}, resolve = () => {}, reject = () =>{}) => {
+  const {method = 'get', url = '', query, data} = params;
   const urlPrefix = '/api/'
   // 直接调用接口
   const req = new XMLHttpRequest();
+  // 尝试解析json
+  const parse = (str) => {
+    try {
+      str = JSON.parse(str);
+    } catch(e) {
+      // this is a normal String
+    }
+    return str;
+  };
   // 根据参数对象生成参数
   const getParamStr = (params) => {
     var paramStr = '';
@@ -15,7 +23,7 @@ const $http = (params = {}) => {
     return paramStr;
   };
   // 解析url和参数
-  const parseUrl = (url, params) => {
+  const parseUrl = (url, params = {}) => {
     params = JSON.parse(JSON.stringify(params));
     var proto = url.match(/:\w+/g);
     proto && proto.forEach((item) => {
@@ -35,9 +43,9 @@ const $http = (params = {}) => {
     if(req.readyState === 4) {
       if(req.status >= 200 && req.status < 300) {
         var res = parse(req.responseText);
-        defer(true, res, req.status);
+        resolve(res, req.status);
       } else {
-        defer(false, parse(req.responseText), req.status);
+        reject(parse(req.responseText), req.status);
       }
     }
   };
@@ -46,22 +54,54 @@ const $http = (params = {}) => {
     req.open(method, realUrl, true);
     if(method !== 'get') req.setRequestHeader('Content-type', 'application/json');
   };
-
-  switch(args.length) {
-    case 0:
-      realUrl = urlPrefix + parseUrl(url, {});
-      openReq();
-      req.send();
-      break;
-    case 1:
-      realUrl = urlPrefix + parseUrl(url, args[0]);
-      openReq();
-      req.send();
-      break;
-    case 2:
-      realUrl = urlPrefix + parseUrl(url, args[0]);
-      openReq();
-      req.send(JSON.stringify(args[1]));
-      break;
+  if(data) {
+    realUrl = urlPrefix + parseUrl(url, query);
+    openReq();
+    req.send(JSON.stringify(data));
+  } else if(query) {
+    realUrl = urlPrefix + parseUrl(url, query);
+    openReq();
+    req.send();
+  } else {
+    realUrl = urlPrefix + parseUrl(url, {});
+    openReq();
+    req.send();
   }
 };
+
+var commentform = document.querySelector('#commentform');
+
+commentform.onsubmit = function() {
+  const [nickname, email, belong, content] = this.elements;
+  var data = {
+    nickname: nickname.value,
+    email: email.value,
+    belong: belong.value,
+    content: content.value
+  };
+  $http({
+    method: 'post',
+    url: 'comment',
+    data
+  }, (res) => {
+    var newText = document.createElement('div');
+    var commentEl = document.querySelector("#comment");
+    newText.innerHTML = `<dl>\
+      <dt>${data.nickname}</dt><dd>(${res.extra.ip})</dd>\
+      </dl>\
+      <dl>${data.content}</dl>`;
+    commentEl.insertBefore(newText, commentEl.firstChild);
+  }, (res) => {
+  });
+  return false;
+}
+
+document.querySelector('#comment').onclick = function(el) {
+  var textEl = document.querySelector('#commentform textarea');
+  if(!el.target.hasAttribute('replybtn')) return;
+  textEl.value = `${textEl.value}@${el.target.innerHTML} `;
+  setTimeout(() => {
+    textEl.focus();
+    textEl.selectionStart = textEl.selectionEnd = textEl.value.length;
+  });
+}

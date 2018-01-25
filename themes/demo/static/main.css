@@ -35,6 +35,20 @@ input:focus, textarea:focus {
   border-color: #1fa67a;
 }
 
+button, .button {
+  background-color: #666;
+  border: 0;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  width: auto;
+}
+
+button:hover, .button:hover {
+  background-color: #20a0ff;
+  transition: background-color .2s cubic-bezier(.645,.045,.355,1);
+}
+
 a {
   cursor: pointer;
   color: #666;
@@ -253,7 +267,7 @@ a:hover {
 
 .single-content {
   margin-top: 30px;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   border-bottom: 1px #eee solid;
 }
 
@@ -261,10 +275,37 @@ a:hover {
   text-decoration: underline;
 }
 
-.comment {}
+.comment dt > a {
+  font-weight: bold;
+}
+
+.comment > div {
+    border-bottom: 1px #eee solid;
+}
+
+.comment > div:last-child {
+  border: none;
+}
+
+.comment dl:first-child {
+  display: flex;
+  align-items: center;
+}
+
+.comment dd {
+  color: #ccc;
+  font-size: 12px;
+  text-align: right;
+  margin-left: 10px;
+}
+
+.comment dd:last-child {
+  flex: 1;
+}
 
 .commentform dt, .commentform dd {
   display: inline-block;
+  line-height: 19px;
 }
 
 .commentform dd {
