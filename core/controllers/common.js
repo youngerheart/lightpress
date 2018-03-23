@@ -1,3 +1,4 @@
+import {Types} from 'mongoose';
 import config from '../models/config';
 import theme from '../models/theme';
 import article from '../models/article';
@@ -24,7 +25,8 @@ const setArticleQuery = async(query) => {
 };
 
 const getOthersQuery = (moduleName, id) => {
-  return ['article', 'tag', 'category'].indexOf(moduleName) === -1 ? {_id: id} : {$or: [{_id: id}, {urlName: id}]};
+  return ['article', 'tag', 'category'].indexOf(moduleName) === -1 ? {_id: id} :
+    Types.ObjectId.isValid(id) ? {$or: [{_id: id}, {urlName: id}]} : {urlName: id};
 };
 
 const getAggregateData = async(moduleName, query) => {
