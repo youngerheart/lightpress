@@ -1,0 +1,34 @@
+{{set (list = extra.comments)}}
+<h3>Comments</h3>
+<form class="single-content commentform" id="commentform">
+  <dl>
+    <dt>nickname:</dt><dd><input required><dd>
+    <dt>email:</dt><dd><input><dd>
+    <input type="hidden">
+    <input value="{{data._id}}" type="hidden">
+  </dl>
+  <dl>
+    <textarea required></textarea>
+  </dl>
+  <dl>
+    <input type="submit" value="submit" class="button">
+  </dl>
+</form>
+<div class="single-bottom comment" id="comment">
+  {{#if(list.length)}}
+  {{#each(list)}}
+  <div>
+    <dl>
+      <dt>
+        <a href="#commentform" replybtn>{{this.nickname}}</a>
+      </dt>
+      <dd>({{this.userIP}})</dd>
+      <dd>{{func.moment(this.createdAt).format('YY-MM-DD hh:ss')}}</dd>
+    </dl>
+    <dl>{{this.content}}</dl>
+  </div>
+  {{/each}}
+  {{else}}
+  No comment.
+  {{/if}}
+</div>

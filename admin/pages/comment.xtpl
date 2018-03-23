@@ -1,0 +1,39 @@
+{{extend ('./blocks/layout')}}
+{{set (title= 'theme<' + config.blogName)}}
+{{set (count = extra.count)}}
+{{#block ('body')}}
+<table v-show="{{count}}" class="table" cellpadding="0" cellspacing="0" border="0">
+  <thead>
+    <tr>
+      <th width="200px">nickname</th>
+      <th width="150px">article</th>
+      <th width="200px">time</th>
+      <th>content</th>
+      <th width="50px"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each(data)}}
+    <tr :class="{active: activeIndex==={{xindex}}}">
+      <td class="table-name">
+        {{this.nickname}}
+        <i class="el-icon-arrow-down" @click="toggleItem({{xindex}})"></i>
+      </td>
+      <td data-colname="article">{{this.belong.title}}</td>
+      <td data-colname="publish time">{{func.moment(this.createdAt).format('YY-MM-DD hh:ss')}}</td>
+      <td data-colname="content">{{this.content}}</td>
+      <td>
+        <el-button type="danger" size="mini" @click="clickDel('{{this._id}}')">delete</el-button>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<el-pagination
+  v-show="{{count}}"
+  layout="prev, pager, next"
+  :current-page="currentPage"
+  :total="{{count}}"
+  @current-change="handlePageChange">
+</el-pagination>
+{{/block}}

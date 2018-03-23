@@ -23,6 +23,9 @@ const Tool = {
       sort = '-publishTime';
       populate = 'category tag';
     }
+    if (moduleName === 'comment') {
+      populate = 'belong';
+    }
     if (search) otherQuery.$or = [{title: new RegExp(search, 'i')}, {urlName: new RegExp(search, 'i')}];
     if (!moduleName) return otherQuery;
     if (isList) {
@@ -76,6 +79,10 @@ const Tool = {
   checkUrl(ctx, next) {
     if (ctx.url.split('.').length > 1) throw new RestError(403, 'REQUEST_INVALID_ERR');
     if (ctx.method !== 'GET' && ctx.type === 'text/html') throw new RestError(403, 'REQUEST_METHOD_ERR');
+    return next();
+  },
+  setIP(ctx, next) {
+    ctx._lg.extra.ip = ctx.req.body.userIP = ctx.ip;
     return next();
   }
 };

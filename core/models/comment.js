@@ -4,33 +4,29 @@ import {mailValidate} from '../services/args';
 
 const Schema = mongoose.Schema;
 
-const ConfigSchema = new Schema({
-  blogName: {
+const CommentSchema = new Schema({
+  userIP: {
     type: String,
     required: true
   },
-  blogDesc: {
-    type: String,
-    required: true
-  },
-  password: {
+  nickname: String,
+  content: {
     type: String,
     required: true
   },
   email: {
     type: String,
-    required: true,
     match: mailValidate
   },
-  totalTheme: {
+  belong: {
     type: Schema.Types.ObjectId,
-    ref: 'theme',
+    ref: 'article',
     required: true
   }
 }, {
   timestamps: true
 });
 
-dealSchema(ConfigSchema);
+dealSchema(CommentSchema);
 
-export default mongoose.model('config', ConfigSchema);
+export default mongoose.model('comment', CommentSchema);

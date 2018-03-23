@@ -3,17 +3,18 @@ import theme from '../models/theme';
 import article from '../models/article';
 import category from '../models/category';
 import tag from '../models/tag';
+import comment from '../models/comment';
 import RestError from '../services/resterror';
 import {getQueryObj} from '../services/tools';
 
-const Model = {config, theme, article, category, tag};
+const Model = {config, theme, article, category, tag, comment};
 
-const setArticleQuery = async (query) => {
+const setArticleQuery = async(query) => {
   if (!query.isDraft && !query.isRecycled) {
     query.isDraft = false;
     query.isRecycled = false;
   }
-  var setField = async (query, field) => {
+  var setField = async(query, field) => {
     query[field] = await Model[field].findOne({urlName: query[field]});
     if (!query[field]) throw new RestError(404, 'DATA_NOTFOUND_ERR', `that ${field} is not found`);
     else query[field] = query[field]._id;
@@ -22,7 +23,11 @@ const setArticleQuery = async (query) => {
   if (query.category) await setField(query, 'category');
 };
 
-const getAggregateData = async (moduleName, query) => {
+const getOthersQuery = (moduleName, id) => {
+  return ['article', 'tag', 'category'].indexOf(moduleName) === -1 ? {_id: id} : {$or: [{_id: id}, {urlName: id}]};
+};
+
+const getAggregateData = async(moduleName, query) => {
   var paramArr = [{
     $match: query || {}
   }, {
@@ -44,19 +49,21 @@ const getAggregateData = async (moduleName, query) => {
 export default {
   async add(ctx, next) {
     var {moduleName} = ctx.params;
+    var extra = ctx._lg.extra;
     var model = new Model[moduleName](ctx.req.body);
     await model.save();
-    ctx.body = {_id: model._id};
+    ctx._lg.data = {_id: model._id};
+    if (Object.keys(extra).length > 0) ctx._lg.data.extra = extra;
     return next();
   },
   async del(ctx, next) {
     var {moduleName, id} = ctx.params;
-    ctx.__lg.removed = await Model[moduleName].findOneAndRemove({urlName: id});
+    ctx.__lg.removed = await Model[moduleName].findOneAndRemove(getOthersQuery(moduleName, id));
     return next();
   },
   async edit(ctx, next) {
     var {moduleName, id} = ctx.params;
-    ctx.__lg.updated = await Model[moduleName].findOneAndUpdate({urlName: id}, ctx.req.body);
+    ctx.__lg.updated = await Model[moduleName].findOneAndUpdate(getOthersQuery(moduleName, id), ctx.req.body);
     ctx.status = 204;
     return next();
   },
@@ -92,12 +99,12 @@ export default {
     if (moduleName === 'article') await setArticleQuery(query);
     delete query.populate;
     ctx._lg.extra.count = moduleName === 'article' ?
-    {
-      isPublished: await Model[moduleName].count({isDraft: false, isRecycled: false}),
-      isDraft: await Model[moduleName].count({isDraft: true, isRecycled: false}),
-      isRecycled: await Model[moduleName].count({isRecycled: true}),
-      isList: await Model[moduleName].count(query)
-    } : await Model[moduleName].count(query);
+      {
+        isPublished: await Model[moduleName].count({isDraft: false, isRecycled: false}),
+        isDraft: await Model[moduleName].count({isDraft: true, isRecycled: false}),
+        isRecycled: await Model[moduleName].count({isRecycled: true}),
+        isList: await Model[moduleName].count(query)
+      } : await Model[moduleName].count(query);
     return next();
   },
   async getAggregate(ctx, next) {
@@ -136,11 +143,13 @@ export default {
     return next();
   },
   async extraArticle(ctx, next) {
-    var {publishTime} = ctx._lg.data;
+    var {publishTime, _id} = ctx._lg.data;
     ctx._lg.extra.article = {
       previous: await Model.article.findOne({publishTime: {$lt: publishTime}}).sort({publishTime: -1}).select('_id urlName title'),
       next: await Model.article.findOne({publishTime: {$gt: publishTime}}).sort({publishTime: 1}).select('_id urlName title')
     };
+    // get all comments
+    ctx._lg.extra.comments = await Model.comment.find({belong: _id}).sort({createdAt: -1}).populate('reply');
     return next();
   }
 };

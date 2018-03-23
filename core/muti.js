@@ -8,7 +8,7 @@ cfork({
   console.warn('[%s] [worker:%d] new worker start', new Date(), worker.process.pid); //eslint-disable-line
 }).on('disconnect', function(worker) {
   console.warn('[%s] [master:%s] wroker:%s disconnect, suicide: %s, state: %s.', //eslint-disable-line
-  new Date(), process.pid, worker.process.pid, worker.suicide, worker.state);
+    new Date(), process.pid, worker.process.pid, worker.suicide, worker.state);
 }).on('exit', function(worker, code, signal) {
   var exitCode = worker.process.exitCode;
   var err = new Error(util.format('worker %s died (code: %s, signal: %s, suicide: %s, state: %s)',

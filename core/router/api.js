@@ -4,7 +4,7 @@ import Admin from '../controllers/admin';
 import Config from '../controllers/config';
 import Theme from '../controllers/theme';
 import Common from '../controllers/common';
-import {renderAPI, checkUrl} from '../services/tools';
+import {renderAPI, checkUrl, setIP} from '../services/tools';
 import {baseUrl, countUrl, singleUrl} from '../services/args';
 
 const apiRouter = new Router();
@@ -24,6 +24,7 @@ apiRouter.get(singleUrl, Common.get, renderAPI);
 
 apiRouter.post('/resetpwmail', Admin.resetpwmail);
 apiRouter.put('/resetpw/:token', Admin.checkToken, Config.resetpw);
+apiRouter.post('/comment', setIP, Common.add, renderAPI);
 
 apiRouter.use(Admin.isLogin);
 

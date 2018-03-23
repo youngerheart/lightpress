@@ -14,7 +14,7 @@
   <div id="wrapper" class="single-content">{{{data.htmlContent}}}</div>
 </div>
 {{#if(previous || next)}}
-<div class="pager">
+<div class="single-content pager">
   {{#if(previous)}}
   <a href="/article/{{previous.urlName}}">previous: {{previous.title}}</a>
   {{/if}}
@@ -23,3 +23,4 @@
   {{/if}}
 </div>
 {{/if}}
+{{include ('./comment')}}

@@ -10,7 +10,7 @@ import adminRouter from './admin';
 
 const router = new Router();
 
-router.get(`${permittedDir}/*`, async (ctx, next) => {
+router.get(`${permittedDir}/*`, async(ctx, next) => {
   await send(ctx, ctx.url, {hidden: true});
 });
 
@@ -22,7 +22,7 @@ router.redirect('/favicon.ico', '/static/favicon.ico');
 
 router.use('*', Config.get);
 
-router.get('/static/*', async (ctx) => {
+router.get('/static/*', async(ctx) => {
   await send(ctx, `/themes/${ctx._lg.config.theme}${ctx.url}`);
 });
 
