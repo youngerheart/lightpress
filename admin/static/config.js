@@ -41,6 +41,9 @@ new Vue({
       this.configForm[key] = this.$refs[key].value;
     }
   },
+  beforeMount() {
+
+  },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {

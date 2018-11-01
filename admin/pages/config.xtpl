@@ -5,10 +5,10 @@
   <el-tab-pane label="general">
     <el-form ref="configForm" :model="configForm" :rules="configRules" label-width="120px">
       <el-form-item label="blog name" prop="blogName">
-        <el-input ref="blogName" v-model="configForm.blogName" value="{{config.blogName}}"></el-input>
+        <el-input ref="blogName" v-model="configForm.blogName"></el-input>
       </el-form-item>
       <el-form-item label="blog descption" prop="blogDesc">
-        <el-input ref="blogDesc" v-model="configForm.blogDesc" value="{{config.blogDesc}}"></el-input>
+        <el-input ref="blogDesc" v-model="configForm.blogDesc"></el-input>
       </el-form-item>
       <el-form-item label="email" prop="email">
         <el-input ref="email" v-model="configForm.email" value="{{config.email}}"></el-input>

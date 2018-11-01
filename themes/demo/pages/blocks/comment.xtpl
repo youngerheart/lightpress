@@ -4,7 +4,6 @@
   <dl>
     <dt>nickname:</dt><dd><input required><dd>
     <dt>email:</dt><dd><input><dd>
-    <input type="hidden">
     <input value="{{data._id}}" type="hidden">
   </dl>
   <dl>
